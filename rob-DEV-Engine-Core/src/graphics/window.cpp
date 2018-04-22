@@ -1,0 +1,75 @@
+#include "window.h"
+#include <iostream>
+namespace Engine {	namespace Graphics {
+
+	Window::Window(const char* title, int width, int height)
+	{
+		m_Title = title;
+		m_Width = width;
+		m_Height = height;
+
+		if (!init()) {
+			glfwTerminate();
+		}
+	}
+
+
+	Window::~Window()
+	{
+	}
+
+
+	bool Window::init()
+	{
+		if (!glfwInit())
+		{
+			std::cout << "Failed to initialize GLFW!\n";
+			return false;
+		}
+
+
+		m_Window = glfwCreateWindow(m_Width, m_Height, m_Title, NULL, NULL);
+
+		if (!m_Window)
+		{
+			glfwTerminate();
+			std::cout << "Failed to create: " << m_Title << "\n";
+			return false;
+		}
+
+		glfwMakeContextCurrent(m_Window);
+		glfwSetWindowUserPointer(m_Window, this);
+		glfwSwapInterval(0);
+		if (glewInit() != GLEW_OK)
+		{
+			std::cout << "Failed to initalize GLEW\n";
+			return false;
+		}
+
+		// Enable depth test
+		glEnable(GL_DEPTH_TEST);
+		// Accept fragment if it closer to the camera than the former one
+		glDepthFunc(GL_LESS);
+
+		std::cout << "Open GL Version: " << glGetString(GL_VERSION) << "\n";
+
+		return true;
+	}
+
+	void Window::clear() const
+	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+	bool Window::closed() const
+	{
+		return glfwWindowShouldClose(m_Window) == 1;
+	}
+
+	void Window::update()
+	{
+		glfwSwapBuffers(m_Window);
+		glfwPollEvents();
+	}
+
+}	}
