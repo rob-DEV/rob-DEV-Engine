@@ -1,7 +1,7 @@
 #include "window.h"
 #include <iostream>
-namespace Engine {	namespace Graphics {
 
+namespace Engine {	namespace Core {  namespace Graphics {
 	Window::Window(const char* title, int width, int height)
 	{
 		m_Title = title;
@@ -38,6 +38,11 @@ namespace Engine {	namespace Graphics {
 		}
 
 		glfwMakeContextCurrent(m_Window);
+		glfwSetWindowSizeCallback(m_Window, Engine::Core::Input::Input::getInputInstance()->window_resize_callback_handle);
+		glfwSetKeyCallback(m_Window, Engine::Core::Input::Input::getInputInstance()->key_callback_handle);
+		glfwSetMouseButtonCallback(m_Window, Engine::Core::Input::Input::getInputInstance()->mouse_button_callback_handle);
+		glfwSetCursorPosCallback(m_Window, Engine::Core::Input::Input::getInputInstance()->cursor_position_callback_handle);
+
 		glfwSetWindowUserPointer(m_Window, this);
 		glfwSwapInterval(0);
 		if (glewInit() != GLEW_OK)
@@ -72,4 +77,5 @@ namespace Engine {	namespace Graphics {
 		glfwPollEvents();
 	}
 
-}	}
+
+}	}	}

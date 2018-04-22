@@ -2,7 +2,7 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
-namespace Engine {	namespace Graphics {
+namespace Engine { namespace Core {	namespace Graphics {
 	class Shader
 	{
 	private:
@@ -29,5 +29,5 @@ namespace Engine {	namespace Graphics {
 		GLint getUniformLocation(const GLchar* name);
 	};
 
-}   }
+}   }	}
 

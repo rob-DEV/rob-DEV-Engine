@@ -8,7 +8,7 @@
 #include "graphics/shader.h"
 
 using namespace Engine::Core;
-using namespace Engine::Graphics;
+using namespace Engine::Core::Graphics;
 
 
 static const GLfloat g_vertex_buffer_data[] = {
