@@ -96,7 +96,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>..\dependencies\GLEW\include;..\dependencies\GLM;..\dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -154,17 +154,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\entity\game_object.cpp" />
+    <ClCompile Include="src\graphics\mesh.cpp" />
+    <ClCompile Include="src\entity\entity.cpp" />
     <ClCompile Include="src\input\input.cpp" />
     <ClCompile Include="src\graphics\shader.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\entity\game_object.h" />
+    <ClInclude Include="src\graphics\mesh.h" />
+    <ClInclude Include="src\entity\entity.h" />
     <ClInclude Include="src\input\input.h" />
     <ClInclude Include="src\graphics\shader.h" />
     <ClInclude Include="src\graphics\window.h" />
     <ClInclude Include="src\utils\file_utils.h" />
     <ClInclude Include="src\utils\timer.h" />
+    <ClInclude Include="src\entity\transform.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\basic.frag" />

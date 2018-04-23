@@ -43,13 +43,15 @@ namespace Engine {	namespace Core {  namespace Input {
 	{
 		glViewport(0, 0, width, height);
 	}
-
 	void Input::key_callback(GLFWwindow *window, int key, int scancode, int action, int mods)
 	{
 		//set key bool true when key press (not released)
 		m_Keys[key] = action != GLFW_RELEASE;
-	}
 
+		#if (_DEBUG)
+		std::cout << "Key Pressed: " << (char)key << "\n";
+		#endif
+	}
 	void Input::mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
 	{
 		m_MouseButtons[button] = action != GLFW_RELEASE;
@@ -59,7 +61,9 @@ namespace Engine {	namespace Core {  namespace Input {
 		m_MouseX = xpos;
 		m_MouseY = ypos;
 
+		#if (_DEBUG)
 		std::cout << "X: " << m_MouseX << ", Y: " << m_MouseY << "\n";
+		#endif
 	}
 
 }	}	}

@@ -15,7 +15,6 @@ namespace Engine { namespace Core {  namespace Graphics {
 		GLFWwindow* m_Window;
 	private:
 		bool init();
-		static void window_resize(GLFWwindow  *window, int width, int height);
 	public:
 		void clear() const;
 		void update();

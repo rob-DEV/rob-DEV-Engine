@@ -6,49 +6,13 @@
 #include "utils/timer.h"
 #include "graphics/window.h"
 #include "graphics/shader.h"
+#include "graphics/mesh.h"
+#include "entity/entity.h"
+#include "entity/game_object.h"
 
 using namespace Engine::Core;
 using namespace Engine::Core::Graphics;
-
-
-static const GLfloat g_vertex_buffer_data[] = {
-	-1.0f,-1.0f,-1.0f, // triangle 1 : begin
-	-1.0f,-1.0f, 1.0f,
-	-1.0f, 1.0f, 1.0f, // triangle 1 : end
-	1.0f, 1.0f,-1.0f, // triangle 2 : begin
-	-1.0f,-1.0f,-1.0f,
-	-1.0f, 1.0f,-1.0f, // triangle 2 : end
-	1.0f,-1.0f, 1.0f,
-	-1.0f,-1.0f,-1.0f,
-	1.0f,-1.0f,-1.0f,
-	1.0f, 1.0f,-1.0f,
-	1.0f,-1.0f,-1.0f,
-	-1.0f,-1.0f,-1.0f,
-	-1.0f,-1.0f,-1.0f,
-	-1.0f, 1.0f, 1.0f,
-	-1.0f, 1.0f,-1.0f,
-	1.0f,-1.0f, 1.0f,
-	-1.0f,-1.0f, 1.0f,
-	-1.0f,-1.0f,-1.0f,
-	-1.0f, 1.0f, 1.0f,
-	-1.0f,-1.0f, 1.0f,
-	1.0f,-1.0f, 1.0f,
-	1.0f, 1.0f, 1.0f,
-	1.0f,-1.0f,-1.0f,
-	1.0f, 1.0f,-1.0f,
-	1.0f,-1.0f,-1.0f,
-	1.0f, 1.0f, 1.0f,
-	1.0f,-1.0f, 1.0f,
-	1.0f, 1.0f, 1.0f,
-	1.0f, 1.0f,-1.0f,
-	-1.0f, 1.0f,-1.0f,
-	1.0f, 1.0f, 1.0f,
-	-1.0f, 1.0f,-1.0f,
-	-1.0f, 1.0f, 1.0f,
-	1.0f, 1.0f, 1.0f,
-	-1.0f, 1.0f, 1.0f,
-	1.0f,-1.0f, 1.0f
-};
+using namespace Engine::Core::Entities;
 
 int main()
 {
@@ -66,6 +30,17 @@ int main()
 	Shader shader("src/shaders/basic.vert", "src/shaders/basic.frag");
 	shader.enable();
 
+	Entity entity("Test", glm::vec3(0, 0, 0));
+
+	vw_matrix = glm::lookAt(
+		glm::vec3(8, 4, -3), // Camera is at (4,3,-3), in World Space
+		glm::vec3(0, 0, 0), // and looks at the origin
+		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
+	);
+
+	shader.setUniformMat4("pr_matrix", pr_matrix);
+	shader.setUniformMat4("vw_matrix", vw_matrix);
+	shader.setUniformMat4("ml_matrix", ml_matrix);
 
 	static const GLfloat g_vertex_buffer_data[] = {
 		-1.0f,-1.0f,-1.0f,
@@ -105,7 +80,6 @@ int main()
 		-1.0f, 1.0f, 1.0f,
 		1.0f,-1.0f, 1.0f
 	};
-
 	static const GLfloat g_color_buffer_data[] = {
 		0.583f,  0.771f,  0.014f,
 		0.609f,  0.115f,  0.436f,
@@ -145,26 +119,23 @@ int main()
 		0.982f,  0.099f,  0.879f
 	};
 
-	vw_matrix = glm::lookAt(
-		glm::vec3(8, 4, -3), // Camera is at (4,3,-3), in World Space
-		glm::vec3(0, 0, 0), // and looks at the origin
-		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
+	Mesh cubeMesh(
+		"Cube",
+		std::vector<float>(g_vertex_buffer_data, g_vertex_buffer_data + sizeof g_vertex_buffer_data / sizeof g_vertex_buffer_data[0]),
+		std::vector<float>(g_color_buffer_data, g_color_buffer_data + sizeof g_color_buffer_data / sizeof g_color_buffer_data[0])
 	);
 
-	shader.setUniformMat4("pr_matrix", pr_matrix);
-	shader.setUniformMat4("vw_matrix", vw_matrix);
-	shader.setUniformMat4("ml_matrix", ml_matrix);
+	GameObject gameObject("Cube GameObject", glm::vec3(0, 0, 0), cubeMesh);
 
 	GLuint vertexbuffer;
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, cubeMesh.getSize(), &cubeMesh.vertices[0], GL_STATIC_DRAW);
 
 	GLuint colorbuffer;
 	glGenBuffers(1, &colorbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
-
+	glBufferData(GL_ARRAY_BUFFER, cubeMesh.getSize(), &cubeMesh.colors[0], GL_STATIC_DRAW);
 
 	while (!window.closed())
 	{
