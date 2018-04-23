@@ -12,7 +12,6 @@ namespace Engine { namespace Core { namespace Input {
 	class Input
 	{
 	private:
-		static Input* m_Input;	
 
 		bool m_Keys[MAX_KEYS];
 		bool m_MouseButtons[MAX_BUTTONS];

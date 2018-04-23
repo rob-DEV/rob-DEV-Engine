@@ -9,11 +9,12 @@
 #include "graphics/mesh.h"
 #include "entity/entity.h"
 #include "entity/game_object.h"
+#include "io/obj/object_importer.h"
 
 using namespace Engine::Core;
 using namespace Engine::Core::Graphics;
 using namespace Engine::Core::Entities;
-
+using namespace Engine::Core::IO::Importers;
 int main()
 {
 	
@@ -21,7 +22,7 @@ int main()
 	float time = 0;
 	unsigned int frames = 0;
 
-	Window window("MAIN ENGINE", 640, 480);
+	Window window("MAIN ENGINE", 1280, 720);
 	glClearColor(0.02f, 0.55f, 1.0f, 1.0f);
 
 	glm::mat4 pr_matrix = glm::perspective(glm::radians(90.0f), 16.0f / 9.0f, 0.1f, 10000.0f);
@@ -43,6 +44,8 @@ int main()
 	shader.setUniformMat4("vw_matrix", vw_matrix);
 	shader.setUniformMat4("ml_matrix", ml_matrix);
 	
+	shader.setUniformMat4("ml_matrix", ml_matrix);
+
 	static const GLfloat g_vertex_buffer_data[] = {
 		-1.0f,-1.0f,-1.0f,
 		-1.0f,-1.0f, 1.0f,
@@ -126,6 +129,8 @@ int main()
 		"Cube", a,b
 		
 	);
+
+	Obj_Importer::getObjImporterInstance()->ImportObj("tests/obj/test.obj");
 
 	GameObject gameObject("Cube GameObject", glm::vec3(0, 0, 0), cubeMesh);
 

@@ -8,7 +8,7 @@ namespace Engine {	namespace Core {  namespace Graphics {
 		m_Width = width;
 		m_Height = height;
 
-		if (!init()) {
+		if (!init(false)) {
 			glfwTerminate();
 		}
 	}
@@ -19,7 +19,7 @@ namespace Engine {	namespace Core {  namespace Graphics {
 	}
 
 
-	bool Window::init()
+	bool Window::init(bool resizeable)
 	{
 		if (!glfwInit())
 		{
@@ -27,16 +27,17 @@ namespace Engine {	namespace Core {  namespace Graphics {
 			return false;
 		}
 
+		if (!resizeable)
+			glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 		m_Window = glfwCreateWindow(m_Width, m_Height, m_Title, NULL, NULL);
-
 		if (!m_Window)
 		{
 			glfwTerminate();
 			std::cout << "Failed to create: " << m_Title << "\n";
 			return false;
 		}
-
+		
 		glfwMakeContextCurrent(m_Window);
 		glfwSetWindowSizeCallback(m_Window, Engine::Core::Input::Input::getInputInstance()->window_resize_callback_handle);
 		glfwSetKeyCallback(m_Window, Engine::Core::Input::Input::getInputInstance()->key_callback_handle);
@@ -50,6 +51,8 @@ namespace Engine {	namespace Core {  namespace Graphics {
 			std::cout << "Failed to initalize GLEW\n";
 			return false;
 		}
+
+		
 
 		// Enable depth test
 		glEnable(GL_DEPTH_TEST);

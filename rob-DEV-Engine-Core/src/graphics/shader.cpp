@@ -9,7 +9,7 @@
 
 using namespace Engine::Core;
 
-namespace Engine {	namespace Core {  namespace Graphics {
+namespace Engine {  namespace Core {  namespace Graphics {
 
 	Shader::Shader(const char* vertPath, const char* fragPath)
 		:m_VertPath(vertPath), m_FragPath(fragPath)

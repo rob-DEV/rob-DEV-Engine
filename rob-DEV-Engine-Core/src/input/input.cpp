@@ -7,7 +7,11 @@ namespace Engine {	namespace Core {  namespace Input {
 
 	Input* Input::getInputInstance()
 	{
+		if (m_Input == NULL)
+			m_Input = new Input();
+
 		return new Input();
+
 	}
 
 	Input::Input()

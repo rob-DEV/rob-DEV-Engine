@@ -154,6 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\io\obj\object_importer.cpp" />
     <ClCompile Include="src\entity\game_object.cpp" />
     <ClCompile Include="src\graphics\mesh.cpp" />
     <ClCompile Include="src\entity\entity.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="src\graphics\window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\io\obj\object_importer.h" />
     <ClInclude Include="src\entity\game_object.h" />
     <ClInclude Include="src\graphics\mesh.h" />
     <ClInclude Include="src\entity\entity.h" />

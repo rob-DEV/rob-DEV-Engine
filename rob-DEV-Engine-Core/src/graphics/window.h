@@ -14,7 +14,7 @@ namespace Engine { namespace Core {  namespace Graphics {
 		unsigned int m_Width, m_Height = 0;
 		GLFWwindow* m_Window;
 	private:
-		bool init();
+		bool init(bool resizeable);
 	public:
 		void clear() const;
 		void update();

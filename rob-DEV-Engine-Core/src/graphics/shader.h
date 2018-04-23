@@ -2,7 +2,7 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
-namespace Engine { namespace Core {	namespace Graphics {
+namespace Engine {  namespace Core {  namespace Graphics {
 	class Shader
 	{
 	private:
