@@ -2,11 +2,7 @@
 
 namespace Engine {  namespace Core {  namespace Graphics {
 
-	Mesh::Mesh()
-	{
-	}
-
-	Mesh::Mesh(const char * name, std::vector<GLfloat> vertices, std::vector<float> colors)
+	Mesh::Mesh(const char * name, const std::vector<GLfloat>& vertices, const std::vector<float>& colors)
 	{
 		this->name = std::string(name);
 		this->vertices = vertices;

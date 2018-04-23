@@ -16,6 +16,7 @@ using namespace Engine::Core::Entities;
 
 int main()
 {
+	
 	Timer timer;
 	float time = 0;
 	unsigned int frames = 0;
@@ -41,7 +42,7 @@ int main()
 	shader.setUniformMat4("pr_matrix", pr_matrix);
 	shader.setUniformMat4("vw_matrix", vw_matrix);
 	shader.setUniformMat4("ml_matrix", ml_matrix);
-
+	
 	static const GLfloat g_vertex_buffer_data[] = {
 		-1.0f,-1.0f,-1.0f,
 		-1.0f,-1.0f, 1.0f,
@@ -119,10 +120,11 @@ int main()
 		0.982f,  0.099f,  0.879f
 	};
 
+	std::vector<float> a(g_vertex_buffer_data, g_vertex_buffer_data + sizeof g_vertex_buffer_data / sizeof g_vertex_buffer_data[0]);
+	std::vector<float> b(g_color_buffer_data, g_color_buffer_data + sizeof g_color_buffer_data / sizeof g_color_buffer_data[0]);
 	Mesh cubeMesh(
-		"Cube",
-		std::vector<float>(g_vertex_buffer_data, g_vertex_buffer_data + sizeof g_vertex_buffer_data / sizeof g_vertex_buffer_data[0]),
-		std::vector<float>(g_color_buffer_data, g_color_buffer_data + sizeof g_color_buffer_data / sizeof g_color_buffer_data[0])
+		"Cube", a,b
+		
 	);
 
 	GameObject gameObject("Cube GameObject", glm::vec3(0, 0, 0), cubeMesh);
@@ -131,17 +133,19 @@ int main()
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 	glBufferData(GL_ARRAY_BUFFER, cubeMesh.getSize(), &cubeMesh.vertices[0], GL_STATIC_DRAW);
-
+	
 	GLuint colorbuffer;
 	glGenBuffers(1, &colorbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
 	glBufferData(GL_ARRAY_BUFFER, cubeMesh.getSize(), &cubeMesh.colors[0], GL_STATIC_DRAW);
+	
+	cubeMesh.getSize();
 
 	while (!window.closed())
 	{
 		
 		window.clear();
-
+		
 		// 1rst attribute buffer : vertices
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
@@ -165,13 +169,14 @@ int main()
 			0,                                // stride
 			(void*)0                          // array buffer offset
 		);
+		
 
 		// Draw the triangle !
 		glDrawArrays(GL_TRIANGLES, 0, 12 * 3); // 12*3 indices starting at 0 -> 12 triangles
 
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
-
+		
 		window.update();
 
 		frames++;

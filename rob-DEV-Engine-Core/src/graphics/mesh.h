@@ -11,10 +11,9 @@ namespace Engine {  namespace Core {  namespace Graphics {
 
 		std::string name;
 		std::vector<GLfloat> vertices;
-		std::vector<GLfloat> colors;
+	    std::vector<GLfloat> colors;
 
-		Mesh();
-		Mesh(const char * name, std::vector<float> vertices, std::vector<float> colors);
+		Mesh(const char * name, const std::vector<float>& vertices, const std::vector<float>& colors);
 		~Mesh();
 
 		unsigned int getSize();
