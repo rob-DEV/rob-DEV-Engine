@@ -3,6 +3,7 @@
 #include <vector>
 
 #include <GL/glew.h>
+#include <glm/glm.hpp>
 
 namespace Engine {  namespace Core {  namespace Graphics {
 	class Mesh
@@ -10,10 +11,11 @@ namespace Engine {  namespace Core {  namespace Graphics {
 	public:
 
 		std::string name;
-		std::vector<GLfloat> vertices;
-	    std::vector<GLfloat> colors;
+		std::vector<glm::vec3> vertices;
+	    std::vector<glm::vec3> colors;
 
-		Mesh(const char * name, const std::vector<float>& vertices, const std::vector<float>& colors);
+		Mesh(const char * name);
+		Mesh(const char * name, const std::vector<glm::vec3>& vertices, const std::vector<glm::vec3>& colors);
 		~Mesh();
 
 		unsigned int getSize();

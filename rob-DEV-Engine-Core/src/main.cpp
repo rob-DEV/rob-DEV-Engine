@@ -123,28 +123,29 @@ int main()
 		0.982f,  0.099f,  0.879f
 	};
 
+	/*
 	std::vector<float> a(g_vertex_buffer_data, g_vertex_buffer_data + sizeof g_vertex_buffer_data / sizeof g_vertex_buffer_data[0]);
 	std::vector<float> b(g_color_buffer_data, g_color_buffer_data + sizeof g_color_buffer_data / sizeof g_color_buffer_data[0]);
 	Mesh cubeMesh(
 		"Cube", a,b
 		
 	);
+	*/
+	Mesh* importedCube = Obj_Importer::getObjImporterInstance()->ImportObj("src/io/obj/cube.obj");
 
-	Obj_Importer::getObjImporterInstance()->ImportObj("tests/obj/test.obj");
-
-	GameObject gameObject("Cube GameObject", glm::vec3(0, 0, 0), cubeMesh);
+	//GameObject gameObject("Cube GameObject", glm::vec3(0, 0, 0), cubeMesh);
 
 	GLuint vertexbuffer;
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, cubeMesh.getSize(), &cubeMesh.vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, importedCube->vertices.size() * sizeof(glm::vec3), &importedCube->vertices[0], GL_STATIC_DRAW);
 	
+	/*
 	GLuint colorbuffer;
 	glGenBuffers(1, &colorbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-	glBufferData(GL_ARRAY_BUFFER, cubeMesh.getSize(), &cubeMesh.colors[0], GL_STATIC_DRAW);
-	
-	cubeMesh.getSize();
+	//glBufferData(GL_ARRAY_BUFFER, cubeMesh.getSize(), &cubeMesh.colors[0], GL_STATIC_DRAW);
+	*/
 
 	while (!window.closed())
 	{
@@ -163,7 +164,7 @@ int main()
 			(void*)0            // array buffer offset
 		);
 
-		// 2nd attribute buffer : colors
+		/*// 2nd attribute buffer : colors
 		glEnableVertexAttribArray(1);
 		glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
 		glVertexAttribPointer(
@@ -173,14 +174,14 @@ int main()
 			GL_FALSE,                         // normalized?
 			0,                                // stride
 			(void*)0                          // array buffer offset
-		);
+		);*/
 		
-
+		
 		// Draw the triangle !
-		glDrawArrays(GL_TRIANGLES, 0, 12 * 3); // 12*3 indices starting at 0 -> 12 triangles
+		glDrawArrays(GL_TRIANGLES, 0, importedCube->vertices.size()); // 12*3 indices starting at 0 -> 12 triangles
 
 		glDisableVertexAttribArray(0);
-		glDisableVertexAttribArray(1);
+		//glDisableVertexAttribArray(1);
 		
 		window.update();
 

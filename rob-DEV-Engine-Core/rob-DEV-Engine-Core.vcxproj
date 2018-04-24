@@ -171,7 +171,7 @@
     <ClInclude Include="src\input\input.h" />
     <ClInclude Include="src\graphics\shader.h" />
     <ClInclude Include="src\graphics\window.h" />
-    <ClInclude Include="src\utils\file_utils.h" />
+    <ClInclude Include="src\io\file\file_utils.h" />
     <ClInclude Include="src\utils\timer.h" />
     <ClInclude Include="src\entity\transform.h" />
   </ItemGroup>
