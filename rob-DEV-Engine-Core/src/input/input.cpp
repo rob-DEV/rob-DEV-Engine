@@ -1,7 +1,7 @@
 #include "input.h"
 #include <iostream>
 
-namespace Engine {	namespace Core {  namespace Input {
+namespace Engine {	namespace Core {
 	
 	static Input* m_Input = NULL;
 
@@ -10,7 +10,7 @@ namespace Engine {	namespace Core {  namespace Input {
 		if (m_Input == NULL)
 			m_Input = new Input();
 
-		return new Input();
+		return m_Input;
 
 	}
 
@@ -69,5 +69,14 @@ namespace Engine {	namespace Core {  namespace Input {
 		std::cout << "X: " << m_MouseX << ", Y: " << m_MouseY << "\n";
 		#endif
 	}
+	bool Input::getKeyDown(unsigned int keyCode)
+	{
+		//TODO: log this
+		if (keyCode >= MAX_KEYS)
+			return false;
+		
+		return !getInputInstance()->m_Keys[keyCode];
+	}
 
-}	}	}
+
+}	}

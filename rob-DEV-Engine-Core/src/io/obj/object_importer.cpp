@@ -165,7 +165,12 @@ namespace Engine { namespace Core { namespace IO { namespace Importers {
 			// Put the attributes in buffers
 			//importedMesh->vertices.push_back(vertex);
 
+			
+
 		}
+		//rough 
+		for(int i = 0; i < 8; i++)
+			importedMesh->colors.push_back(glm::vec3(0.8f, 0.2f, 0.5f));
 
 		indexVBO(temp_vertices, vertexIndices, importedMesh->vertices);
 

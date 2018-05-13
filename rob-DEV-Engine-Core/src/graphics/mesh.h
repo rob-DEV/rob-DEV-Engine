@@ -12,6 +12,7 @@ namespace Engine {  namespace Core {  namespace Graphics {
 
 		std::string name;
 		std::vector<glm::vec3> vertices;
+		std::vector<unsigned int> verticeIndices;
 	    std::vector<glm::vec3> colors;
 
 		Mesh(const char * name);

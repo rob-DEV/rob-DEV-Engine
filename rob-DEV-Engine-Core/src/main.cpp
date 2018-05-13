@@ -5,8 +5,7 @@
 
 #include "utils/timer.h"
 #include "graphics/window.h"
-#include "graphics/shader.h"
-#include "graphics/mesh.h"
+#include "graphics/renderer.h"
 #include "entity/entity.h"
 #include "entity/game_object.h"
 #include "io/obj/object_importer.h"
@@ -15,22 +14,24 @@ using namespace Engine::Core;
 using namespace Engine::Core::Graphics;
 using namespace Engine::Core::Entities;
 using namespace Engine::Core::IO::Importers;
+
+
+#define INPUT Input::getInputInstance()
+
 int main()
 {
-	
 	Timer timer;
 	float time = 0;
 	unsigned int frames = 0;
 
-	Window window("MAIN ENGINE", 1280, 720);
+	Window window("MAIN ENGINE", 640, 480);
 	glClearColor(0.02f, 0.55f, 1.0f, 1.0f);
 
 	glm::mat4 pr_matrix = glm::perspective(glm::radians(90.0f), 16.0f / 9.0f, 0.1f, 10000.0f);
 	glm::mat4 vw_matrix = glm::mat4(1.0f);
 	glm::mat4 ml_matrix = glm::mat4(1.0f);
 
-	Shader shader("src/shaders/basic.vert", "src/shaders/basic.frag");
-	shader.enable();
+	Renderer* renderer = new Renderer();
 
 	Entity entity("Test", glm::vec3(0, 0, 0));
 
@@ -40,11 +41,9 @@ int main()
 		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
 	);
 
-	shader.setUniformMat4("pr_matrix", pr_matrix);
-	shader.setUniformMat4("vw_matrix", vw_matrix);
-	shader.setUniformMat4("ml_matrix", ml_matrix);
-	
-	shader.setUniformMat4("ml_matrix", ml_matrix);
+	renderer->Shaders->setUniformMat4("pr_matrix", pr_matrix);
+	renderer->Shaders->setUniformMat4("vw_matrix", vw_matrix);
+	renderer->Shaders->setUniformMat4("ml_matrix", ml_matrix);
 
 	static const GLfloat g_vertex_buffer_data[] = {
 		-1.0f,-1.0f,-1.0f,
@@ -84,6 +83,8 @@ int main()
 		-1.0f, 1.0f, 1.0f,
 		1.0f,-1.0f, 1.0f
 	};
+
+	// One color for each vertex. They were generated randomly.
 	static const GLfloat g_color_buffer_data[] = {
 		0.583f,  0.771f,  0.014f,
 		0.609f,  0.115f,  0.436f,
@@ -123,66 +124,31 @@ int main()
 		0.982f,  0.099f,  0.879f
 	};
 
-	/*
-	std::vector<float> a(g_vertex_buffer_data, g_vertex_buffer_data + sizeof g_vertex_buffer_data / sizeof g_vertex_buffer_data[0]);
-	std::vector<float> b(g_color_buffer_data, g_color_buffer_data + sizeof g_color_buffer_data / sizeof g_color_buffer_data[0]);
-	Mesh cubeMesh(
-		"Cube", a,b
-		
-	);
-	*/
-	Mesh* importedCube = Obj_Importer::getObjImporterInstance()->ImportObj("src/io/obj/cube.obj");
 
-	//GameObject gameObject("Cube GameObject", glm::vec3(0, 0, 0), cubeMesh);
-
-	GLuint vertexbuffer;
-	glGenBuffers(1, &vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, importedCube->vertices.size() * sizeof(glm::vec3), &importedCube->vertices[0], GL_STATIC_DRAW);
-	
-	/*
-	GLuint colorbuffer;
-	glGenBuffers(1, &colorbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-	//glBufferData(GL_ARRAY_BUFFER, cubeMesh.getSize(), &cubeMesh.colors[0], GL_STATIC_DRAW);
-	*/
+	std::vector<glm::vec3> verts;
+	std::vector<glm::vec3> cols;
+	for (size_t i = 0; i < 108; i += 3)
+	{
+		verts.push_back(glm::vec3(g_vertex_buffer_data[i], g_vertex_buffer_data[i + 1], g_vertex_buffer_data[i + 2]));
+		cols.push_back(glm::vec3(g_color_buffer_data[i], g_color_buffer_data[i + 1], g_color_buffer_data[i + 2]));
+	}
 
 	while (!window.closed())
 	{
-		
 		window.clear();
-		
-		// 1rst attribute buffer : vertices
-		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-		glVertexAttribPointer(
-			0,                  // attribute. No particular reason for 0, but must match the layout in the shader.
-			3,                  // size
-			GL_FLOAT,           // type
-			GL_FALSE,           // normalized?
-			0,                  // stride
-			(void*)0            // array buffer offset
-		);
 
-		/*// 2nd attribute buffer : colors
-		glEnableVertexAttribArray(1);
-		glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-		glVertexAttribPointer(
-			1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
-			3,                                // size
-			GL_FLOAT,                         // type
-			GL_FALSE,                         // normalized?
-			0,                                // stride
-			(void*)0                          // array buffer offset
-		);*/
 		
-		
-		// Draw the triangle !
-		glDrawArrays(GL_TRIANGLES, 0, importedCube->vertices.size()); // 12*3 indices starting at 0 -> 12 triangles
+		renderer->begin();
 
-		glDisableVertexAttribArray(0);
-		//glDisableVertexAttribArray(1);
+		renderer->submit(Mesh("CUBE TEST", verts, cols));
+
+		renderer->submit(Mesh("CUBE TEST", verts, cols));
+
+		renderer->end();
+
+		renderer->draw();
 		
+
 		window.update();
 
 		frames++;

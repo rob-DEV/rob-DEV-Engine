@@ -8,7 +8,7 @@
 #define MAX_BUTTONS 32
 
 
-namespace Engine { namespace Core { namespace Input {
+namespace Engine { namespace Core {
 	class Input
 	{
 	private:
@@ -33,5 +33,7 @@ namespace Engine { namespace Core { namespace Input {
 		void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
 		void mouse_button_callback(GLFWwindow *window, int button, int action, int mods);
 		void cursor_position_callback(GLFWwindow *window, double xpos, double ypos);
+
+		bool getKeyDown(unsigned int keyCode);
 	};
-}	}	}
+}	}
