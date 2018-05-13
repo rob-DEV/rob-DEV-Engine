@@ -31,7 +31,7 @@ int main()
 	glm::mat4 vw_matrix = glm::mat4(1.0f);
 	glm::mat4 ml_matrix = glm::mat4(1.0f);
 
-	Renderer* renderer = new Renderer();
+	Renderer renderer;
 
 	Entity entity("Test", glm::vec3(0, 0, 0));
 
@@ -41,9 +41,9 @@ int main()
 		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
 	);
 
-	renderer->Shaders->setUniformMat4("pr_matrix", pr_matrix);
-	renderer->Shaders->setUniformMat4("vw_matrix", vw_matrix);
-	renderer->Shaders->setUniformMat4("ml_matrix", ml_matrix);
+	renderer.Shaders->setUniformMat4("pr_matrix", pr_matrix);
+	renderer.Shaders->setUniformMat4("vw_matrix", vw_matrix);
+	renderer.Shaders->setUniformMat4("ml_matrix", ml_matrix);
 
 	static const GLfloat g_vertex_buffer_data[] = {
 		-1.0f,-1.0f,-1.0f,
@@ -137,15 +137,15 @@ int main()
 	{
 		window.clear();
 
-		renderer->begin();
+		renderer.begin();
 
 		for (size_t i = 0; i < 10; i++)
 			for (size_t j = 0; j < 10; j++)
-				renderer->submit(GameObject("GAMEOBJECT_ENTITY", glm::vec3(i * 3, 0, i * 3), Mesh("CUBE TEST", verts, cols)));
+				renderer.submit(GameObject("GAMEOBJECT_ENTITY", glm::vec3(i * 3, 0, i * 3), Mesh("CUBE TEST", verts, cols)));
 
-		renderer->end();
+		renderer.end();
 
-		renderer->draw();
+		renderer.draw();
 		
 		window.update();
 

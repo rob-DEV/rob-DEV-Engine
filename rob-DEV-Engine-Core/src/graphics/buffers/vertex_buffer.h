@@ -1,8 +1,12 @@
 #pragma once
-class VertexBuffer
-{
-public:
-	VertexBuffer();
-	~VertexBuffer();
-};
 
+
+namespace Engine { namespace Core { namespace Graphics {
+	class VertexBuffer
+	{
+	public:
+		VertexBuffer();
+		~VertexBuffer();
+	};
+
+} } }
