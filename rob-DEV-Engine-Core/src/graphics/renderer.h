@@ -30,11 +30,12 @@ private:
 
 	VertexData* m_VertexBuffer;
 
-	GLsizei m_VertexBufferCount = 0;
+	GLsizei m_VertexBufferCount;
 	GLsizei m_IndiceCount;
 
 private:
 	void init();
+	void submit(const Engine::Core::Graphics::Mesh& mesh, glm::vec3 position);
 public:
 
 	Shader* Shaders = NULL;
@@ -45,7 +46,7 @@ public:
 	void begin();
 
 	void submit(const Engine::Core::Graphics::Mesh& mesh);
-	void submit(const Engine::Core::Entities::GameObject* gameObject);
+	void submit(const Engine::Core::Entities::GameObject& gameObject);
 
 	void draw();
 	void end();

@@ -36,7 +36,7 @@ int main()
 	Entity entity("Test", glm::vec3(0, 0, 0));
 
 	vw_matrix = glm::lookAt(
-		glm::vec3(8, 4, -3), // Camera is at (4,3,-3), in World Space
+		glm::vec3(18, 4, -15), // Camera is at (4,3,-3), in World Space
 		glm::vec3(0, 0, 0), // and looks at the origin
 		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
 	);
@@ -137,18 +137,16 @@ int main()
 	{
 		window.clear();
 
-		
 		renderer->begin();
 
-		renderer->submit(Mesh("CUBE TEST", verts, cols));
-
-		renderer->submit(Mesh("CUBE TEST", verts, cols));
+		for (size_t i = 0; i < 10; i++)
+			for (size_t j = 0; j < 10; j++)
+				renderer->submit(GameObject("GAMEOBJECT_ENTITY", glm::vec3(i * 3, 0, i * 3), Mesh("CUBE TEST", verts, cols)));
 
 		renderer->end();
 
 		renderer->draw();
 		
-
 		window.update();
 
 		frames++;

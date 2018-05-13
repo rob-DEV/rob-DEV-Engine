@@ -154,6 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics\buffers\vertex_buffer.cpp" />
     <ClCompile Include="src\graphics\renderer.cpp" />
     <ClCompile Include="src\io\obj\object_importer.cpp" />
     <ClCompile Include="src\entity\game_object.cpp" />
@@ -163,8 +164,10 @@
     <ClCompile Include="src\graphics\shader.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
+    <ClCompile Include="vertex_buffer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\graphics\buffers\vertex_buffer.h" />
     <ClInclude Include="src\graphics\renderer.h" />
     <ClInclude Include="src\graphics\e.h" />
     <ClInclude Include="src\io\obj\object_importer.h" />
@@ -177,6 +180,7 @@
     <ClInclude Include="src\io\file\file_utils.h" />
     <ClInclude Include="src\utils\timer.h" />
     <ClInclude Include="src\entity\transform.h" />
+    <ClInclude Include="vertex_buffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\basic.frag" />

@@ -48,14 +48,16 @@ void Renderer::begin()
 	m_VertexBuffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 }
 
-void Renderer::submit(const Engine::Core::Graphics::Mesh& mesh)
+void Renderer::submit(const Engine::Core::Graphics::Mesh& mesh, glm::vec3 position)
 {
-	if (&mesh == NULL)
-		return;
-
 	for (size_t i = 0; i < mesh.vertices.size(); i++)
 	{
-		m_VertexBuffer->position = mesh.vertices[i];
+		glm::vec3 temp_vert_to_pos = mesh.vertices[i];
+		temp_vert_to_pos.x += position.x;
+		temp_vert_to_pos.y += position.y;
+		temp_vert_to_pos.z += position.z;
+
+		m_VertexBuffer->position = temp_vert_to_pos;
 
 		int r = mesh.colors[i].x * 255.0f;
 		int g = mesh.colors[i].y * 255.0f;
@@ -67,8 +69,6 @@ void Renderer::submit(const Engine::Core::Graphics::Mesh& mesh)
 
 		m_VertexBuffer->color = c;
 		m_VertexBuffer++;
-
-
 	}
 
 	glBufferSubData(GL_ARRAY_BUFFER, m_VertexBufferCount * RENDERER_VERTEX_SIZE, mesh.vertices.size() * RENDERER_VERTEX_SIZE, m_VertexBuffer);
@@ -76,10 +76,20 @@ void Renderer::submit(const Engine::Core::Graphics::Mesh& mesh)
 	m_VertexBufferCount += mesh.vertices.size();
 
 }
-void Renderer::submit(const Engine::Core::Entities::GameObject* gameObject)
+
+void Renderer::submit(const Engine::Core::Graphics::Mesh& mesh)
 {
-	if (gameObject == NULL)
+	if (&mesh == NULL)
 		return;
+	submit(mesh, glm::vec3(0, 0, 0));
+}
+void Renderer::submit(const Engine::Core::Entities::GameObject& gameObject)
+{
+	if (&gameObject == NULL)
+		return;
+
+	//render at a given position
+	submit(*gameObject.mesh, gameObject.transform.position);
 }
 
 void Renderer::end()
@@ -89,7 +99,6 @@ void Renderer::end()
 
 void Renderer::draw()
 {
-	std::cout << "VERTEX DRAW COUNT: " << m_VertexBufferCount << "\n";
 	glDrawArrays(GL_TRIANGLES, 0, m_VertexBufferCount);
 }
 
