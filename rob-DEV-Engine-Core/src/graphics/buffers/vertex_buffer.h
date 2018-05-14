@@ -1,7 +1,8 @@
 #pragma once
 
 
-namespace Engine { namespace Core { namespace Graphics {
+namespace Engine { namespace Core { namespace Graphics { namespace Buffers {
+
 	class VertexBuffer
 	{
 	public:
@@ -9,4 +10,4 @@ namespace Engine { namespace Core { namespace Graphics {
 		~VertexBuffer();
 	};
 
-} } }
+} } } }

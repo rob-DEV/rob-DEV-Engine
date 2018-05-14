@@ -27,15 +27,11 @@ int main()
 	Window window("MAIN ENGINE", 640, 480);
 	glClearColor(0.02f, 0.55f, 1.0f, 1.0f);
 
-	glm::mat4 pr_matrix = glm::perspective(glm::radians(90.0f), 16.0f / 9.0f, 0.1f, 10000.0f);
-	glm::mat4 vw_matrix = glm::mat4(1.0f);
-	glm::mat4 ml_matrix = glm::mat4(1.0f);
-
 	Renderer renderer;
+	
+	glm::mat4 pr_matrix = glm::perspective(glm::radians(90.0f), 16.0f / 9.0f, 0.1f, 10000.0f);
 
-	Entity entity("Test", glm::vec3(0, 0, 0));
-
-	vw_matrix = glm::lookAt(
+	glm::mat4 vw_matrix = glm::lookAt(
 		glm::vec3(18, 4, -15), // Camera is at (4,3,-3), in World Space
 		glm::vec3(0, 0, 0), // and looks at the origin
 		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
@@ -43,7 +39,7 @@ int main()
 
 	renderer.Shaders->setUniformMat4("pr_matrix", pr_matrix);
 	renderer.Shaders->setUniformMat4("vw_matrix", vw_matrix);
-	renderer.Shaders->setUniformMat4("ml_matrix", ml_matrix);
+	renderer.Shaders->setUniformMat4("ml_matrix", glm::mat4(1.0f));
 
 	static const GLfloat g_vertex_buffer_data[] = {
 		-1.0f,-1.0f,-1.0f,
@@ -83,8 +79,6 @@ int main()
 		-1.0f, 1.0f, 1.0f,
 		1.0f,-1.0f, 1.0f
 	};
-
-	// One color for each vertex. They were generated randomly.
 	static const GLfloat g_color_buffer_data[] = {
 		0.583f,  0.771f,  0.014f,
 		0.609f,  0.115f,  0.436f,
@@ -124,7 +118,6 @@ int main()
 		0.982f,  0.099f,  0.879f
 	};
 
-
 	std::vector<glm::vec3> verts;
 	std::vector<glm::vec3> cols;
 	for (size_t i = 0; i < 108; i += 3)
@@ -148,6 +141,13 @@ int main()
 		renderer.draw();
 		
 		window.update();
+
+		
+		if (INPUT->getKeyDown(GLFW_KEY_ESCAPE))
+		{
+			exit(0)
+		}
+
 
 		frames++;
 		if (timer.elasped() - time > 1.0f)

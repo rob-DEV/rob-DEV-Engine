@@ -11,7 +11,7 @@
 namespace Engine { namespace Core {
 	class Input
 	{
-	private:
+	public:
 
 		bool m_Keys[MAX_KEYS];
 		bool m_MouseButtons[MAX_BUTTONS];

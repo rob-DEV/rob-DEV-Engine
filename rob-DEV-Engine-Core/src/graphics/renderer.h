@@ -14,12 +14,12 @@
 
 namespace Engine { namespace Core { namespace Graphics { 
 
-	//describes an individual vertex pushed from a model into the renderer::submit()
-	struct VertexData
-	{
-		glm::vec3 position;
-		unsigned int color;
-	};
+//describes an individual vertex pushed from a model into the renderer::submit()
+struct VertexData
+{
+	glm::vec3 position;
+	unsigned int color;
+};
 
 class Renderer
 {

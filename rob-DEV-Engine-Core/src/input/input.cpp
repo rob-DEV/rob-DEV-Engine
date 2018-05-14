@@ -16,7 +16,8 @@ namespace Engine {	namespace Core {
 
 	Input::Input()
 	{
-		
+		for (size_t i = 0; i < MAX_KEYS; i++)
+			m_Keys[i] = false;
 	}
 
 	Input::~Input()
@@ -75,7 +76,7 @@ namespace Engine {	namespace Core {
 		if (keyCode >= MAX_KEYS)
 			return false;
 		
-		return !getInputInstance()->m_Keys[keyCode];
+		return getInputInstance()->m_Keys[keyCode];
 	}
 
 
