@@ -1,4 +1,5 @@
 #pragma once
+#include <ctime>
 #include <Windows.h>
 
 namespace Engine {
@@ -11,6 +12,9 @@ namespace Engine {
 		public:
 			Timer()
 			{
+				//ensure random are "random"
+				srand(time(NULL));
+
 				LARGE_INTEGER frequency;
 				QueryPerformanceFrequency(&frequency);
 				m_Frequency = 1.0 / frequency.QuadPart;

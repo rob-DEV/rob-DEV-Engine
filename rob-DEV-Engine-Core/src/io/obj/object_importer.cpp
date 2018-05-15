@@ -53,7 +53,26 @@ namespace Engine { namespace Core { namespace IO { namespace Importers {
 			return true;
 		}
 	}
-
+	bool getSimilarVertexIndex(
+		glm::vec3 & in_vertex,
+		std::vector<glm::vec3> & out_vertices,
+		unsigned short & result
+	) {
+		// Lame linear search
+		for (unsigned int i = 0; i<out_vertices.size(); i++) {
+			if (
+				is_near(in_vertex.x, out_vertices[i].x) &&
+				is_near(in_vertex.y, out_vertices[i].y) &&
+				is_near(in_vertex.z, out_vertices[i].z)
+				) {
+				result = i;
+				return true;
+			}
+		}
+		// No other vertex could be used instead.
+		// Looks like we'll have to add it to the VBO.
+		return false;
+	}
 
 	void indexVBO(
 		std::vector<glm::vec3> & in_vertices,
@@ -61,45 +80,41 @@ namespace Engine { namespace Core { namespace IO { namespace Importers {
 		std::vector<unsigned int> & out_indices,
 		std::vector<glm::vec3> & out_vertices
 	) {
-		std::map<PackedVertex, unsigned int> VertexToOutIndex;
-
 		// For each input vertex
 		for (unsigned int i = 0; i<in_vertices.size(); i++) {
 
-			PackedVertex packed = { in_vertices[i] };
-
-
 			// Try to find a similar vertex in out_XXXX
-			unsigned int index;
-			bool found = getSimilarVertexIndex_fast(packed, VertexToOutIndex, index);
+			unsigned short index;
+			bool found = getSimilarVertexIndex(in_vertices[i], out_vertices, index);
 
 			if (found) { // A similar vertex is already in the VBO, use it instead !
 				out_indices.push_back(index);
 			}
 			else { // If not, it needs to be added in the output data.
 				out_vertices.push_back(in_vertices[i]);
-				unsigned int newindex = (unsigned int)out_vertices.size() - 1;
-				out_indices.push_back(newindex);
-				VertexToOutIndex[packed] = newindex;
+				//out_uvs.push_back(in_uvs[i]);
+				//out_normals.push_back(in_normals[i]);
+				out_indices.push_back((unsigned short)out_vertices.size() - 1);
 			}
 		}
 	}
 
-	Engine::Core::Graphics::Mesh* Obj_Importer::ImportObj(const char* filePath)
+	Engine::Core::Graphics::Mesh* Obj_Importer::ImportObj(const char* filepath)
 	{
-		std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
-		std::vector< glm::vec3 > temp_vertices;
-		std::vector< glm::vec2 > temp_uvs;
-		std::vector< glm::vec3 > temp_normals;
+		std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
+		std::vector<glm::vec3> temp_vertices;
+		std::vector<glm::vec2> temp_uvs;
+		std::vector<glm::vec3> temp_normals;
 
+		std::vector<glm::vec3> temp_out_verts_pre_index;
 
-		Engine::Core::Graphics::Mesh* importedMesh = new Engine::Core::Graphics::Mesh("NO NAME");
-
-		FILE* file = fopen(filePath, "r");
+		FILE * file = fopen(filepath, "r");
 		if (file == NULL) {
-			std::cout << "Failed to Load OBJ file: " << filePath << "\n";
-			return NULL;
+			printf("Impossible to open the file ! Are you in the right path ? See Tutorial 1 for details\n");
+			getchar();
+			return false;
 		}
+
 		while (1)
 		{
 			char lineHeader[128];
@@ -153,7 +168,6 @@ namespace Engine { namespace Core { namespace IO { namespace Importers {
 
 		}
 
-		importedMesh->verticeIndices = vertexIndices;
 		// For each vertex of each triangle
 		for (unsigned int i = 0; i<vertexIndices.size(); i++) {
 
@@ -164,27 +178,29 @@ namespace Engine { namespace Core { namespace IO { namespace Importers {
 			glm::vec3 vertex = temp_vertices[vertexIndex - 1];
 
 			// Put the attributes in buffers
-			//importedMesh->vertices.push_back(vertex);
-
-			
-
+			//vertices_out.push_back(vertex);
+			temp_out_verts_pre_index.push_back(vertex);
 		}
-		//rough 
-		for (int i = 0; i < vertexIndices.size(); i++)
+
+		std::vector<unsigned int> rand_import_colors;
+		vertexIndices.size();
+		//generate random indice colours
+		for (size_t i = 0; i < vertexIndices.size(); i++)
 		{
-			importedMesh->colors.push_back(glm::vec3(0.8f, 0.2f, 0.5f));
-			//RGB Test Assignments
-			int r = 0.8f * 255.0f;
-			int g = 0.2f * 255.0f;
-			int b = 0.5f * 255.0f;
-			importedMesh->rgb_colors.push_back(255 << 24 | b << 16 | g << 8 | r);
+			int r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 255.0f;
+			int g = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 255.0f;
+			int b = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 255.0f;
+
+			unsigned int color = 255 << 24 | b << 16 | g << 8 | r;
+			rand_import_colors.push_back(color);
 
 		}
-
-		indexVBO(temp_vertices, vertexIndices, importedMesh->vertices);
+		//generate the mesh object (heaped atm)
+		Graphics::Mesh* mesh = new Graphics::Mesh("IMPORTED_MODEL");
+		mesh->rgb_colors = rand_import_colors;
+		indexVBO(temp_out_verts_pre_index, mesh->indices, mesh->vertices);
 
 		fclose(file);
-
-		return importedMesh;
+		return mesh;
 	}
 } } } }

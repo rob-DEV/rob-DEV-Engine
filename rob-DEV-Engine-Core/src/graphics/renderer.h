@@ -1,6 +1,7 @@
 #pragma once
 #include <GL/glew.h>
 #include "buffers/vertex_buffer.h"
+#include "buffers/index_buffer.h"
 #include "../entity/game_object.h"
 #include "shader.h"
 
@@ -23,17 +24,24 @@ struct VertexData
 	unsigned int color;
 };
 
+struct IndiceData
+{
+	unsigned int indice;
+};
+
 class Renderer
 {
 private:
 	
 	Buffers::VertexBufferObject m_VBO;
+	Buffers::IndexBufferObject m_IBO;
 
-	GLuint m_IBO;
+	GLuint m_VAO;
 
 	VertexData* m_VertexBuffer;
+	IndiceData* m_IndiceBuffer;
 
-	GLsizei m_VertexBufferCount;
+	GLsizei m_IndiceCount;
 
 private:
 	void init();

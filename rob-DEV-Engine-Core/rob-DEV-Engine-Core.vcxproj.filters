@@ -45,6 +45,9 @@
     <ClCompile Include="src\graphics\buffers\vertex_buffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\buffers\index_buffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\window.h">
@@ -86,9 +89,17 @@
     <ClInclude Include="src\graphics\buffers\vertex_buffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\buffers\index_buffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\basic.frag" />
     <None Include="src\shaders\basic.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="dev_img\1.PNG">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

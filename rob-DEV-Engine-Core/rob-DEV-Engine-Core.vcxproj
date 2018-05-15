@@ -154,6 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics\buffers\index_buffer.cpp" />
     <ClCompile Include="src\graphics\buffers\vertex_buffer.cpp" />
     <ClCompile Include="src\graphics\renderer.cpp" />
     <ClCompile Include="src\io\obj\object_importer.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="src\graphics\window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\graphics\buffers\index_buffer.h" />
     <ClInclude Include="src\graphics\buffers\vertex_buffer.h" />
     <ClInclude Include="src\graphics\renderer.h" />
     <ClInclude Include="src\graphics\e.h" />
@@ -183,6 +185,9 @@
   <ItemGroup>
     <None Include="src\shaders\basic.frag" />
     <None Include="src\shaders\basic.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="dev_img\1.PNG" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
