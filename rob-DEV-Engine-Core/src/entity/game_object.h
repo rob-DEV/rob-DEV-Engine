@@ -7,6 +7,7 @@ namespace Engine {  namespace Core {  namespace Entities {
 	{
 	public:
 		const Engine::Core::Graphics::Mesh* mesh;
+
 		GameObject();
 		GameObject(const char* name, glm::vec3 position, const Engine::Core::Graphics::Mesh &mesh);
 		~GameObject();

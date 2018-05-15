@@ -15,6 +15,9 @@ namespace Engine {  namespace Core {  namespace Graphics {
 		std::vector<unsigned int> verticeIndices;
 	    std::vector<glm::vec3> colors;
 
+		//RGB DIRECT TEST
+		std::vector<unsigned int> rgb_colors;
+
 		Mesh(const char * name);
 		Mesh(const char * name, const std::vector<glm::vec3>& vertices, const std::vector<glm::vec3>& colors);
 		~Mesh();

@@ -26,9 +26,8 @@ void Renderer::init()
 	Shaders->enable();
 
 	
-	glGenBuffers(1, &m_VBO);
 	
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+	m_VBO.bind();
 	glBufferData(GL_ARRAY_BUFFER, RENDERER_MAX_BUFFER_SIZE, NULL, GL_STATIC_DRAW);
 	
 	glEnableVertexAttribArray(SHADER_VERTEX_INDEX);
@@ -37,13 +36,10 @@ void Renderer::init()
 	glEnableVertexAttribArray(SHADER_FRAGMENT_INDEX);
 	glVertexAttribPointer(SHADER_FRAGMENT_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::color)));
 
-
-
 }
 
 void Renderer::begin()
 {
-	//mapping to be added
 	m_VertexBufferCount = 0;
 	m_VertexBuffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 }
@@ -59,15 +55,7 @@ void Renderer::submit(const Engine::Core::Graphics::Mesh& mesh, glm::vec3 positi
 
 		m_VertexBuffer->position = temp_vert_to_pos;
 
-		int r = mesh.colors[i].x * 255.0f;
-		int g = mesh.colors[i].y * 255.0f;
-		int b = mesh.colors[i].z * 255.0f;
-		int a = 255;
-
-		unsigned int c = a << 24 | b << 16 | g << 8 | r;
-
-
-		m_VertexBuffer->color = c;
+		m_VertexBuffer->color = mesh.rgb_colors[i];
 		m_VertexBuffer++;
 	}
 
@@ -105,7 +93,7 @@ void Renderer::draw()
 void Renderer::dispose()
 {
 	//assuming buffers are created in init()
-	glDeleteBuffers(1, &m_VBO);
+	m_VBO.del();
 	glDeleteBuffers(1, &m_IBO);
 }
 

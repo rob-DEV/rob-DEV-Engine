@@ -1,13 +1,20 @@
 #pragma once
-
+#include <GL/glew.h>
 
 namespace Engine { namespace Core { namespace Graphics { namespace Buffers {
 
-	class VertexBuffer
+	class VertexBufferObject
 	{
+	private:
+		GLuint m_VBO;
+
 	public:
-		VertexBuffer();
-		~VertexBuffer();
+		VertexBufferObject();
+		~VertexBufferObject();
+
+		void bind();
+		void unbind();
+		void del();
 	};
 
 } } } }

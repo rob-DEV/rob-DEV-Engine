@@ -18,6 +18,19 @@ namespace Engine {  namespace Core {  namespace Graphics {
 		if (&colors != NULL)
 			this->colors = colors;
 
+		//RGB Test Assignments
+		if (&colors != NULL)
+		{
+			for (size_t i = 0; i < colors.size(); i++)
+			{
+				int r = colors[i].x * 255.0f;
+				int g = colors[i].y * 255.0f;
+				int b = colors[i].z * 255.0f;
+				rgb_colors.push_back(255 << 24 | b << 16 | g << 8 | r);
+			}
+			
+		}
+
 		
 
 	}

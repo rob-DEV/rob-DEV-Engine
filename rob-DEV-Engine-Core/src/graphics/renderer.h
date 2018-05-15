@@ -1,8 +1,10 @@
 #pragma once
 #include <GL/glew.h>
-
+#include "buffers/vertex_buffer.h"
 #include "../entity/game_object.h"
 #include "shader.h"
+
+
 
 //set the max amounts which the renderer can handle
 #define RENDERER_MAX_BUFFER_SIZE 5000000
@@ -24,14 +26,14 @@ struct VertexData
 class Renderer
 {
 private:
-	GLuint m_VAO;
-	GLuint m_VBO;
+	
+	Buffers::VertexBufferObject m_VBO;
+
 	GLuint m_IBO;
 
 	VertexData* m_VertexBuffer;
 
 	GLsizei m_VertexBufferCount;
-	GLsizei m_IndiceCount;
 
 private:
 	void init();

@@ -92,6 +92,7 @@ namespace Engine { namespace Core { namespace IO { namespace Importers {
 		std::vector< glm::vec2 > temp_uvs;
 		std::vector< glm::vec3 > temp_normals;
 
+
 		Engine::Core::Graphics::Mesh* importedMesh = new Engine::Core::Graphics::Mesh("NO NAME");
 
 		FILE* file = fopen(filePath, "r");
@@ -169,11 +170,18 @@ namespace Engine { namespace Core { namespace IO { namespace Importers {
 
 		}
 		//rough 
-		for(int i = 0; i < 8; i++)
+		for (int i = 0; i < vertexIndices.size(); i++)
+		{
 			importedMesh->colors.push_back(glm::vec3(0.8f, 0.2f, 0.5f));
+			//RGB Test Assignments
+			int r = 0.8f * 255.0f;
+			int g = 0.2f * 255.0f;
+			int b = 0.5f * 255.0f;
+			importedMesh->rgb_colors.push_back(255 << 24 | b << 16 | g << 8 | r);
+
+		}
 
 		indexVBO(temp_vertices, vertexIndices, importedMesh->vertices);
-
 
 		fclose(file);
 

@@ -126,15 +126,20 @@ int main()
 		cols.push_back(glm::vec3(g_color_buffer_data[i], g_color_buffer_data[i + 1], g_color_buffer_data[i + 2]));
 	}
 
+	Mesh testCube("CUBE TEST", verts, cols);
+	Mesh testLoad = *Obj_Importer::getObjImporterInstance()->ImportObj("src/io/obj/monkey.obj");
+	GameObject testGameObject("GAMEOBJECT_ENTITY", glm::vec3(0, 0, 0), testLoad);
+
 	while (!window.closed())
 	{
 		window.clear();
 
 		renderer.begin();
 
-		for (size_t i = 0; i < 10; i++)
-			for (size_t j = 0; j < 10; j++)
-				renderer.submit(GameObject("GAMEOBJECT_ENTITY", glm::vec3(i * 3, 0, i * 3), Mesh("CUBE TEST", verts, cols)));
+		for (size_t i = 0; i < 100; i++)
+		{
+			renderer.submit(testGameObject);
+		}
 
 		renderer.end();
 
@@ -144,9 +149,7 @@ int main()
 
 		
 		if (INPUT->getKeyDown(GLFW_KEY_ESCAPE))
-		{
-			exit(0)
-		}
+			exit(0);
 
 
 		frames++;
