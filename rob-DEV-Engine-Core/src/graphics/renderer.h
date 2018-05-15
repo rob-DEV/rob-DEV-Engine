@@ -43,6 +43,13 @@ private:
 
 	GLsizei m_IndiceCount;
 
+	GLsizei m_VertexCount;
+
+	#if(_DEBUG)
+	std::vector<unsigned int> indiceRAW;
+	#endif
+
+
 private:
 	void init();
 	void submit(const Engine::Core::Graphics::Mesh& mesh, glm::vec3 position);

@@ -56,10 +56,11 @@ int main()
 	manualMesh.vertices.push_back(glm::vec3(1, 1, 1));
 
 
-	Mesh testLoad = *Obj_Importer::getObjImporterInstance()->ImportObj("src/io/obj/monkey.obj");
-	Mesh testLoad2 = *Obj_Importer::getObjImporterInstance()->ImportObj("src/io/obj/cube.obj");
-	GameObject testGameObject("GAMEOBJECT_ENTITY", glm::vec3(0, 0, 0), testLoad);
-	GameObject testGameObject2("GAMEOBJECT_ENTITY", glm::vec3(1, -5, 1), testLoad2);
+	Mesh cube_load = *Obj_Importer::getObjImporterInstance()->ImportObj("src/io/obj/cube.obj");
+	Mesh monkey_load = *Obj_Importer::getObjImporterInstance()->ImportObj("src/io/obj/monkey.obj");
+	GameObject cube("GAMEOBJECT_ENTITY", glm::vec3(1, -8, 1), cube_load);
+	GameObject cube2("GAMEOBJECT_ENTITY", glm::vec3(3, -3, 8), cube_load);
+	GameObject monkey("GAMEOBJECT_ENTITY", glm::vec3(0, 0, 0), monkey_load);
 
 	while (!window.closed())
 	{
@@ -67,8 +68,9 @@ int main()
 
 		renderer.begin();
 
-		renderer.submit(testGameObject);
-		renderer.submit(testGameObject2);
+		renderer.submit(cube);
+		renderer.submit(cube2);
+		renderer.submit(monkey);		
 
 		renderer.end();
 

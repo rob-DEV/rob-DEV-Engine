@@ -101,5 +101,8 @@
     <Image Include="dev_img\1.PNG">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="dev_img\2.PNG">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

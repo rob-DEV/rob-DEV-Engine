@@ -25,7 +25,7 @@ void Renderer::init()
 	Shaders = new Shader("src/shaders/basic.vert", "src/shaders/basic.frag");
 	Shaders->enable();
 	
-	//glGenVertexArrays(1, &m_VAO);
+	glGenVertexArrays(1, &m_VAO);
 
 
 	m_VBO.bind();
@@ -52,6 +52,7 @@ void Renderer::init()
 void Renderer::begin()
 {
 	m_IndiceCount = 0;
+	m_VertexCount = 0;
 
 	m_VBO.bind();
 	m_VertexBuffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
@@ -66,9 +67,15 @@ void Renderer::submit(const Engine::Core::Graphics::Mesh& mesh, glm::vec3 positi
 	
 	for (size_t i = 0; i < mesh.indices.size(); i++)
 	{
-		m_IndiceBuffer->indice = mesh.indices[i];
-		m_IndiceBuffer++;
+		//need to add indice offset
+		m_IndiceBuffer->indice = mesh.indices[i] + m_VertexCount;
+		indiceRAW.push_back(m_IndiceBuffer->indice);
 
+		m_IndiceBuffer++;
+	}
+
+	for (size_t i = 0; i < mesh.vertices.size(); i++)
+	{
 		if (i < mesh.vertices.size())
 		{
 			glm::vec3 temp_vert_to_pos = mesh.vertices[i];
@@ -80,9 +87,15 @@ void Renderer::submit(const Engine::Core::Graphics::Mesh& mesh, glm::vec3 positi
 
 			m_VertexBuffer->color = mesh.rgb_colors[i];
 			m_VertexBuffer++;
+			
 		}
 	}
 	
+
+	m_VertexCount += mesh.vertices.size();
+
+	
+
 	m_IndiceCount += mesh.indices.size();
 }
 
@@ -104,17 +117,17 @@ void Renderer::submit(const Engine::Core::Entities::GameObject& gameObject)
 void Renderer::end()
 {
 	glUnmapBuffer(GL_ARRAY_BUFFER);
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 	glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
-	
+
 }
 
 void Renderer::draw()
 {
-	//glDrawArrays(GL_TRIANGLES, 0, m_VertexBufferCount);
-
 	m_IBO.bind();
 
+	std::cout << "Indice Cout: " << m_IndiceCount << "\n";
 	glDrawElements(
 		GL_TRIANGLES,      // mode
 		m_IndiceCount,    // count
@@ -122,7 +135,7 @@ void Renderer::draw()
 		(void*)0           // element array buffer offset
 	);
 
-	
+	m_IBO.unbind();
 
 }
 
