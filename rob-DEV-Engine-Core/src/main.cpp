@@ -38,7 +38,7 @@ int main()
 	glm::mat4 pr_matrix = glm::perspective(glm::radians(90.0f), 16.0f / 9.0f, 0.1f, 10000.0f);
 
 	glm::mat4 vw_matrix = glm::lookAt(
-		glm::vec3(20, 4, -0), // Camera is at (4,3,-3), in World Space
+		glm::vec3(10, 4, -0), // Camera is at (4,3,-3), in World Space
 		glm::vec3(0, 0, 0), // and looks at the origin
 		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
 	);
@@ -63,13 +63,16 @@ int main()
 	{
 		window.clear();
 
+		//light test
+		renderer.Shaders->setUniform2f("light_pos", glm::vec2((float)(INPUT->m_MouseX * 16.0f / 640.0f), (float)(9.0f - INPUT->m_MouseY * 9.0f / 480.0f)));
+
 		renderer.begin();
 
 		
 		renderer.submit(cube);
 		renderer.submit(cube2);
 
-		monkey.transform.Rotate(glm::vec3(0, 1 * deltaTime, 0));
+		monkey.transform.Rotate(glm::vec3(0, 2 * deltaTime, 0));
 		
 		renderer.submit(monkey);
 		
@@ -88,7 +91,7 @@ int main()
 		deltaTime = timer.elasped() - lastTime;
 		lastTime = timer.elasped();
 
-		printf("%f\n", deltaTime);
+		//printf("%f\n", deltaTime);
 
 		frames++;
 		if (timer.elasped() - time_passed > 1.0f)

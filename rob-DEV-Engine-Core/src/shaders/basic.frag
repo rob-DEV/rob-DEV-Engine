@@ -1,15 +1,19 @@
 #version 330 core
+layout (location = 0) out vec4 color;
 
-// Interpolated values from the vertex shaders
-in vec3 fragmentColor;
+uniform vec2 light_pos;
 
 // Ouput data
-out vec3 color;
+
+in DATA
+{
+	vec4 position;
+	vec4 color;
+} fs_in;
 
 void main() {
 
-	// Output color = color specified in the vertex shader, 
-	// interpolated between all 3 surrounding vertices
-	color = fragmentColor;
+	float intensity = 2.0f / length(fs_in.position.xy - light_pos);
+	color = fs_in.color * intensity;
 
 }

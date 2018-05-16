@@ -65,10 +65,6 @@ namespace Engine {	namespace Core {
 	{
 		m_MouseX = xpos;
 		m_MouseY = ypos;
-
-		#if (_DEBUG)
-		std::cout << "X: " << m_MouseX << ", Y: " << m_MouseY << "\n";
-		#endif
 	}
 	bool Input::getKeyDown(unsigned int keyCode)
 	{

@@ -30,10 +30,10 @@ void Renderer::init()
 	Shaders->enable();
 	
 	glGenVertexArrays(1, &m_VAO);
-
+	glBindVertexArray(m_VAO);
 	m_VBO.bind();
 
-	glBindVertexArray(m_VAO);
+	
 
 
 	glBufferData(GL_ARRAY_BUFFER, RENDERER_MAX_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW);
@@ -43,8 +43,6 @@ void Renderer::init()
 
 	glEnableVertexAttribArray(SHADER_FRAGMENT_INDEX);
 	glVertexAttribPointer(SHADER_FRAGMENT_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::color)));
-	
-	m_VBO.unbind();
 
 	m_IBO.bind();
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, RENDERER_MAX_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW);
