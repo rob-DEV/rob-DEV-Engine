@@ -1,5 +1,9 @@
 #include "renderer.h"
 #include <iostream>
+//#include <glm/gtc/matrix_transform.hpp>
+//#include <glm/gtc/quaternion.hpp>
+//#include <glm/gtx/quaternion.hpp>
+#include <glm/gtx/norm.hpp>
 
 namespace Engine { namespace Core { namespace Graphics {
 
@@ -27,7 +31,6 @@ void Renderer::init()
 	
 	glGenVertexArrays(1, &m_VAO);
 
-
 	m_VBO.bind();
 
 	glBindVertexArray(m_VAO);
@@ -43,17 +46,15 @@ void Renderer::init()
 	
 	m_VBO.unbind();
 
-
 	m_IBO.bind();
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, RENDERER_MAX_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW);
 	m_IBO.unbind();
+
+	
 }
 
 void Renderer::begin()
 {
-	m_IndiceCount = 0;
-	m_VertexCount = 0;
-
 	m_VBO.bind();
 	m_VertexBuffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 
@@ -62,20 +63,18 @@ void Renderer::begin()
 	
 }
 
-void Renderer::submit(const Engine::Core::Graphics::Mesh& mesh, glm::vec3 position)
+void Renderer::submit(const Engine::Core::Graphics::Mesh& mesh, glm::vec3 position, glm::quat rotation)
 {
+	glm::mat4 rotation_mat = glm::toMat4(rotation);
+
+	Shaders->setUniformMat4("ml_matrix", rotation_mat);
 	
 	for (size_t i = 0; i < mesh.indices.size(); i++)
 	{
 		//need to add indice offset
 		m_IndiceBuffer->indice = mesh.indices[i] + m_VertexCount;
-		indiceRAW.push_back(m_IndiceBuffer->indice);
-
 		m_IndiceBuffer++;
-	}
 
-	for (size_t i = 0; i < mesh.vertices.size(); i++)
-	{
 		if (i < mesh.vertices.size())
 		{
 			glm::vec3 temp_vert_to_pos = mesh.vertices[i];
@@ -90,12 +89,8 @@ void Renderer::submit(const Engine::Core::Graphics::Mesh& mesh, glm::vec3 positi
 			
 		}
 	}
-	
 
 	m_VertexCount += mesh.vertices.size();
-
-	
-
 	m_IndiceCount += mesh.indices.size();
 }
 
@@ -103,7 +98,7 @@ void Renderer::submit(const Engine::Core::Graphics::Mesh& mesh)
 {
 	if (&mesh == NULL)
 		return;
-	submit(mesh, glm::vec3(0, 0, 0));
+	submit(mesh, glm::vec3(0, 0, 0), glm::quat());
 }
 void Renderer::submit(const Engine::Core::Entities::GameObject& gameObject)
 {
@@ -111,23 +106,18 @@ void Renderer::submit(const Engine::Core::Entities::GameObject& gameObject)
 		return;
 
 	//render at a given position
-	submit(*gameObject.mesh, gameObject.transform.position);
+	submit(*gameObject.mesh, gameObject.transform.position, gameObject.transform.rotation);
 }
 
 void Renderer::end()
 {
 	glUnmapBuffer(GL_ARRAY_BUFFER);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
 	glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
-
 }
 
 void Renderer::draw()
 {
-	m_IBO.bind();
-
-	std::cout << "Indice Cout: " << m_IndiceCount << "\n";
 	glDrawElements(
 		GL_TRIANGLES,      // mode
 		m_IndiceCount,    // count
@@ -135,8 +125,9 @@ void Renderer::draw()
 		(void*)0           // element array buffer offset
 	);
 
-	m_IBO.unbind();
-
+	//reset counters for the next frame
+	m_IndiceCount = 0;
+	m_VertexCount = 0;
 }
 
 void Renderer::dispose()

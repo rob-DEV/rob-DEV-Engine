@@ -5,7 +5,7 @@ namespace Engine {	namespace Core {
 	
 	static Input* m_Input = NULL;
 
-	Input* Input::getInputInstance()
+	Input* Input::getInstance()
 	{
 		if (m_Input == NULL)
 			m_Input = new Input();
@@ -27,19 +27,19 @@ namespace Engine {	namespace Core {
 	//Callback Static Handles - needed for C binding
 	void Input::window_resize_callback_handle(GLFWwindow *window, int width, int height)
 	{
-		getInputInstance()->window_resize_callback(window, width, height);
+		getInstance()->window_resize_callback(window, width, height);
 	}
 	void Input::key_callback_handle(GLFWwindow *window, int key, int scancode, int action, int mods)
 	{
-		getInputInstance()->key_callback(window, key, scancode, action, mods);
+		getInstance()->key_callback(window, key, scancode, action, mods);
 	}
 	void Input::mouse_button_callback_handle(GLFWwindow *window, int button, int action, int mods)
 	{
-		getInputInstance()->mouse_button_callback(window, button, action, mods);
+		getInstance()->mouse_button_callback(window, button, action, mods);
 	}
 	void Input::cursor_position_callback_handle(GLFWwindow *window, double xpos, double ypos)
 	{
-		getInputInstance()->cursor_position_callback(window, xpos, ypos);
+		getInstance()->cursor_position_callback(window, xpos, ypos);
 	}
 
 
@@ -76,7 +76,7 @@ namespace Engine {	namespace Core {
 		if (keyCode >= MAX_KEYS)
 			return false;
 		
-		return getInputInstance()->m_Keys[keyCode];
+		return getInstance()->m_Keys[keyCode];
 	}
 
 

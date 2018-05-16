@@ -2,6 +2,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "../common/singleton_instance.h"
 #include "../graphics/window.h"
 
 #define MAX_KEYS 1024
@@ -9,7 +10,7 @@
 
 
 namespace Engine { namespace Core {
-	class Input
+	class Input : public Singleton_Instance
 	{
 	public:
 
@@ -20,7 +21,7 @@ namespace Engine { namespace Core {
 	public:
 		Input();
 		~Input();
-		static Input* getInputInstance();
+		static Input* getInstance();
 
 		//GLFW Callbacks
 		static void window_resize_callback_handle(GLFWwindow *window, int width, int height);

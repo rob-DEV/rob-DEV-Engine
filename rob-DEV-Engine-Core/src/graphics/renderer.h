@@ -1,11 +1,10 @@
 #pragma once
 #include <GL/glew.h>
+
 #include "buffers/vertex_buffer.h"
 #include "buffers/index_buffer.h"
 #include "../entity/game_object.h"
 #include "shader.h"
-
-
 
 //set the max amounts which the renderer can handle
 #define RENDERER_MAX_BUFFER_SIZE 5000000
@@ -41,18 +40,15 @@ private:
 	VertexData* m_VertexBuffer;
 	IndiceData* m_IndiceBuffer;
 
+	//counters needed for vertex indice mapping in submit()
+	//TODO: refactor
 	GLsizei m_IndiceCount;
-
 	GLsizei m_VertexCount;
-
-	#if(_DEBUG)
-	std::vector<unsigned int> indiceRAW;
-	#endif
 
 
 private:
 	void init();
-	void submit(const Engine::Core::Graphics::Mesh& mesh, glm::vec3 position);
+	void submit(const Engine::Core::Graphics::Mesh& mesh, glm::vec3 position, glm::quat rotation);
 public:
 
 	Shader* Shaders = NULL;

@@ -165,8 +165,10 @@
     <ClCompile Include="src\graphics\shader.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
+    <ClCompile Include="src\time\time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\common\singleton_instance.h" />
     <ClInclude Include="src\graphics\buffers\index_buffer.h" />
     <ClInclude Include="src\graphics\buffers\vertex_buffer.h" />
     <ClInclude Include="src\graphics\renderer.h" />
@@ -179,8 +181,9 @@
     <ClInclude Include="src\graphics\shader.h" />
     <ClInclude Include="src\graphics\window.h" />
     <ClInclude Include="src\io\file\file_utils.h" />
-    <ClInclude Include="src\utils\timer.h" />
+    <ClInclude Include="src\time\debug_timer.h" />
     <ClInclude Include="src\entity\transform.h" />
+    <ClInclude Include="src\time\time.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\basic.frag" />
