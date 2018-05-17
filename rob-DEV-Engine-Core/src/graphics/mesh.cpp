@@ -7,26 +7,26 @@ namespace Engine {  namespace Core {  namespace Graphics {
 		this->name = std::string(name);
 	}
 
-	Mesh::Mesh(const char * name, const std::vector<glm::vec3>& vertices, const std::vector<glm::vec3>& colors)
+	Mesh::Mesh(const char * name, const std::vector<glm::vec3>& vertices, const std::vector<unsigned int>& rgb_colors)
 	{
 		this->name = std::string(name);
 		this->vertices = std::vector<glm::vec3>();
-		this->colors = std::vector<glm::vec3>();
+		this->rgb_colors = std::vector<unsigned int>();
 
 		if(&vertices != NULL)
 			this->vertices = vertices;
-		if (&colors != NULL)
-			this->colors = colors;
+		if (&rgb_colors != NULL)
+			this->rgb_colors = rgb_colors;
 
 		//RGB Test Assignments
-		if (&colors != NULL)
+		if (&rgb_colors != NULL)
 		{
-			for (size_t i = 0; i < colors.size(); i++)
+			for (size_t i = 0; i < this->rgb_colors.size(); i++)
 			{
-				int r = colors[i].x * 255.0f;
-				int g = colors[i].y * 255.0f;
-				int b = colors[i].z * 255.0f;
-				rgb_colors.push_back(255 << 24 | b << 16 | g << 8 | r);
+				int r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 255.0f;
+				int g = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 255.0f;
+				int b = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 255.0f;
+				this->rgb_colors.push_back(255 << 24 | b << 16 | g << 8 | r);
 			}
 			
 		}

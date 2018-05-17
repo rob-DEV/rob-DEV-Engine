@@ -159,7 +159,7 @@
     <ClCompile Include="src\graphics\buffers\vertex_buffer.cpp" />
     <ClCompile Include="src\graphics\renderer.cpp" />
     <ClCompile Include="src\graphics\buffers\vertex_array.cpp" />
-    <ClCompile Include="src\io\obj\object_importer.cpp" />
+    <ClCompile Include="src\io\obj\obj_importer.cpp" />
     <ClCompile Include="src\entity\game_object.cpp" />
     <ClCompile Include="src\graphics\mesh.cpp" />
     <ClCompile Include="src\entity\entity.cpp" />
@@ -176,7 +176,7 @@
     <ClInclude Include="src\graphics\renderer.h" />
     <ClInclude Include="src\graphics\e.h" />
     <ClInclude Include="src\graphics\buffers\vertex_array.h" />
-    <ClInclude Include="src\io\obj\object_importer.h" />
+    <ClInclude Include="src\io\obj\obj_importer.h" />
     <ClInclude Include="src\entity\game_object.h" />
     <ClInclude Include="src\graphics\mesh.h" />
     <ClInclude Include="src\entity\entity.h" />

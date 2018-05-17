@@ -63,8 +63,8 @@ namespace Engine {	namespace Core {
 	}
 	void Input::cursor_position_callback(GLFWwindow *window, double xpos, double ypos)
 	{
-		m_MouseX = xpos;
-		m_MouseY = ypos;
+		MouseX = xpos;
+		MouseY = ypos;
 	}
 	bool Input::getKeyDown(unsigned int keyCode)
 	{

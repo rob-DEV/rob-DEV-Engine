@@ -5,7 +5,7 @@
 #include "graphics/renderer.h"
 #include "entity/entity.h"
 #include "entity/game_object.h"
-#include "io/obj/object_importer.h"
+#include "io/obj/obj_importer.h"
 
 using namespace Engine::Core;
 using namespace Engine::Core::Graphics;
@@ -39,7 +39,7 @@ int main()
 
 	Mesh cube_load = *Obj_Importer::getObjImporterInstance()->ImportObj("src/io/obj/cube.obj");
 	Mesh monkey_load = *Obj_Importer::getObjImporterInstance()->ImportObj("src/io/obj/monkey.obj");
-	GameObject cube("GAMEOBJECT_ENTITY", glm::vec3(0, 0, 0), cube_load);
+	GameObject cube("GAMEOBJECT_ENTITY", glm::vec3(4, -2, 0), cube_load);
 	GameObject cube2("GAMEOBJECT_ENTITY", glm::vec3(3, -3, 8), cube_load);
 	GameObject monkey("GAMEOBJECT_ENTITY", glm::vec3(0, 0, 0), monkey_load);
 
@@ -49,17 +49,18 @@ int main()
 	while (!window.closed())
 	{
 		window.clear();
-
+		renderer.Shaders->setUniformMat4("ml_matrix", glm::toMat4(glm::quat(glm::vec3(0,0,0))));
 		//light test
-		renderer.Shaders->setUniform2f("light_pos", glm::vec2((float)(INPUT->m_MouseX * 16.0f / 640.0f), (float)(9.0f - INPUT->m_MouseY * 9.0f / 480.0f)));
+		renderer.Shaders->setUniform2f("light_pos", glm::vec2((float)(INPUT->MouseX	 * 16.0f / 640.0f), (float)(9.0f - INPUT->MouseY * 9.0f / 480.0f)));
 
 		renderer.begin();
 		
 		renderer.submit(cube);
 		renderer.submit(cube2);
 
-		monkey.transform.Rotate(glm::vec3(0, 2 * TIME->deltaTime, 0));
-		
+		monkey.transform.rotate(glm::vec3(0, 2 * TIME->deltaTime, 0));
+
+
 		renderer.submit(monkey);
 		
 

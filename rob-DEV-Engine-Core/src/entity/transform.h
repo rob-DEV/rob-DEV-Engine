@@ -16,7 +16,7 @@ namespace Engine {  namespace Core {  namespace Entities {
 		Transform(glm::vec3 position);
 		Transform(glm::vec3 position, glm::vec3 eulerAngles);
 
-		void Rotate(glm::vec3 eulerAngles);
+		void rotate(glm::vec3 eulerAngles);
 
 		~Transform();
 	};
@@ -39,7 +39,7 @@ namespace Engine {  namespace Core {  namespace Entities {
 		this->rotation = glm::quat(eulerAngles);
 	}
 
-	inline void Transform::Rotate(glm::vec3 eulerAngles)
+	inline void Transform::rotate(glm::vec3 eulerAngles)
 	{
 		this->rotation = glm::quat(eulerAngles) * this->rotation;
 	}

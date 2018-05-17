@@ -59,10 +59,11 @@ namespace Engine { namespace Core { namespace Graphics {
 
 	void Renderer::submit(const Engine::Core::Graphics::Mesh& mesh, glm::vec3 position, glm::quat rotation)
 	{
+		
+
 		glm::mat4 rotation_mat = glm::toMat4(rotation);
 
-		Shaders->setUniformMat4("ml_matrix", rotation_mat);
-	
+
 		for (size_t i = 0; i < mesh.indices.size(); i++)
 		{
 			//need to add indice offset
@@ -71,7 +72,13 @@ namespace Engine { namespace Core { namespace Graphics {
 
 			if (i < mesh.vertices.size())
 			{
-				glm::vec3 temp_vert_to_pos = mesh.vertices[i];
+				//modify the vertex for the rotation (this does work)
+				glm::vec4 vec_rot = rotation_mat * glm::vec4(mesh.vertices[i], 1.0);
+
+				
+				glm::vec3 corrected(vec_rot.x, vec_rot.y, vec_rot.z);
+
+				glm::vec3 temp_vert_to_pos = corrected;
 				temp_vert_to_pos.x += position.x;
 				temp_vert_to_pos.y += position.y;
 				temp_vert_to_pos.z += position.z;
@@ -80,12 +87,13 @@ namespace Engine { namespace Core { namespace Graphics {
 
 				m_VertexBuffer->color = mesh.rgb_colors[i];
 				m_VertexBuffer++;
-			
+
 			}
 		}
 
 		m_VertexCount += mesh.vertices.size();
 		m_IndiceCount += mesh.indices.size();
+
 	}
 
 	void Renderer::submit(const Engine::Core::Graphics::Mesh& mesh)
