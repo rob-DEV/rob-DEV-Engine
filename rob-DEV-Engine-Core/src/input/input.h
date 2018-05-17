@@ -18,7 +18,8 @@ namespace Engine { namespace Core {
 		bool m_Keys[MAX_KEYS];
 		bool m_MouseButtons[MAX_BUTTONS];
 	public:
-		double MouseX, MouseY = 0;
+		double RawMouseX, RawMouseY = 0;
+		double NormalisedMouseX, NormalisedMouseY = 0;
 	public:
 		Input();
 		~Input();

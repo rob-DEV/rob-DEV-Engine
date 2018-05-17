@@ -25,7 +25,7 @@ int main()
 	glm::mat4 pr_matrix = glm::perspective(glm::radians(90.0f), 16.0f / 9.0f, 0.1f, 10000.0f);
 
 	glm::mat4 vw_matrix = glm::lookAt(
-		glm::vec3(10, 4, -0), // Camera is at (4,3,-3), in World Space
+		glm::vec3(10, 4, -10), // Camera is at (4,3,-3), in World Space
 		glm::vec3(0, 0, 0), // and looks at the origin
 		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
 	);
@@ -43,29 +43,24 @@ int main()
 	GameObject cube2("GAMEOBJECT_ENTITY", glm::vec3(3, -3, 8), cube_load);
 	GameObject monkey("GAMEOBJECT_ENTITY", glm::vec3(0, 0, 0), monkey_load);
 
-
-	glm::mat4 s(1.0f);
+	std::vector<GameObject> objs;
 
 	while (!window.closed())
 	{
 		window.clear();
-		renderer.Shaders->setUniformMat4("ml_matrix", glm::toMat4(glm::quat(glm::vec3(0,0,0))));
+
 		//light test
-		renderer.Shaders->setUniform2f("light_pos", glm::vec2((float)(INPUT->MouseX	 * 16.0f / 640.0f), (float)(9.0f - INPUT->MouseY * 9.0f / 480.0f)));
+		renderer.Shaders->setUniform2f("light_pos", glm::vec2((float)(-INPUT->NormalisedMouseX / 10), (float)(INPUT->NormalisedMouseY / 10)));
 
 		renderer.begin();
-		
+
 		renderer.submit(cube);
 		renderer.submit(cube2);
 
-		monkey.transform.rotate(glm::vec3(0, 2 * TIME->deltaTime, 0));
-
-
+		monkey.transform.rotate(glm::vec3(0, 1 * TIME->deltaTime, 0));
 		renderer.submit(monkey);
-		
 
 		renderer.end();
-
 		renderer.draw();
 		
 		window.update();

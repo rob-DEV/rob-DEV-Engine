@@ -73,18 +73,11 @@ namespace Engine { namespace Core { namespace Graphics {
 			if (i < mesh.vertices.size())
 			{
 				//modify the vertex for the rotation (this does work)
-				glm::vec4 vec_rot = rotation_mat * glm::vec4(mesh.vertices[i], 1.0);
+				glm::vec3 rotate_corrected_vertex((rotation_mat * glm::vec4(mesh.vertices[i], 1.0)).x, (rotation_mat * glm::vec4(mesh.vertices[i], 1.0)).y, (rotation_mat * glm::vec4(mesh.vertices[i], 1.0)).z);
 
-				
-				glm::vec3 corrected(vec_rot.x, vec_rot.y, vec_rot.z);
+				rotate_corrected_vertex += position;
 
-				glm::vec3 temp_vert_to_pos = corrected;
-				temp_vert_to_pos.x += position.x;
-				temp_vert_to_pos.y += position.y;
-				temp_vert_to_pos.z += position.z;
-
-				m_VertexBuffer->position = temp_vert_to_pos;
-
+				m_VertexBuffer->position = rotate_corrected_vertex;
 				m_VertexBuffer->color = mesh.rgb_colors[i];
 				m_VertexBuffer++;
 
@@ -120,6 +113,7 @@ namespace Engine { namespace Core { namespace Graphics {
 
 	void Renderer::draw()
 	{
+		//std::cout << "VERTEX COUNT: " << m_VertexCount << "\n";
 		glDrawElements(
 			GL_TRIANGLES,      // mode
 			m_IndiceCount,    // count

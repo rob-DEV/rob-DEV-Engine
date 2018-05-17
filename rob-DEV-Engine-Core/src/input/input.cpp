@@ -63,8 +63,26 @@ namespace Engine {	namespace Core {
 	}
 	void Input::cursor_position_callback(GLFWwindow *window, double xpos, double ypos)
 	{
-		MouseX = xpos;
-		MouseY = ypos;
+		RawMouseX = xpos;
+		RawMouseY = ypos;
+
+		if (RawMouseX < 320)
+			NormalisedMouseX = -320 + RawMouseX;
+		if (RawMouseX > 320)
+			NormalisedMouseX = RawMouseX - 320;
+
+		if (RawMouseY < 240)
+			NormalisedMouseY = 240 - RawMouseY;
+		if (RawMouseY > 240)
+			NormalisedMouseY = -(RawMouseY - 240);
+
+		if (RawMouseX == 320)
+			NormalisedMouseX = 0;
+
+		//TODO: turn off in release!
+		#if (!_DEBUG)
+		 std::cout << "X:" << NormalisedMouseX << " Y:" << NormalisedMouseY << "\n";
+		#endif
 	}
 	bool Input::getKeyDown(unsigned int keyCode)
 	{
