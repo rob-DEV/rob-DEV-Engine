@@ -1,9 +1,5 @@
 #include <iostream>
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
-#include "time/debug_timer.h"
 #include "time/time.h"
 #include "graphics/window.h"
 #include "graphics/renderer.h"
@@ -16,19 +12,10 @@ using namespace Engine::Core::Graphics;
 using namespace Engine::Core::Entities;
 using namespace Engine::Core::IO::Importers;
 
-
-#define INPUT Input::getInstance()
-
 int main()
 {
-	Timer timer;
-	Time time;
-	float time_passed = 0;
+	double time_passed = 0;
 	unsigned int frames = 0;
-
-	double lastTime = 0;
-	double deltaTime = 0;
-
 
 	Window window("MAIN ENGINE", 640, 480);
 	glClearColor(0.02f, 0.55f, 1.0f, 1.0f);
@@ -67,12 +54,11 @@ int main()
 		renderer.Shaders->setUniform2f("light_pos", glm::vec2((float)(INPUT->m_MouseX * 16.0f / 640.0f), (float)(9.0f - INPUT->m_MouseY * 9.0f / 480.0f)));
 
 		renderer.begin();
-
 		
 		renderer.submit(cube);
 		renderer.submit(cube2);
 
-		monkey.transform.Rotate(glm::vec3(0, 2 * deltaTime, 0));
+		monkey.transform.Rotate(glm::vec3(0, 2 * TIME->deltaTime, 0));
 		
 		renderer.submit(monkey);
 		
@@ -83,21 +69,18 @@ int main()
 		
 		window.update();
 
-		
+		if (INPUT->getKeyDown(GLFW_KEY_G))
+			renderer.dispose();
+
 		if (INPUT->getKeyDown(GLFW_KEY_ESCAPE))
 			exit(0);
 
-
-		deltaTime = timer.elasped() - lastTime;
-		lastTime = timer.elasped();
-
-		//printf("%f\n", deltaTime);
-
 		frames++;
-		if (timer.elasped() - time_passed > 1.0f)
+
+		if (TIME->elasped() - time_passed > 1.0f)
 		{
 			time_passed += 1.0f;
-			//printf("%dfps\n", frames);
+			printf("%dfps\n", frames);
 			frames = 0;
 
 		}

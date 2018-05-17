@@ -1,10 +1,13 @@
 #pragma once
 #include <GL/glew.h>
 
+#include "shader.h"
+#include "../entity/game_object.h"
 #include "buffers/vertex_buffer.h"
 #include "buffers/index_buffer.h"
-#include "../entity/game_object.h"
-#include "shader.h"
+#include "buffers/vertex_array.h"
+
+
 
 //set the max amounts which the renderer can handle
 #define RENDERER_MAX_BUFFER_SIZE 5000000
@@ -16,56 +19,56 @@
 
 namespace Engine { namespace Core { namespace Graphics { 
 
-//describes an individual vertex pushed from a model into the renderer::submit()
-struct VertexData
-{
-	glm::vec3 position;
-	unsigned int color;
-};
+	//describes an individual vertex pushed from a model into the renderer::submit()
+	struct VertexData
+	{
+		glm::vec3 position;
+		unsigned int color;
+	};
 
-struct IndiceData
-{
-	unsigned int indice;
-};
+	struct IndiceData
+	{
+		unsigned int indice;
+	};
 
-class Renderer
-{
-private:
+	class Renderer
+	{
+	private:
 	
-	Buffers::VertexBufferObject m_VBO;
-	Buffers::IndexBufferObject m_IBO;
+		Buffers::VertexBufferObject m_VBO;
+		Buffers::IndexBufferObject m_IBO;
 
-	GLuint m_VAO;
+		Buffers::VertexArray m_VAO;
 
-	VertexData* m_VertexBuffer;
-	IndiceData* m_IndiceBuffer;
+		VertexData* m_VertexBuffer;
+		IndiceData* m_IndiceBuffer;
 
-	//counters needed for vertex indice mapping in submit()
-	//TODO: refactor
-	GLsizei m_IndiceCount;
-	GLsizei m_VertexCount;
+		//counters needed for vertex indice mapping in submit()
+		//TODO: refactor
+		GLsizei m_IndiceCount;
+		GLsizei m_VertexCount;
 
 
-private:
-	void init();
-	void submit(const Engine::Core::Graphics::Mesh& mesh, glm::vec3 position, glm::quat rotation);
-public:
+	private:
+		void init();
+		void submit(const Engine::Core::Graphics::Mesh& mesh, glm::vec3 position, glm::quat rotation);
+	public:
 
-	Shader* Shaders = NULL;
+		Shader* Shaders = NULL;
 
-	Renderer();
-	~Renderer();
+		Renderer();
+		~Renderer();
 
-	void begin();
+		void begin();
 
-	void submit(const Engine::Core::Graphics::Mesh& mesh);
-	void submit(const Engine::Core::Entities::GameObject& gameObject);
+		void submit(const Engine::Core::Graphics::Mesh& mesh);
+		void submit(const Engine::Core::Entities::GameObject& gameObject);
 
-	void draw();
-	void end();
+		void draw();
+		void end();
 
-	void dispose();
+		void dispose();
 
-};
+	};
 
 } } }

@@ -145,7 +145,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\dependencies\GLEW\include;..\dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\dependencies\GLM;..\dependencies\GLEW\include;..\dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -157,6 +158,7 @@
     <ClCompile Include="src\graphics\buffers\index_buffer.cpp" />
     <ClCompile Include="src\graphics\buffers\vertex_buffer.cpp" />
     <ClCompile Include="src\graphics\renderer.cpp" />
+    <ClCompile Include="src\graphics\buffers\vertex_array.cpp" />
     <ClCompile Include="src\io\obj\object_importer.cpp" />
     <ClCompile Include="src\entity\game_object.cpp" />
     <ClCompile Include="src\graphics\mesh.cpp" />
@@ -173,6 +175,7 @@
     <ClInclude Include="src\graphics\buffers\vertex_buffer.h" />
     <ClInclude Include="src\graphics\renderer.h" />
     <ClInclude Include="src\graphics\e.h" />
+    <ClInclude Include="src\graphics\buffers\vertex_array.h" />
     <ClInclude Include="src\io\obj\object_importer.h" />
     <ClInclude Include="src\entity\game_object.h" />
     <ClInclude Include="src\graphics\mesh.h" />
@@ -181,7 +184,6 @@
     <ClInclude Include="src\graphics\shader.h" />
     <ClInclude Include="src\graphics\window.h" />
     <ClInclude Include="src\io\file\file_utils.h" />
-    <ClInclude Include="src\time\debug_timer.h" />
     <ClInclude Include="src\entity\transform.h" />
     <ClInclude Include="src\time\time.h" />
   </ItemGroup>

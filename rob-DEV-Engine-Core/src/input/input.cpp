@@ -3,14 +3,14 @@
 
 namespace Engine {	namespace Core {
 	
-	static Input* m_Input = NULL;
+	static Input* m_Instance = NULL;
 
 	Input* Input::getInstance()
 	{
-		if (m_Input == NULL)
-			m_Input = new Input();
+		if (m_Instance == NULL)
+			m_Instance = new Input();
 
-		return m_Input;
+		return m_Instance;
 
 	}
 

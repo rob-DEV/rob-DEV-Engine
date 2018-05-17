@@ -8,16 +8,17 @@
 #define MAX_KEYS 1024
 #define MAX_BUTTONS 32
 
+#define INPUT Input::getInstance()
 
 namespace Engine { namespace Core {
 	class Input : public Singleton_Instance
 	{
-	public:
+	private:
 
 		bool m_Keys[MAX_KEYS];
 		bool m_MouseButtons[MAX_BUTTONS];
+	public:
 		double m_MouseX, m_MouseY = 0;
-
 	public:
 		Input();
 		~Input();
