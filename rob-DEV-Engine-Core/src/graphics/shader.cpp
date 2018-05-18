@@ -4,7 +4,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "shader.h"
-#include "../io/file/file_utils.h"
+#include "../io/utils/file_utils.h"
 
 
 using namespace Engine::Core;

@@ -3,9 +3,9 @@
 
 #include "shader.h"
 #include "../entity/game_object.h"
-#include "buffers/vertex_buffer.h"
-#include "buffers/index_buffer.h"
-#include "buffers/vertex_array.h"
+#include "buffer/vertex_buffer.h"
+#include "buffer/index_buffer.h"
+#include "buffer/vertex_array.h"
 
 
 

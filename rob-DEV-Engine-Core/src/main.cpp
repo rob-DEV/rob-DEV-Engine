@@ -1,15 +1,21 @@
 #include <iostream>
 
 #include "time/time.h"
+
 #include "graphics/window.h"
 #include "graphics/renderer.h"
+
 #include "entity/entity.h"
 #include "entity/game_object.h"
-#include "io/obj/obj_importer.h"
+
+#include "io/file/file.h"
+#include "io/filesystem/file_system.h"
+#include "io/importers/obj/obj_importer.h"
 
 using namespace Engine::Core;
 using namespace Engine::Core::Graphics;
 using namespace Engine::Core::Entities;
+using namespace Engine::Core::IO;
 using namespace Engine::Core::IO::Importers;
 
 int main()
@@ -21,6 +27,7 @@ int main()
 	glClearColor(0.02f, 0.55f, 1.0f, 1.0f);
 
 	Renderer renderer;
+	Renderer renderer2;
 	
 	glm::mat4 pr_matrix = glm::perspective(glm::radians(90.0f), 16.0f / 9.0f, 0.1f, 10000.0f);
 
@@ -37,19 +44,39 @@ int main()
 	renderer.Shaders->setUniformMat4("ml_matrix", glm::mat4(1.0f));
 
 
-	Mesh* cube_load = OBJ_IMPORTER->ImportObj("src/io/obj/cube.obj");
-	Mesh* monkey_load = OBJ_IMPORTER->ImportObj("src/io/obj/monkey.obj");
+	Mesh* cube_load = OBJ_IMPORTER->ImportObj("src/io/importers/obj/cube.obj");
+	Mesh* monkey_load = OBJ_IMPORTER->ImportObj("src/io/importers/obj/monkey.obj");
 	GameObject* cube = new GameObject("GAMEOBJECT_ENTITY", glm::vec3(4, -3, 0), cube_load);
 	GameObject* cube2 = new GameObject("GAMEOBJECT_ENTITY", glm::vec3(3, -3, 8), cube_load);
 	GameObject* monkey = new GameObject("GAMEOBJECT_ENTITY", glm::vec3(0, 0, 0), monkey_load);
 
+	
+	VirtualFile f;
+	VirtualFileSystem fs;
+	
 	std::vector<GameObject*> objs;
 
 
-	for (size_t i = 0; i < 20000; i++)
+	#if(DEBUG)
+	//much slower therefore less models
+	for (size_t i = 0; i < 20; i++)
 	{
-		objs.push_back(new GameObject("GAMEOBJECT_ENTITY", glm::vec3(4, -3, 0), cube_load));
+		for (size_t j = 0; j < 10; j++)
+		{
+			objs.push_back(new GameObject("GAMEOBJECT_ENTITY", glm::vec3(-(float)(i * 3), -3, -(float)(j * 8)), cube_load));
+		}
 	}
+	
+	#else
+
+	for (size_t i = 0; i < 200; i++)
+	{
+		for (size_t j = 0; j < 10; j++)
+		{
+			objs.push_back(new GameObject("GAMEOBJECT_ENTITY", glm::vec3(-(float)(i * 3), -3, -(float)(j * 8)), cube_load));
+		}
+	}
+	#endif
 
 	
 	while (!window.closed())
@@ -60,15 +87,24 @@ int main()
 		renderer.Shaders->setUniform2f("light_pos", glm::vec2((float)(-INPUT->NormalisedMouseX / 10), (float)(INPUT->NormalisedMouseY / 10)));
 
 		renderer.begin();
-
 		renderer.submit(cube);
 		renderer.submit(cube2);
+
+
+		for (size_t i = 0; i < objs.size(); i++)
+		{
+			if (objs[i] != NULL)
+				objs[i]->transform.rotate(glm::vec3(0, 10 * TIME->deltaTime, 0));
+			renderer.submit(objs[i]);
+		}
 
 		monkey->transform.rotate(glm::vec3(0, 1 * TIME->deltaTime, 0));
 		
 		if(cube != NULL)
 			cube->transform.rotate(glm::vec3(2 * TIME->deltaTime, 2 * TIME->deltaTime, 2 * TIME->deltaTime));
 		
+
+
 		renderer.submit(monkey);
 
 		renderer.end();
@@ -78,7 +114,7 @@ int main()
 
 		if(INPUT->getKeyDown(GLFW_KEY_F))
 		{
-			for (size_t i = 0; i < 20000; i++)
+			for (size_t i = 0; i < objs.size(); i++)
 			{
 				Destroy(objs[i]);
 			}

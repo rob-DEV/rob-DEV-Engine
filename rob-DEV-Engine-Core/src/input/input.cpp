@@ -52,10 +52,6 @@ namespace Engine {	namespace Core {
 	{
 		//set key bool true when key press (not released)
 		m_Keys[key] = action != GLFW_RELEASE;
-
-		#if (_DEBUG)
-		std::cout << "Key Pressed: " << (char)key << "\n";
-		#endif
 	}
 	void Input::mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
 	{

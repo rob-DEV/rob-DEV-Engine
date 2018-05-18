@@ -35,9 +35,6 @@ namespace Engine {  namespace Core {  namespace Graphics {
 			}
 			
 		}
-
-		
-
 	}
 	
 
