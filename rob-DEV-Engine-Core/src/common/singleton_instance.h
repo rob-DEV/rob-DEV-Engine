@@ -1,5 +1,6 @@
 #pragma once
 
 struct Singleton_Instance {
-	inline Singleton_Instance* getInstance() { return NULL; }
+	//NULL
+	static inline Singleton_Instance* getInstance() { return 0; }
 };

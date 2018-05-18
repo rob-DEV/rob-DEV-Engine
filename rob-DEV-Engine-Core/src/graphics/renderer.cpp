@@ -113,7 +113,6 @@ namespace Engine { namespace Core { namespace Graphics {
 
 	void Renderer::draw()
 	{
-		//std::cout << "VERTEX COUNT: " << m_VertexCount << "\n";
 		glDrawElements(
 			GL_TRIANGLES,      // mode
 			m_IndiceCount,    // count
