@@ -2,14 +2,19 @@
 
 namespace Engine {  namespace Core {  namespace Graphics {
 
-	Mesh::Mesh(const char * name)
+	Mesh::Mesh()
 	{
-		this->name = std::string(name);
 	}
 
-	Mesh::Mesh(const char * name, const std::vector<glm::vec3>& vertices, const std::vector<unsigned int>& rgb_colors)
+	Mesh::Mesh(const Mesh* mesh)
 	{
-		this->name = std::string(name);
+		vertices = mesh->vertices;
+		indices = mesh->indices;
+		rgb_colors = mesh->rgb_colors;
+	}
+
+	Mesh::Mesh(const std::vector<glm::vec3>& vertices, const std::vector<unsigned int>& rgb_colors)
+	{
 		this->vertices = std::vector<glm::vec3>();
 		this->rgb_colors = std::vector<unsigned int>();
 
@@ -38,11 +43,9 @@ namespace Engine {  namespace Core {  namespace Graphics {
 
 	Mesh::~Mesh()
 	{
-	}
-
-	unsigned int Mesh::getSize()
-	{
-		return vertices.size() * sizeof(GLfloat);
+		vertices = std::vector<glm::vec3>();
+		indices = std::vector<unsigned int>();
+		rgb_colors = std::vector<unsigned int>();
 	}
 
 }  }  }

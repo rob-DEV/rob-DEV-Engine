@@ -37,12 +37,21 @@ int main()
 	renderer.Shaders->setUniformMat4("ml_matrix", glm::mat4(1.0f));
 
 
-	Mesh cube_load = *OBJ_IMPORTER->ImportObj("src/io/obj/cube.obj");
-	Mesh monkey_load = *OBJ_IMPORTER->ImportObj("src/io/obj/monkey.obj");
-	GameObject cube("GAMEOBJECT_ENTITY", glm::vec3(4, -3, 0), cube_load);
-	GameObject cube2("GAMEOBJECT_ENTITY", glm::vec3(3, -3, 8), cube_load);
-	GameObject monkey("GAMEOBJECT_ENTITY", glm::vec3(0, 0, 0), monkey_load);
+	Mesh* cube_load = OBJ_IMPORTER->ImportObj("src/io/obj/cube.obj");
+	Mesh* monkey_load = OBJ_IMPORTER->ImportObj("src/io/obj/monkey.obj");
+	GameObject* cube = new GameObject("GAMEOBJECT_ENTITY", glm::vec3(4, -3, 0), cube_load);
+	GameObject* cube2 = new GameObject("GAMEOBJECT_ENTITY", glm::vec3(3, -3, 8), cube_load);
+	GameObject* monkey = new GameObject("GAMEOBJECT_ENTITY", glm::vec3(0, 0, 0), monkey_load);
 
+	std::vector<GameObject*> objs;
+
+
+	for (size_t i = 0; i < 20000; i++)
+	{
+		objs.push_back(new GameObject("GAMEOBJECT_ENTITY", glm::vec3(4, -3, 0), cube_load));
+	}
+
+	
 	while (!window.closed())
 	{
 		window.clear();
@@ -55,9 +64,11 @@ int main()
 		renderer.submit(cube);
 		renderer.submit(cube2);
 
-		monkey.transform.rotate(glm::vec3(0, 1 * TIME->deltaTime, 0));
-		cube.transform.rotate(glm::vec3(2 * TIME->deltaTime, 2 * TIME->deltaTime, 2 * TIME->deltaTime));
-
+		monkey->transform.rotate(glm::vec3(0, 1 * TIME->deltaTime, 0));
+		
+		if(cube != NULL)
+			cube->transform.rotate(glm::vec3(2 * TIME->deltaTime, 2 * TIME->deltaTime, 2 * TIME->deltaTime));
+		
 		renderer.submit(monkey);
 
 		renderer.end();
@@ -65,6 +76,19 @@ int main()
 		
 		window.update();
 
+		if(INPUT->getKeyDown(GLFW_KEY_F))
+		{
+			for (size_t i = 0; i < 20000; i++)
+			{
+				Destroy(objs[i]);
+			}
+		}
+
+
+		if (INPUT->getKeyDown(GLFW_KEY_D))
+		{
+			Destroy(cube);
+		}
 
 		if (INPUT->getKeyDown(GLFW_KEY_ESCAPE))
 			exit(0);
@@ -75,6 +99,7 @@ int main()
 		{
 			time_passed += 1.0f;
 			printf("%dfps\n", frames);
+			printf("%d Entities\n", Entity::number_entities);
 			frames = 0;
 
 		}

@@ -51,7 +51,7 @@ namespace Engine { namespace Core { namespace Graphics {
 
 	private:
 		void init();
-		void submit(const Engine::Core::Graphics::Mesh& mesh, glm::vec3 position, glm::quat rotation);
+		void submit(Engine::Core::Graphics::Mesh* mesh, glm::vec3 position, glm::quat rotation);
 	public:
 
 		Shader* Shaders = NULL;
@@ -61,8 +61,8 @@ namespace Engine { namespace Core { namespace Graphics {
 
 		void begin();
 
-		void submit(const Engine::Core::Graphics::Mesh& mesh);
-		void submit(const Engine::Core::Entities::GameObject& gameObject);
+		void submit(Engine::Core::Graphics::Mesh* mesh);
+		void submit(Engine::Core::Entities::GameObject* gameObject);
 
 		void draw();
 		void end();

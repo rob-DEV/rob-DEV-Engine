@@ -29,8 +29,8 @@ namespace Engine {  namespace Core {  namespace Graphics {
 		GLuint vertex = glCreateShader(GL_VERTEX_SHADER);
 		GLuint fragment = glCreateShader(GL_FRAGMENT_SHADER);
 
-		std::string vertPath = FileUtils::read_file(m_VertPath);
-		std::string fragPath = FileUtils::read_file(m_FragPath);
+		std::string vertPath = IO::FileUtils::read_file(m_VertPath);
+		std::string fragPath = IO::FileUtils::read_file(m_FragPath);
 		const char* vertSource = vertPath.c_str();
 		const char* fragSource = fragPath.c_str();
 

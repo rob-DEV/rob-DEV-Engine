@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-namespace Engine { namespace Core {
+namespace Engine { namespace Core { namespace IO {
 
 	class FileUtils {
 	public:
@@ -23,5 +23,5 @@ namespace Engine { namespace Core {
 			return result;
 		}
 	};
-	
-}	}
+
+} } }

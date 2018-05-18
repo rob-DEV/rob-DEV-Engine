@@ -10,15 +10,14 @@ namespace Engine {  namespace Core {  namespace Graphics {
 	{
 	public:
 
-		std::string name;
 		std::vector<glm::vec3> vertices;
 		std::vector<unsigned int> indices;
 		std::vector<unsigned int> rgb_colors;
 
-		Mesh(const char* name);
-		Mesh(const char* name, const std::vector<glm::vec3>& vertices, const std::vector<unsigned int>& colors);
+		Mesh();
+		Mesh(const Mesh* mesh);
+		Mesh(const std::vector<glm::vec3>& vertices, const std::vector<unsigned int>& colors);
 		~Mesh();
 
-		unsigned int getSize();
 	};
 }  }  }

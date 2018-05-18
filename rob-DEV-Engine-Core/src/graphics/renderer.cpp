@@ -57,51 +57,57 @@ namespace Engine { namespace Core { namespace Graphics {
 	
 	}
 
-	void Renderer::submit(const Engine::Core::Graphics::Mesh& mesh, glm::vec3 position, glm::quat rotation)
+	void Renderer::submit(Engine::Core::Graphics::Mesh* mesh, glm::vec3 position, glm::quat rotation)
 	{
 		
 
 		glm::mat4 rotation_mat = glm::toMat4(rotation);
 
 
-		for (size_t i = 0; i < mesh.indices.size(); i++)
+		for (size_t i = 0; i < mesh->indices.size(); i++)
 		{
 			//need to add indice offset
-			m_IndiceBuffer->indice = mesh.indices[i] + m_VertexCount;
+			m_IndiceBuffer->indice = mesh->indices[i] + m_VertexCount;
 			m_IndiceBuffer++;
 
-			if (i < mesh.vertices.size())
+			if (i < mesh->vertices.size())
 			{
 				//modify the vertex for the rotation (this does work)
-				glm::vec3 rotate_corrected_vertex((rotation_mat * glm::vec4(mesh.vertices[i], 1.0)).x, (rotation_mat * glm::vec4(mesh.vertices[i], 1.0)).y, (rotation_mat * glm::vec4(mesh.vertices[i], 1.0)).z);
+				glm::vec3 rotate_corrected_vertex((rotation_mat * glm::vec4(mesh->vertices[i], 1.0)).x, (rotation_mat * glm::vec4(mesh->vertices[i], 1.0)).y, (rotation_mat * glm::vec4(mesh->vertices[i], 1.0)).z);
 
 				rotate_corrected_vertex += position;
 
 				m_VertexBuffer->position = rotate_corrected_vertex;
-				m_VertexBuffer->color = mesh.rgb_colors[i];
+				m_VertexBuffer->color = mesh->rgb_colors[i];
 				m_VertexBuffer++;
 
 			}
 		}
 
-		m_VertexCount += mesh.vertices.size();
-		m_IndiceCount += mesh.indices.size();
+		m_VertexCount += mesh->vertices.size();
+		m_IndiceCount += mesh->indices.size();
 
 	}
 
-	void Renderer::submit(const Engine::Core::Graphics::Mesh& mesh)
+	void Renderer::submit(Engine::Core::Graphics::Mesh* mesh)
 	{
-		if (&mesh == NULL)
+		if (mesh == NULL)
 			return;
 		submit(mesh, glm::vec3(0, 0, 0), glm::quat());
 	}
-	void Renderer::submit(const Engine::Core::Entities::GameObject& gameObject)
+
+	void Renderer::submit(Engine::Core::Entities::GameObject* gameObject)
 	{
-		if (&gameObject == NULL)
+		if (gameObject == NULL)
+			return;
+		if (gameObject->mesh == NULL)
+			return;
+
+		if (gameObject->mesh->vertices.size() < 1)
 			return;
 
 		//render at a given position
-		submit(*gameObject.mesh, gameObject.transform.position, gameObject.transform.rotation);
+		submit(gameObject->mesh, gameObject->transform.position, gameObject->transform.rotation);
 	}
 
 	void Renderer::end()
