@@ -8,8 +8,8 @@
 #include "entity/entity.h"
 #include "entity/game_object.h"
 
-#include "io/file/file.h"
-#include "io/filesystem/file_system.h"
+#include "io/file/virtual_file.h"
+#include "io/filesystem/virtual_file_system.h"
 #include "io/importers/obj/obj_importer.h"
 
 using namespace Engine::Core;
@@ -37,12 +37,9 @@ int main()
 		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
 	);
 
-	//vw_matrix = glm::rotate(vw_matrix, 10.0f, glm::vec3(1, 0, 0));
-
 	renderer.Shaders->setUniformMat4("pr_matrix", pr_matrix);
 	renderer.Shaders->setUniformMat4("vw_matrix", vw_matrix);
 	renderer.Shaders->setUniformMat4("ml_matrix", glm::mat4(1.0f));
-
 
 	Mesh* cube_load = OBJ_IMPORTER->ImportObj("src/io/importers/obj/cube.obj");
 	Mesh* monkey_load = OBJ_IMPORTER->ImportObj("src/io/importers/obj/monkey.obj");
@@ -50,10 +47,17 @@ int main()
 	GameObject* cube2 = new GameObject("GAMEOBJECT_ENTITY", glm::vec3(3, -3, 8), cube_load);
 	GameObject* monkey = new GameObject("GAMEOBJECT_ENTITY", glm::vec3(0, 0, 0), monkey_load);
 
-	
-	VirtualFile f;
-	VirtualFileSystem fs;
-	
+	VirtualFileSystem* vfs = VirtualFileSystem::Create("res/filesystems/DATA.VFS");
+
+	VF_Data_t data;
+	data.byte_data = (char*)"TEST DATA TO WRITE AS A VIRTUAL FILE";
+	data.data_byte_size = strlen(data.byte_data);
+
+	VirtualFile* fileToAdd = new VirtualFile("testfile.txt", FileType::TEXT, data);
+
+	std::cout << sizeof(VF_Header_t) << "\n";
+	vfs->AddFile(fileToAdd, true);
+
 	std::vector<GameObject*> objs;
 
 

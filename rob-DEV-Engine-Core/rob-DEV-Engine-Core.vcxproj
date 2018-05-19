@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)$(Configuration)\intermediates\</IntDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)\intermediates\</IntDir>
     <LibraryPath>..\dependencies\GLEW\lib;..\dependencies\GLFW\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -155,8 +155,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\io\filesystem\file_system.cpp" />
-    <ClCompile Include="src\io\file\file.cpp" />
+    <ClCompile Include="src\io\filesystem\virtual_file_system.cpp" />
+    <ClCompile Include="src\io\file\virtual_file.cpp" />
     <ClCompile Include="src\graphics\buffer\index_buffer.cpp" />
     <ClCompile Include="src\graphics\buffer\vertex_buffer.cpp" />
     <ClCompile Include="src\graphics\renderer.cpp" />
@@ -173,8 +173,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\io\common\file_types.h" />
-    <ClInclude Include="src\io\filesystem\file_system.h" />
-    <ClInclude Include="src\io\file\file.h" />
+    <ClInclude Include="src\io\common\io.h" />
+    <ClInclude Include="src\io\filesystem\virtual_file_system.h" />
+    <ClInclude Include="src\io\file\virtual_file.h" />
     <ClInclude Include="src\common\singleton_instance.h" />
     <ClInclude Include="src\graphics\buffer\index_buffer.h" />
     <ClInclude Include="src\graphics\buffer\vertex_buffer.h" />
@@ -193,8 +194,9 @@
     <ClInclude Include="src\time\time.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\shaders\basic.frag" />
-    <None Include="src\shaders\basic.vert" />
+    <None Include="res\filesystems\DATA.VFS" />
+    <None Include="res\shaders\basic.frag" />
+    <None Include="res\shaders\basic.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="dev_img\1.PNG" />

@@ -75,9 +75,8 @@ namespace Engine {	namespace Core {
 		if (RawMouseX == 320)
 			NormalisedMouseX = 0;
 
-		//TODO: turn off in release!
-		#if (!_DEBUG)
-		 std::cout << "X:" << NormalisedMouseX << " Y:" << NormalisedMouseY << "\n";
+		#if (DEBUG)
+		std::cout << "X:" << NormalisedMouseX << " Y:" << NormalisedMouseY << "\n";
 		#endif
 	}
 	bool Input::getKeyDown(unsigned int keyCode)

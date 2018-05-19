@@ -42,12 +42,6 @@
     <ClCompile Include="src\time\time.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\io\file\file.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\io\filesystem\file_system.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\graphics\buffer\index_buffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -58,6 +52,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\io\importers\obj\obj_importer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\io\filesystem\virtual_file_system.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\io\file\virtual_file.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,12 +98,6 @@
     <ClInclude Include="src\io\utils\file_utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\io\file\file.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\io\filesystem\file_system.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\graphics\buffer\index_buffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -119,10 +113,20 @@
     <ClInclude Include="src\io\common\file_types.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\io\filesystem\virtual_file_system.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\io\file\virtual_file.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\io\common\io.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\shaders\basic.frag" />
-    <None Include="src\shaders\basic.vert" />
+    <None Include="res\shaders\basic.frag" />
+    <None Include="res\shaders\basic.vert" />
+    <None Include="res\filesystems\DATA.VFS" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="dev_img\1.PNG">

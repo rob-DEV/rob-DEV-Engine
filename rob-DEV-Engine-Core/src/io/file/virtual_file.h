@@ -1,13 +1,19 @@
 #pragma once
+#include <string>
 #include "../common/file_types.h"
 
 namespace Engine { namespace Core { namespace IO {
+
 	class VirtualFile
 	{
 	private:
-		FileType type;
+		
 	public:
-		VirtualFile();
+		VF_Header_t m_FileHeader;
+		char* m_FileData;
+
+		VirtualFile(const char* fName, FileType fType, const VF_Data_t& data);
 		~VirtualFile();
+
 	};
 } } }

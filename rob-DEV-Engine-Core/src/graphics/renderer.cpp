@@ -23,7 +23,7 @@ namespace Engine { namespace Core { namespace Graphics {
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
 
-		Shaders = new Shader("src/shaders/basic.vert", "src/shaders/basic.frag");
+		Shaders = new Shader("res/shaders/basic.vert", "res/shaders/basic.frag");
 		Shaders->enable();
 	
 		m_VAO.bind();
