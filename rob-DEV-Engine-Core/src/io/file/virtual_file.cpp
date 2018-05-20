@@ -7,13 +7,13 @@ namespace Engine { namespace Core { namespace IO {
 		for (size_t i = 0; i < MAX_FILE_LENGTH; i++)
 		{
 			if (i < strlen(fName))
-				m_FileHeader.file_name[i] = fName[i];
+				m_FileHeader.vf_name[i] = fName[i];
 			else
-				m_FileHeader.file_name[i] = '\0';
+				m_FileHeader.vf_name[i] = '\0';
 		}
 
-		m_FileHeader.file_size = data.data_byte_size;
-		m_FileHeader.file_type = fType;
+		m_FileHeader.vf_size = data.data_byte_size;
+		m_FileHeader.vf_type = fType;
 		
 		m_FileData = data.byte_data;
 	}

@@ -6,6 +6,21 @@
 #include "../../common/singleton_instance.h"
 #include "../file/virtual_file.h"
 
+/*
+*	STRUCTURE OF A .VFS FILE (NN == NO NULL TERMINATOR USED FOR THIS STRUTURE)
+*	VFS_Header_t (148 bytes)
+*		vfs_marker - <VFS> NN
+*		vfs_version - <V1.00> NN
+*		vfs_hash -  <128 byte HASH> NN
+*		vfs_dir_count - uint32 NN
+*		vfs_file_count - uint32 NN
+*	FOREACH FILE
+*	VF_Header_t (148 bytes)
+*		vf_marker - <VFS--FILE>
+*		vf_name - MAX LENGTH 128 bytes
+*		vf_type -  uint32 NN
+*		vf_size - uint32 NN
+*/
 
 namespace Engine { namespace Core { namespace IO {
 	class VirtualFileSystem

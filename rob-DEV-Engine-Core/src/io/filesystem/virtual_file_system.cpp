@@ -32,13 +32,13 @@ namespace Engine { namespace Core { namespace IO {
 			read_from_stream(m_InStreamFromDisk, header);
 
 			VF_Data_Param_t data;
-			data.data_byte_size = header.file_size;
-			data.byte_data = new char[header.file_size + 1];
-			data.byte_data[header.file_size + 1] = '\0';
+			data.data_byte_size = header.vf_size;
+			data.byte_data = new char[header.vf_size + 1];
+			data.byte_data[header.vf_size + 1] = '\0';
 
-			m_InStreamFromDisk.read(reinterpret_cast<char*>(data.byte_data), header.file_size);
+			m_InStreamFromDisk.read(reinterpret_cast<char*>(data.byte_data), header.vf_size);
 			
-			VFS_Files.push_back(new VirtualFile(header.file_name, header.file_type, data));
+			VFS_Files.push_back(new VirtualFile(header.vf_name, header.vf_type, data));
 		}
 
 		m_FileSystemOnHeap = true;
@@ -69,14 +69,10 @@ namespace Engine { namespace Core { namespace IO {
 		VFS_Header_t header;
 		header.vfs_dir_count = 0;
 		header.vfs_file_count = 0;
-
+		
+		//no null terminator
 		for (size_t i = 0; i < 128; i++)
-		{
-			if(i == 127)
-				header.vfs_hash[i] = '\0';
-			else
-				header.vfs_hash[i] = '-';
-		}
+			header.vfs_hash[i] = '-';
 
 		write_to_stream(stream, header);
 
@@ -137,7 +133,7 @@ namespace Engine { namespace Core { namespace IO {
 		m_OutStreamToDisk.seekp(0, std::ios::end);
 		write_to_stream(m_OutStreamToDisk, fileToAdd->m_FileHeader);
 		
-		for (size_t i = 0; i < fileToAdd->m_FileHeader.file_size; i++)
+		for (size_t i = 0; i < fileToAdd->m_FileHeader.vf_size; i++)
 			write_to_stream(m_OutStreamToDisk, fileToAdd->m_FileData[i]);
 		
 		m_OutStreamToDisk.close();
