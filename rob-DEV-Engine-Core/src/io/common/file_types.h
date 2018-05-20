@@ -33,6 +33,19 @@ namespace Engine { namespace Core { namespace IO {
 	{
 		char* byte_data;
 		unsigned int data_byte_size;
+
+	public:
+		Virtual_File_Data() { };
+		template<typename T>
+		Virtual_File_Data(T& data, unsigned int size)
+		{
+			data_byte_size = size;
+			byte_data = new char[data_byte_size + 1];
+			byte_data[data_byte_size + 1] = NULL;
+
+			memcpy(byte_data, &data, data_byte_size);
+		}
+
 	} VF_Data_Param_t;
 
 

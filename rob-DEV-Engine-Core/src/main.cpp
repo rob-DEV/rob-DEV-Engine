@@ -49,31 +49,26 @@ int main()
 
 	VirtualFileSystem* vfs = VirtualFileSystem::Open("res/filesystems/DATA.VFS");
 
-	/*
-	VF_Data_Param_t data;
-	data.byte_data = (char*)"TEST DATA NQ!£$%$% TOi868 WRITE AS A VIRTUAL FILE";
-	data.data_byte_size = strlen(data.byte_data);
 
-	VirtualFile* fileToAdd = new VirtualFile("testfile1.txt", FileType::TEXT, data);
+	VirtualFile* fileToAdd = new VirtualFile("vertex_object_2.obj", FileType::OBJ, VF_Data_Param_t(cube_load->vertices[0], 96));
 
-	VF_Data_Param_t data2;
-	data2.byte_data = (char*)"TEST DATA 2 TO WRITE AS A VIRTUAL FILE";
-	data2.data_byte_size = strlen(data2.byte_data);
+	VirtualFile* retrieveFile = vfs->Retrieve("testfile1.txt");
 
-	VirtualFile* fileToAdd2 = new VirtualFile("testfile2.txt", FileType::TEXT, data2);
-	
-	vfs->AddFile(fileToAdd, true);
-	vfs->AddFile(fileToAdd2, true);
-	*/
+	std::cout << "Virtual File Name: " << retrieveFile->m_FileHeader.vf_name << "\n";
+	std::cout << "Virtual File Type: " << retrieveFile->m_FileHeader.vf_type << "\n";
+	std::cout << "Virtual File Size: " << retrieveFile->m_FileHeader.vf_size << "\n";
+	std::cout << "Virtual File VF MARKER: " << retrieveFile->m_FileHeader.vf_marker << "\n";
 
-	std::cout << "Virtual File Name: " << vfs->VFS_Files[0]->m_FileHeader.vf_name << "\n";
-	std::cout << "Virtual File Type: " << (FileType)vfs->VFS_Files[0]->m_FileHeader.vf_type << "\n";
-	std::cout << "Virtual File Size: " << vfs->VFS_Files[0]->m_FileHeader.vf_size << "\n";
-	std::cout << "Virtual File VF MARKER: " << vfs->VFS_Files[0]->m_FileHeader.vf_marker << "\n";
+
+	char* vertexData = vfs->VFS_Files[3]->m_FileData;
+	glm::vec3* ptr = new glm::vec3[8];
+
+	memcpy(ptr, vertexData, 96);
+
+
+
 
 	std::vector<GameObject*> objs;
-
-
 	#if(DEBUG)
 	//much slower therefore less models
 	for (size_t i = 0; i < 20; i++)

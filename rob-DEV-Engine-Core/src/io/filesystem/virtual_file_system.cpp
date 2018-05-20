@@ -85,7 +85,6 @@ namespace Engine { namespace Core { namespace IO {
 	}
 
 
-
 	//USE EXISTING
 	VirtualFileSystem* VirtualFileSystem::Open(const char* VFS_File_Path)
 	{
@@ -140,6 +139,30 @@ namespace Engine { namespace Core { namespace IO {
 		
 		//mount in RAM
 		VFS_Files.push_back(fileToAdd);
+	}
+
+
+
+
+	bool strCharByCharCmp(const char* a, const char* b)
+	{
+		for (size_t i = 0; i < strlen(a); i++)
+		{
+			if (a[i] != b[i])
+				return false;
+		}
+
+		return true;
+	}
+
+
+	VirtualFile* VirtualFileSystem::Retrieve(const char* fileName)
+	{
+		for (int i = 0; i < VFS_Files.size(); i++)
+			if (strCharByCharCmp(VFS_Files[i]->m_FileHeader.vf_name, fileName))
+				return VFS_Files[i];
+		
+		return NULL;
 	}
 
 } } }

@@ -52,6 +52,7 @@ namespace Engine { namespace Core { namespace IO {
 		~VirtualFileSystem();
 
 		bool AddFile(VirtualFile* fileToAdd, bool pushToFile);
+		VirtualFile* Retrieve(const char* fileName);
 
 		//CREATE NEW
 		static VirtualFileSystem* Create(const char* VFS_File_Path);
