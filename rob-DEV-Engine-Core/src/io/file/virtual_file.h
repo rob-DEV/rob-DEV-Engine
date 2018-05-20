@@ -12,7 +12,7 @@ namespace Engine { namespace Core { namespace IO {
 		VF_Header_t m_FileHeader;
 		char* m_FileData;
 
-		VirtualFile(const char* fName, FileType fType, const VF_Data_t& data);
+		VirtualFile(const char* fName, FileType fType, const VF_Data_Param_t& data);
 		~VirtualFile();
 
 	};

@@ -1,7 +1,7 @@
 #include "virtual_file.h"
 
 namespace Engine { namespace Core { namespace IO {
-	VirtualFile::VirtualFile(const char* fName, FileType fType, const VF_Data_t& data)
+	VirtualFile::VirtualFile(const char* fName, FileType fType, const VF_Data_Param_t& data)
 	{
 		//name
 		for (size_t i = 0; i < MAX_FILE_LENGTH; i++)

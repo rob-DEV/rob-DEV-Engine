@@ -8,6 +8,13 @@ namespace Engine { namespace Core { namespace IO {
 	}
 
 	template<typename T>
+	inline void read_from_stream(std::ifstream& stream, T& buffer, unsigned int size)
+	{
+		stream.read(reinterpret_cast<char*>(&buffer), size);
+	}
+
+
+	template<typename T>
 	inline void write_to_stream(std::ifstream& stream, T& t)
 	{
 		stream.write(reinterpret_cast<char*>(&t), sizeof(T));

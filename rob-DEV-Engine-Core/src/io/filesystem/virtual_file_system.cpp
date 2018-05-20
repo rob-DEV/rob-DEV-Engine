@@ -4,17 +4,17 @@
 namespace Engine { namespace Core { namespace IO {
 
 
-	VirtualFileSystem::VirtualFileSystem(const char* VFS_File_Path, VFS_Header_t header)
+	VirtualFileSystem::VirtualFileSystem(const char* VFS_File_Path, VFS_Header_t vfs_header)
 	{
 		this->m_VFS_FilePath = std::string(VFS_File_Path);
-		this->m_VFS_Header = header;
+		this->m_VFS_Header = vfs_header;
 
 		m_InStreamFromDisk.open(VFS_File_Path, std::ios::binary);
-		std::cout << (unsigned int)m_InStreamFromDisk.tellg() << "\n";
 
-		//get file of the VFS data = (FULL SIZE) - VFS_HEADER_SIZE 
+		//get file size of the VFS data = (FULL SIZE) - VFS_HEADER_SIZE 
 		m_InStreamFromDisk.seekg(0, std::ios::end);
-		m_VFS_DATA_SIZE =  (unsigned int)m_InStreamFromDisk.tellg() - VFS_HEADER_SIZE;
+		m_VFS_RAW_FILE_SIZE = (unsigned int)m_InStreamFromDisk.tellg();
+		m_VFS_DATA_SIZE = m_VFS_RAW_FILE_SIZE - VFS_HEADER_SIZE;
 
 		//no virtual files exist
 		if (m_VFS_DATA_SIZE < VF_HEADER_SIZE)
@@ -24,14 +24,32 @@ namespace Engine { namespace Core { namespace IO {
 		m_InStreamFromDisk.seekg(VFS_HEADER_SIZE, std::ios::beg);
 
 		//allocate the virtual files to the heap
+		//packaged files are not null terminated therefore we need to compare sizes for end of files
+		while ((unsigned int)m_InStreamFromDisk.tellg() != m_VFS_RAW_FILE_SIZE)
+		{
+			//handle each virtual file
+			VF_Header_t header;
+			read_from_stream(m_InStreamFromDisk, header);
+
+			VF_Data_Param_t data;
+			data.data_byte_size = header.file_size;
+			data.byte_data = new char[header.file_size + 1];
+			data.byte_data[header.file_size + 1] = '\0';
+
+			m_InStreamFromDisk.read(reinterpret_cast<char*>(data.byte_data), header.file_size);
+			
+			VFS_Files.push_back(new VirtualFile(header.file_name, header.file_type, data));
+		}
+
+		m_FileSystemOnHeap = true;
 
 	}
 	
 	VirtualFileSystem::~VirtualFileSystem()
 	{
-		for (size_t i = 0; i < m_VFS_Files.size(); i++)
+		for (size_t i = 0; i < VFS_Files.size(); i++)
 		{
-			delete m_VFS_Files[i];
+			delete VFS_Files[i];
 		}
 	}
 	
@@ -69,6 +87,8 @@ namespace Engine { namespace Core { namespace IO {
 		return VirtualFileSystem::Open(VFS_File_Path);
 
 	}
+
+
 
 	//USE EXISTING
 	VirtualFileSystem* VirtualFileSystem::Open(const char* VFS_File_Path)
@@ -109,7 +129,7 @@ namespace Engine { namespace Core { namespace IO {
 	{
 		if (!pushToFile)
 		{
-			m_VFS_Files.push_back(fileToAdd);
+			VFS_Files.push_back(fileToAdd);
 			return true;
 		}
 
@@ -118,11 +138,12 @@ namespace Engine { namespace Core { namespace IO {
 		write_to_stream(m_OutStreamToDisk, fileToAdd->m_FileHeader);
 		
 		for (size_t i = 0; i < fileToAdd->m_FileHeader.file_size; i++)
-		{
 			write_to_stream(m_OutStreamToDisk, fileToAdd->m_FileData[i]);
-		}
-
+		
 		m_OutStreamToDisk.close();
+		
+		//mount in RAM
+		VFS_Files.push_back(fileToAdd);
 	}
 
 } } }

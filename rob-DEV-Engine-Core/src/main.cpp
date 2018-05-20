@@ -47,16 +47,22 @@ int main()
 	GameObject* cube2 = new GameObject("GAMEOBJECT_ENTITY", glm::vec3(3, -3, 8), cube_load);
 	GameObject* monkey = new GameObject("GAMEOBJECT_ENTITY", glm::vec3(0, 0, 0), monkey_load);
 
-	VirtualFileSystem* vfs = VirtualFileSystem::Create("res/filesystems/DATA.VFS");
+	VirtualFileSystem* vfs = VirtualFileSystem::Open("res/filesystems/DATA.VFS");
 
-	VF_Data_t data;
-	data.byte_data = (char*)"TEST DATA TO WRITE AS A VIRTUAL FILE";
+	/*
+	VF_Data_Param_t data;
+	data.byte_data = (char*)"TEST DATA 2 TO WRITE AS A VIRTUAL FILE";
 	data.data_byte_size = strlen(data.byte_data);
 
-	VirtualFile* fileToAdd = new VirtualFile("testfile.txt", FileType::TEXT, data);
-
-	std::cout << sizeof(VF_Header_t) << "\n";
+	VirtualFile* fileToAdd = new VirtualFile("testfile2.txt", FileType::TEXT, data);
+	
 	vfs->AddFile(fileToAdd, true);
+	*/
+
+	std::cout << "Virtual File Name: " << vfs->VFS_Files[0]->m_FileHeader.file_name << "\n";
+	std::cout << "Virtual File Type: " << (FileType)vfs->VFS_Files[0]->m_FileHeader.file_type << "\n";
+	std::cout << "Virtual File Size: " << vfs->VFS_Files[0]->m_FileHeader.file_size << "\n";
+	std::cout << "Virtual File VF MARKER: " << vfs->VFS_Files[0]->m_FileHeader.vfs_vf_marker << "\n";
 
 	std::vector<GameObject*> objs;
 

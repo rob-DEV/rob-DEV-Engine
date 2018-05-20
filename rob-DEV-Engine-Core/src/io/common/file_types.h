@@ -20,18 +20,19 @@ namespace Engine { namespace Core { namespace IO {
 	//4GB limit :( again 148 bytes
 	typedef struct Virtual_File_Header
 	{
-		char vfs_vf_marker[12] = { '<', 'V', 'F', 'S', '-','-','-', 'F', 'I','L', 'E', '>' };
+		char vfs_vf_marker[12] = { '<', 'V', 'F', 'S', '-','-', 'F', 'I','L', 'E', '>', '\0'};
 		char file_name[MAX_FILE_LENGTH];
 		FileType file_type;
 		unsigned int file_size;
 
 	} VF_Header_t;
 
+	//Grouping for single parameter passing
 	typedef struct Virtual_File_Data
 	{
 		char* byte_data;
 		unsigned int data_byte_size;
-	} VF_Data_t;
+	} VF_Data_Param_t;
 
 
 	#define VFS_HEADER_SIZE sizeof(VFS_Header_t)

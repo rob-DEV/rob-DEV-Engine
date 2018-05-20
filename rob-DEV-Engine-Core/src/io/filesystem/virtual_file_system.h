@@ -17,18 +17,21 @@ namespace Engine { namespace Core { namespace IO {
 
 		std::string m_VFS_FilePath;
 		
-		//DATA
+		//GLOBAL HEADER FOR THE VFS
 		VFS_Header_t m_VFS_Header;
-		std::vector<VirtualFile*> m_VFS_Files;
-		//Excluding the VFS_Header
+
+		//ENTIRE RAW BYTES SIZE FOR THE VFS FILE
+		unsigned int m_VFS_RAW_FILE_SIZE;
+		
+		//ENTIRE RAW BYTES SIZE FOR THE VFS FILE - VFS_HEADER_SIZE
 		unsigned int m_VFS_DATA_SIZE;
 
 		bool m_FileSystemOnHeap = false;
-		//END DATA
 
 		//EXIST VFS FILE
 		bool verifiedHash();
-
+	public:
+		std::vector<VirtualFile*> VFS_Files;
 	public:
 		VirtualFileSystem(const char* VFS_File_Path, VFS_Header_t header);
 		~VirtualFileSystem();

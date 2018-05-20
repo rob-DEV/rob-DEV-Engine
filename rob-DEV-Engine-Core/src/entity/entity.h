@@ -17,7 +17,7 @@ namespace Engine { namespace Core { namespace Entities {
 	public:
 		Entity();
 		Entity(const char* name, glm::vec3 postion);
-		~Entity();
+		virtual ~Entity();
 	};
 
 	template<typename T>
