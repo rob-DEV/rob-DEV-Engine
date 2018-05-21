@@ -62,7 +62,7 @@ namespace Engine { namespace Core { namespace Graphics {
 		void begin();
 
 		void submit(Engine::Core::Graphics::Mesh* mesh);
-		void submit(Engine::Core::Entities::GameObject* gameObject);
+		void submit(Engine::Core::Entities::Entity* renderableEntity);
 
 		void draw();
 		void end();

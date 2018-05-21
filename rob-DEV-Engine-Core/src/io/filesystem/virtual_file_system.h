@@ -20,6 +20,7 @@
 *		vf_name - MAX LENGTH 128 bytes
 *		vf_type -  uint32 NN
 *		vf_size - uint32 NN
+*	FOLLOWED BY FILE DATA
 */
 
 namespace Engine { namespace Core { namespace IO {

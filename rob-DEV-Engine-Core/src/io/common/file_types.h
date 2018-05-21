@@ -2,7 +2,7 @@
 
 namespace Engine { namespace Core { namespace IO {
 	//A list of virtual file types read in from packaged files
-	enum FileType{ TEXT, PNG, JPG, OBJ};
+	enum FileType{ TEXT, PNG, JPG, OBJ, SCENE};
 
 	#define MAX_FILE_LENGTH 128
 

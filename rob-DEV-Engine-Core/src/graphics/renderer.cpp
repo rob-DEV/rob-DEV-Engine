@@ -96,18 +96,18 @@ namespace Engine { namespace Core { namespace Graphics {
 		submit(mesh, glm::vec3(0, 0, 0), glm::quat());
 	}
 
-	void Renderer::submit(Engine::Core::Entities::GameObject* gameObject)
+	void Renderer::submit(Engine::Core::Entities::Entity* renderableEntity)
 	{
-		if (gameObject == NULL)
+		if (((Engine::Core::Entities::GameObject*)renderableEntity) == NULL)
 			return;
-		if (gameObject->mesh == NULL)
+		if (((Engine::Core::Entities::GameObject*)renderableEntity)->mesh == NULL)
 			return;
 
-		if (gameObject->mesh->vertices.size() < 1)
+		if (((Engine::Core::Entities::GameObject*)renderableEntity)->mesh->vertices.size() < 1)
 			return;
 
 		//render at a given position
-		submit(gameObject->mesh, gameObject->transform.position, gameObject->transform.rotation);
+		submit(((Engine::Core::Entities::GameObject*)renderableEntity)->mesh, ((Engine::Core::Entities::GameObject*)renderableEntity)->transform.position, ((Engine::Core::Entities::GameObject*)renderableEntity)->transform.rotation);
 	}
 
 	void Renderer::end()

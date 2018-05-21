@@ -4,7 +4,6 @@ layout(location = 1) in vec3 vertexColor;
 
 uniform mat4 pr_matrix = mat4(1.0);
 uniform mat4 vw_matrix = mat4(1.0);
-
 uniform mat4 ml_matrix = mat4(1.0);
 
 out DATA

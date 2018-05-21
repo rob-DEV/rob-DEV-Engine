@@ -7,6 +7,7 @@
 
 #include "entity/entity.h"
 #include "entity/game_object.h"
+#include "entity/scene.h"
 
 #include "io/file/virtual_file.h"
 #include "io/filesystem/virtual_file_system.h"
@@ -41,56 +42,44 @@ int main()
 	renderer.Shaders->setUniformMat4("vw_matrix", vw_matrix);
 	renderer.Shaders->setUniformMat4("ml_matrix", glm::mat4(1.0f));
 
-	Mesh* cube_load = OBJ_IMPORTER->ImportObj("src/io/importers/obj/cube.obj");
-	Mesh* monkey_load = OBJ_IMPORTER->ImportObj("src/io/importers/obj/monkey.obj");
-	GameObject* cube = new GameObject("GAMEOBJECT_ENTITY", glm::vec3(4, -3, 0), cube_load);
-	GameObject* cube2 = new GameObject("GAMEOBJECT_ENTITY", glm::vec3(3, -3, 8), cube_load);
-	GameObject* monkey = new GameObject("GAMEOBJECT_ENTITY", glm::vec3(0, 0, 0), monkey_load);
+	Mesh* cube_load = OBJ_IMPORTER->ImportObj("res/obj/cube.obj");
+	Mesh* monkey_load = OBJ_IMPORTER->ImportObj("res/obj/monkey.obj");
 
 	VirtualFileSystem* vfs = VirtualFileSystem::Open("res/filesystems/DATA.VFS");
 
+	//NEW SCENE OBJECT
+	Scene* testingScene = new Scene("TEST_LEVEL");
 
-	VirtualFile* fileToAdd = new VirtualFile("vertex_object_2.obj", FileType::OBJ, VF_Data_Param_t(cube_load->vertices[0], 96));
+	
 
-	VirtualFile* retrieveFile = vfs->Retrieve("testfile1.txt");
-
-	std::cout << "Virtual File Name: " << retrieveFile->m_FileHeader.vf_name << "\n";
-	std::cout << "Virtual File Type: " << retrieveFile->m_FileHeader.vf_type << "\n";
-	std::cout << "Virtual File Size: " << retrieveFile->m_FileHeader.vf_size << "\n";
-	std::cout << "Virtual File VF MARKER: " << retrieveFile->m_FileHeader.vf_marker << "\n";
-
-
-	char* vertexData = vfs->VFS_Files[3]->m_FileData;
-	glm::vec3* ptr = new glm::vec3[8];
-
-	memcpy(ptr, vertexData, 96);
-
-
-
-
-	std::vector<GameObject*> objs;
 	#if(DEBUG)
 	//much slower therefore less models
-	for (size_t i = 0; i < 20; i++)
+	for (size_t i = 0; i < 1; i++)
 	{
-		for (size_t j = 0; j < 10; j++)
+		for (size_t j = 0; j < 1; j++)
 		{
-			objs.push_back(new GameObject("GAMEOBJECT_ENTITY", glm::vec3(-(float)(i * 3), -3, -(float)(j * 8)), cube_load));
+			testingScene->push_to_scene_data(new GameObject("GAMEOBJECT_ENTITY", glm::vec3((float)(i * 3), -3, -(float)(j * 8)), cube_load));
 		}
 	}
 	
 	#else
 
-	for (size_t i = 0; i < 200; i++)
+	for (size_t i = 0; i < 2000; i++)
 	{
 		for (size_t j = 0; j < 10; j++)
 		{
-			objs.push_back(new GameObject("GAMEOBJECT_ENTITY", glm::vec3(-(float)(i * 3), -3, -(float)(j * 8)), cube_load));
+			testingScene->push_to_scene_data(new GameObject("GAMEOBJECT_ENTITY", glm::vec3(-(float)(i * 3), -3, -(float)(j * 8)), cube_load));
 		}
 	}
 	#endif
 
-	
+
+	//VirtualFile* sceneFile = testingScene->bake_scene_data_to_file("TestLevel.level");
+
+	//vfs->AddFile(sceneFile, true);
+
+	VirtualFile* sceneFile = vfs->Retrieve("TestLevel.level");
+
 	while (!window.closed())
 	{
 		window.clear();
@@ -99,44 +88,14 @@ int main()
 		renderer.Shaders->setUniform2f("light_pos", glm::vec2((float)(-INPUT->NormalisedMouseX / 10), (float)(INPUT->NormalisedMouseY / 10)));
 
 		renderer.begin();
-		renderer.submit(cube);
-		renderer.submit(cube2);
 
-
-		for (size_t i = 0; i < objs.size(); i++)
-		{
-			if (objs[i] != NULL)
-				objs[i]->transform.rotate(glm::vec3(0, 10 * TIME->deltaTime, 0));
-			renderer.submit(objs[i]);
-		}
-
-		monkey->transform.rotate(glm::vec3(0, 1 * TIME->deltaTime, 0));
-		
-		if(cube != NULL)
-			cube->transform.rotate(glm::vec3(2 * TIME->deltaTime, 2 * TIME->deltaTime, 2 * TIME->deltaTime));
-		
-
-
-		renderer.submit(monkey);
+		for (size_t i = 0; i < testingScene->m_SceneData.size(); i++)
+			renderer.submit(testingScene->m_SceneData[i]);
 
 		renderer.end();
 		renderer.draw();
 		
 		window.update();
-
-		if(INPUT->getKeyDown(GLFW_KEY_F))
-		{
-			for (size_t i = 0; i < objs.size(); i++)
-			{
-				Destroy(objs[i]);
-			}
-		}
-
-
-		if (INPUT->getKeyDown(GLFW_KEY_D))
-		{
-			Destroy(cube);
-		}
 
 		if (INPUT->getKeyDown(GLFW_KEY_ESCAPE))
 			exit(0);

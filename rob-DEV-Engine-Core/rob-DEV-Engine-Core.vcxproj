@@ -76,7 +76,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)$(Configuration)\intermediates\</IntDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)\intermediates\</IntDir>
     <LibraryPath>..\dependencies\GLEW\lib;..\dependencies\GLFW\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\entity\scene.cpp" />
     <ClCompile Include="src\io\filesystem\virtual_file_system.cpp" />
     <ClCompile Include="src\io\file\virtual_file.cpp" />
     <ClCompile Include="src\graphics\buffer\index_buffer.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="src\time\time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\entity\scene.h" />
     <ClInclude Include="src\io\common\file_types.h" />
     <ClInclude Include="src\io\common\io.h" />
     <ClInclude Include="src\io\filesystem\virtual_file_system.h" />
