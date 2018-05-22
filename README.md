@@ -4,11 +4,19 @@ My implementation of a C++ Game Engine / OpenGL renderer, the engine is obviousl
 
 Features:
 Input System - Mouse and Keyboard
+
 OpenGL Batch Renderer - With vertex indexing
+
 OBJ File Importer - Vertex duplicates are removed and indexes are calculated.
+
 Virtual File System - A file of packaged files which can be read in from disk and loaded into RAM.
+
+Scene Loading - Scenes (comprised of game objects) can be saved to and loaded from virtual files.
+
 Entity based objects - All Objects are respresented under an "Entity" with other components i.e meshes/transforms are added under it.
+
 Clear namespacing
+
 Utilites such as Time, IO and other misc needs.
 
 External Libraries used:
