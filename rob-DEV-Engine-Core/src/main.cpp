@@ -39,7 +39,7 @@ int main()
 	glm::mat4 pr_matrix = glm::perspective(glm::radians(90.0f), 16.0f / 9.0f, 0.1f, 10000.0f);
 
 	glm::mat4 vw_matrix = glm::lookAt(
-		glm::vec3(40, 10, -30), // Camera is at (4,3,-3), in World Space
+		glm::vec3(90, 10, -90), // Camera is at (4,3,-3), in World Space
 		glm::vec3(0, 0, 0), // and looks at the origin
 		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
 	);
@@ -58,12 +58,12 @@ int main()
 	Scene* loadedLevel = SCENE_MANAGER->loadLevel(vfs->Retrieve("multiple_gameobject.level"));
 
 	//assign a new behaviour script to an object in the scene
-	for (size_t i = 1; i < 20; i++)
+	for (size_t i = 0; i < 20; i++)
 	{
-		loadedLevel->SceneData[i]->AddBehaviourScript(new Movement());
+		loadedLevel->SceneData[i]->AddBehaviourScript(new Rotate());
 	}
 
-	//loadedLevel->SceneData[0]->AddBehaviourScript(new Movement());
+	loadedLevel->SceneData[1]->AddBehaviourScript(new Movement());
 
 	while (!window.closed())
 	{
