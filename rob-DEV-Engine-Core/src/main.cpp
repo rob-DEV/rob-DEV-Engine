@@ -17,6 +17,7 @@
 
 //USERMODE RUNTIME BEHAVIOUR
 #include "../res/scripts/rotate.h"
+#include "../res/scripts/movement.h"
 
 using namespace Engine::Core;
 using namespace Engine::Core::BuildSystems;
@@ -57,10 +58,12 @@ int main()
 	Scene* loadedLevel = SCENE_MANAGER->loadLevel(vfs->Retrieve("multiple_gameobject.level"));
 
 	//assign a new behaviour script to an object in the scene
-	for (size_t i = 0; i < 20; i++)
+	for (size_t i = 1; i < 20; i++)
 	{
-		loadedLevel->SceneData[i]->AddBehaviourScript(new Rotate());
+		loadedLevel->SceneData[i]->AddBehaviourScript(new Movement());
 	}
+
+	//loadedLevel->SceneData[0]->AddBehaviourScript(new Movement());
 
 	while (!window.closed())
 	{
