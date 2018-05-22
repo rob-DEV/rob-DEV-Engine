@@ -5,6 +5,7 @@ namespace Engine { namespace Core { namespace Graphics { namespace Buffers {
 	VertexArray::VertexArray()
 	{
 		glGenVertexArrays(1, &m_VAO);	
+		bind();
 	}
 
 
@@ -25,7 +26,7 @@ namespace Engine { namespace Core { namespace Graphics { namespace Buffers {
 
 	void VertexArray::del()
 	{
-		glGenVertexArrays(1, &m_VAO);
+		
 	}
 
 } } } }

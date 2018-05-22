@@ -35,10 +35,9 @@ namespace Engine { namespace Core { namespace Graphics {
 	{
 	private:
 	
+		Buffers::VertexArray m_VAO;
 		Buffers::VertexBufferObject m_VBO;
 		Buffers::IndexBufferObject m_IBO;
-
-		Buffers::VertexArray m_VAO;
 
 		VertexData* m_VertexBuffer;
 		IndiceData* m_IndiceBuffer;

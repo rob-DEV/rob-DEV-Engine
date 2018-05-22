@@ -21,4 +21,18 @@ namespace Engine { namespace Core { namespace Entities {
 
 	}
 
+	unsigned int Entity::getSize()
+	{
+		unsigned int byte_size = 0;
+		//name
+		byte_size += strlen(name.c_str()) * sizeof(char);
+
+		//transform
+		byte_size += sizeof(glm::vec3);
+		byte_size += sizeof(glm::quat);
+
+		return byte_size;
+	}
+
+
 }  }  }

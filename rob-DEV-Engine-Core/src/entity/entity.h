@@ -3,11 +3,12 @@
 #include <string>
 #include <glm/glm.hpp>
 
+#include "../common/serializeable.h"
 #include "transform.h"
 
 namespace Engine { namespace Core { namespace Entities { 
 
-	class Entity
+	class Entity : public ISerializable
 	{
 	public:
 		static unsigned int number_entities;
@@ -18,6 +19,7 @@ namespace Engine { namespace Core { namespace Entities {
 		Entity();
 		Entity(const char* name, glm::vec3 postion);
 		virtual ~Entity();
+		unsigned int getSize() override;
 	};
 
 	template<typename T>

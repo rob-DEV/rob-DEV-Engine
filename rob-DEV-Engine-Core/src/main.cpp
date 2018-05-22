@@ -2,6 +2,8 @@
 
 #include "time/time.h"
 
+#include "buildsystems/scene_manager.h"
+
 #include "graphics/window.h"
 #include "graphics/renderer.h"
 
@@ -14,6 +16,7 @@
 #include "io/importers/obj/obj_importer.h"
 
 using namespace Engine::Core;
+using namespace Engine::Core::BuildSystems;
 using namespace Engine::Core::Graphics;
 using namespace Engine::Core::Entities;
 using namespace Engine::Core::IO;
@@ -28,7 +31,6 @@ int main()
 	glClearColor(0.02f, 0.55f, 1.0f, 1.0f);
 
 	Renderer renderer;
-	Renderer renderer2;
 	
 	glm::mat4 pr_matrix = glm::perspective(glm::radians(90.0f), 16.0f / 9.0f, 0.1f, 10000.0f);
 
@@ -47,10 +49,17 @@ int main()
 
 	VirtualFileSystem* vfs = VirtualFileSystem::Open("res/filesystems/DATA.VFS");
 
-	//NEW SCENE OBJECT
-	Scene* testingScene = new Scene("TEST_LEVEL");
+	Scene* testScene = new Scene();
 
-	
+
+	GameObject* gO = new GameObject("Test", glm::vec3(200, 200, 200), cube_load);
+	testScene->push_to_scene_data(gO);
+
+	std::cout << sizeof(glm::quat);
+
+	VirtualFile* cookedSceneVFile = SCENE_MANAGER->cookLevelToVirtualFile(testScene);
+
+	vfs->AddFile(cookedSceneVFile, true);
 
 	#if(DEBUG)
 	//much slower therefore less models
@@ -58,7 +67,7 @@ int main()
 	{
 		for (size_t j = 0; j < 1; j++)
 		{
-			testingScene->push_to_scene_data(new GameObject("GAMEOBJECT_ENTITY", glm::vec3((float)(i * 3), -3, -(float)(j * 8)), cube_load));
+			testScene->push_to_scene_data(new GameObject("GAMEOBJECT_ENTITY", glm::vec3((float)(i * 3), -3, -(float)(j * 8)), cube_load));
 		}
 	}
 	
@@ -68,17 +77,17 @@ int main()
 	{
 		for (size_t j = 0; j < 10; j++)
 		{
-			testingScene->push_to_scene_data(new GameObject("GAMEOBJECT_ENTITY", glm::vec3(-(float)(i * 3), -3, -(float)(j * 8)), cube_load));
+			testScene->push_to_scene_data(new GameObject("GAMEOBJECT_ENTITY", glm::vec3(-(float)(i * 3), -3, -(float)(j * 8)), cube_load));
 		}
 	}
 	#endif
 
-
-	//VirtualFile* sceneFile = testingScene->bake_scene_data_to_file("TestLevel.level");
+	
+	
 
 	//vfs->AddFile(sceneFile, true);
 
-	VirtualFile* sceneFile = vfs->Retrieve("TestLevel.level");
+	//VirtualFile* sceneFile = vfs->Retrieve("TestLevel.level");
 
 	while (!window.closed())
 	{
@@ -89,8 +98,8 @@ int main()
 
 		renderer.begin();
 
-		for (size_t i = 0; i < testingScene->m_SceneData.size(); i++)
-			renderer.submit(testingScene->m_SceneData[i]);
+		for (size_t i = 0; i < testScene->SceneData.size(); i++)
+			renderer.submit(testScene->SceneData[i]);
 
 		renderer.end();
 		renderer.draw();

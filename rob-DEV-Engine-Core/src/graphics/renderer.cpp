@@ -6,6 +6,7 @@ namespace Engine { namespace Core { namespace Graphics {
 
 	Renderer::Renderer()
 	{
+		m_VAO.bind();
 		init();
 	}
 
@@ -26,7 +27,8 @@ namespace Engine { namespace Core { namespace Graphics {
 		Shaders = new Shader("res/shaders/basic.vert", "res/shaders/basic.frag");
 		Shaders->enable();
 	
-		m_VAO.bind();
+		//VAO binded in ctor
+
 		m_VBO.bind();
 
 		glBufferData(GL_ARRAY_BUFFER, RENDERER_MAX_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW);
@@ -134,7 +136,7 @@ namespace Engine { namespace Core { namespace Graphics {
 	void Renderer::dispose()
 	{
 		//assuming buffers are created in init()
-		m_VAO.bind();
+		m_VAO.unbind();
 
 		m_VBO.del();
 		m_IBO.del();

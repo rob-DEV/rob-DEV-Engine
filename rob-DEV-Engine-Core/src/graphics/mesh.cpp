@@ -45,4 +45,13 @@ namespace Engine {  namespace Core {  namespace Graphics {
 		rgb_colors = std::vector<unsigned int>();
 	}
 
+	unsigned int Mesh::getSize()
+	{
+		unsigned int vertex_byte_size = sizeof(glm::vec3) * vertices.size();
+		unsigned int indices_byte_size = sizeof(unsigned int) * indices.size();
+		unsigned int colors_byte_size = sizeof(unsigned int) * rgb_colors.size();
+
+		return vertex_byte_size + indices_byte_size + colors_byte_size;
+	}
+
 }  }  }

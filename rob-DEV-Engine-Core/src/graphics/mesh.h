@@ -1,12 +1,13 @@
 #pragma once
 #include <string>
 #include <vector>
-
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
+#include "../common/serializeable.h"
+
 namespace Engine {  namespace Core {  namespace Graphics {
-	class Mesh
+	class Mesh : public ISerializable
 	{
 	public:
 
@@ -19,5 +20,6 @@ namespace Engine {  namespace Core {  namespace Graphics {
 		Mesh(const std::vector<glm::vec3>& vertices, const std::vector<unsigned int>& colors);
 		~Mesh();
 
+		unsigned int getSize() override;
 	};
 }  }  }

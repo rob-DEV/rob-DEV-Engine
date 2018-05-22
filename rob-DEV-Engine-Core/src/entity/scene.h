@@ -8,10 +8,11 @@ namespace Engine { namespace Core { namespace Entities {
 	class Scene
 	{
 	public:
-		std::string m_SceneName;
+		unsigned int SceneID = 0;
+		unsigned int GameobjectCount;
 		//EVERY SCENE IS JUST AN ARRAGEMENT OF GAMEOBJECTS
-		std::vector<GameObject*> m_SceneData;
-		Scene(const char* sceneName);
+		std::vector<GameObject*> SceneData;
+		Scene();
 		~Scene();
 
 		void push_to_scene_data(GameObject* entity);

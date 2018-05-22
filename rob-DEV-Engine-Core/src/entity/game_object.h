@@ -11,6 +11,7 @@ namespace Engine {  namespace Core {  namespace Entities {
 		GameObject();
 		GameObject(const char* name, glm::vec3 position, Engine::Core::Graphics::Mesh* mesh);
 		~GameObject();
-
+		unsigned int getSize() override;
+		char* getData();
 	};
 }  }  }
