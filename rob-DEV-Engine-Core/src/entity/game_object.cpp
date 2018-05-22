@@ -60,6 +60,7 @@ namespace Engine {  namespace Core {  namespace Entities {
 			byte_count += (sizeof(glm::vec3) * mesh->vertices.size());
 			memcpy(&dataResult[byte_count], &mesh->indices[0], sizeof(unsigned int) * mesh->indices.size());
 			byte_count += (sizeof(unsigned int) * mesh->indices.size());
+
 			memcpy(&dataResult[byte_count], &mesh->rgb_colors[0], sizeof(unsigned int) * mesh->rgb_colors.size());
 			byte_count += (sizeof(unsigned int) * mesh->rgb_colors.size());
 		}

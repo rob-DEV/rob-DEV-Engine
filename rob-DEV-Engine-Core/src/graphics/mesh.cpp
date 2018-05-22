@@ -37,6 +37,18 @@ namespace Engine {  namespace Core {  namespace Graphics {
 		}
 	}
 	
+	Mesh::Mesh(const std::vector<glm::vec3>& vertices, const std::vector<unsigned int>& indices, const std::vector<unsigned int>& rgb_colors)
+	{
+		this->vertices = std::vector<glm::vec3>();
+		this->rgb_colors = std::vector<unsigned int>();
+
+		if (&vertices != NULL)
+			this->vertices = vertices;
+		if (&indices != NULL)
+			this->indices = indices;
+		if (&rgb_colors != NULL)
+			this->rgb_colors = rgb_colors;
+	}
 
 	Mesh::~Mesh()
 	{

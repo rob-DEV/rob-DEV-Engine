@@ -50,16 +50,20 @@ int main()
 	VirtualFileSystem* vfs = VirtualFileSystem::Open("res/filesystems/DATA.VFS");
 
 	Scene* testScene = new Scene();
-
+	Scene* monkeyScene = new Scene();
 
 	GameObject* gO = new GameObject("Test", glm::vec3(200, 200, 200), cube_load);
+	GameObject* gO2 = new GameObject("Test2", glm::vec3(0, 0, 0), monkey_load);
 	testScene->push_to_scene_data(gO);
+	monkeyScene->push_to_scene_data(gO2);
 
-	std::cout << sizeof(glm::quat);
+	VirtualFile* cookedSceneVFile = SCENE_MANAGER->cookLevelToVirtualFile(monkeyScene, "monkey.level");
+	//vfs->AddFile(cookedSceneVFile, true);
 
-	VirtualFile* cookedSceneVFile = SCENE_MANAGER->cookLevelToVirtualFile(testScene);
+	//loading monkey level instead of test.level
+	Scene* loadedLevel = SCENE_MANAGER->loadLevel(vfs->Retrieve("monkey.level"));
 
-	vfs->AddFile(cookedSceneVFile, true);
+	
 
 	#if(DEBUG)
 	//much slower therefore less models
@@ -98,8 +102,8 @@ int main()
 
 		renderer.begin();
 
-		for (size_t i = 0; i < testScene->SceneData.size(); i++)
-			renderer.submit(testScene->SceneData[i]);
+		for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
+			renderer.submit(loadedLevel->SceneData[i]);
 
 		renderer.end();
 		renderer.draw();

@@ -18,6 +18,7 @@ namespace Engine {  namespace Core {  namespace Graphics {
 		Mesh();
 		Mesh(const Mesh* mesh);
 		Mesh(const std::vector<glm::vec3>& vertices, const std::vector<unsigned int>& colors);
+		Mesh(const std::vector<glm::vec3>& vertices, const std::vector<unsigned int>& indices, const std::vector<unsigned int>& colors);
 		~Mesh();
 
 		unsigned int getSize() override;

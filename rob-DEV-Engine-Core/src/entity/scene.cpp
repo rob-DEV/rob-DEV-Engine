@@ -14,7 +14,7 @@ namespace Engine { namespace Core { namespace Entities {
 	void Scene::push_to_scene_data(GameObject* entity)
 	{
 		SceneData.push_back(entity);
-		GameobjectCount = SceneData.size();
+		EnitityCount = SceneData.size();
 	}
 
 } } }
