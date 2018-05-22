@@ -15,6 +15,9 @@
 #include "io/filesystem/virtual_file_system.h"
 #include "io/importers/obj/obj_importer.h"
 
+//USERMODE RUNTIME BEHAVIOUR
+#include "../res/scripts/rotate.h"
+
 using namespace Engine::Core;
 using namespace Engine::Core::BuildSystems;
 using namespace Engine::Core::Graphics;
@@ -35,7 +38,7 @@ int main()
 	glm::mat4 pr_matrix = glm::perspective(glm::radians(90.0f), 16.0f / 9.0f, 0.1f, 10000.0f);
 
 	glm::mat4 vw_matrix = glm::lookAt(
-		glm::vec3(10, 4, -10), // Camera is at (4,3,-3), in World Space
+		glm::vec3(40, 10, -30), // Camera is at (4,3,-3), in World Space
 		glm::vec3(0, 0, 0), // and looks at the origin
 		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
 	);
@@ -49,49 +52,15 @@ int main()
 
 	VirtualFileSystem* vfs = VirtualFileSystem::Open("res/filesystems/DATA.VFS");
 
-	Scene* testScene = new Scene();
-	Scene* monkeyScene = new Scene();
-
-	GameObject* gO = new GameObject("Test", glm::vec3(200, 200, 200), cube_load);
-	GameObject* gO2 = new GameObject("Test2", glm::vec3(0, 0, 0), monkey_load);
-	testScene->push_to_scene_data(gO);
-	monkeyScene->push_to_scene_data(gO2);
-
-	VirtualFile* cookedSceneVFile = SCENE_MANAGER->cookLevelToVirtualFile(monkeyScene, "monkey.level");
-	//vfs->AddFile(cookedSceneVFile, true);
 
 	//loading monkey level instead of test.level
-	Scene* loadedLevel = SCENE_MANAGER->loadLevel(vfs->Retrieve("monkey.level"));
+	Scene* loadedLevel = SCENE_MANAGER->loadLevel(vfs->Retrieve("multiple_gameobject.level"));
 
-	
-
-	#if(DEBUG)
-	//much slower therefore less models
-	for (size_t i = 0; i < 1; i++)
+	//assign a new behaviour script to an object in the scene
+	for (size_t i = 0; i < 20; i++)
 	{
-		for (size_t j = 0; j < 1; j++)
-		{
-			testScene->push_to_scene_data(new GameObject("GAMEOBJECT_ENTITY", glm::vec3((float)(i * 3), -3, -(float)(j * 8)), cube_load));
-		}
+		loadedLevel->SceneData[i]->AddBehaviourScript(new Rotate());
 	}
-	
-	#else
-
-	for (size_t i = 0; i < 2000; i++)
-	{
-		for (size_t j = 0; j < 10; j++)
-		{
-			testScene->push_to_scene_data(new GameObject("GAMEOBJECT_ENTITY", glm::vec3(-(float)(i * 3), -3, -(float)(j * 8)), cube_load));
-		}
-	}
-	#endif
-
-	
-	
-
-	//vfs->AddFile(sceneFile, true);
-
-	//VirtualFile* sceneFile = vfs->Retrieve("TestLevel.level");
 
 	while (!window.closed())
 	{
@@ -103,7 +72,10 @@ int main()
 		renderer.begin();
 
 		for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
+		{
+			loadedLevel->SceneData[i]->Tick();
 			renderer.submit(loadedLevel->SceneData[i]);
+		}
 
 		renderer.end();
 		renderer.draw();

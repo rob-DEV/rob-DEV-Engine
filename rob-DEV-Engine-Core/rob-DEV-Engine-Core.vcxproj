@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="res\scripts\rotate.cpp" />
     <ClCompile Include="src\buildsystems\scene_manager.cpp" />
     <ClCompile Include="src\entity\scene.cpp" />
     <ClCompile Include="src\io\filesystem\virtual_file_system.cpp" />
@@ -174,9 +175,12 @@
     <ClCompile Include="src\time\time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="res\scripts\rotate.h" />
+    <ClInclude Include="src\entity\game_object_behaviour.h" />
     <ClInclude Include="src\common\serializeable.h" />
     <ClInclude Include="src\buildsystems\scene_manager.h" />
     <ClInclude Include="src\entity\scene.h" />
+    <ClInclude Include="src\include\EngineCore.h" />
     <ClInclude Include="src\io\common\file_types.h" />
     <ClInclude Include="src\io\common\io.h" />
     <ClInclude Include="src\io\filesystem\virtual_file_system.h" />

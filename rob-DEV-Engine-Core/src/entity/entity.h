@@ -18,6 +18,7 @@ namespace Engine { namespace Core { namespace Entities {
 	public:
 		Entity();
 		Entity(const char* name, glm::vec3 postion);
+		virtual void Tick(); 
 		virtual ~Entity();
 		unsigned int getSize() override;
 	};

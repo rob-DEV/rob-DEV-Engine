@@ -68,4 +68,17 @@ namespace Engine {  namespace Core {  namespace Entities {
 		return dataResult;
 	}
 
+	void GameObject::AddBehaviourScript(GameObject_Behaviour* behavior)
+	{
+		behavior->m_GameObject = this;
+		m_RuntimeBehaviours.push_back(behavior);
+	}
+
+	void GameObject::Tick()
+	{
+		//update all script behaviours
+		for (size_t i = 0; i < m_RuntimeBehaviours.size(); i++)
+			m_RuntimeBehaviours[i]->Tick();
+	}
+
 }  }  }

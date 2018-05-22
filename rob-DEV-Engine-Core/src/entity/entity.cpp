@@ -34,5 +34,9 @@ namespace Engine { namespace Core { namespace Entities {
 		return byte_size;
 	}
 
+	void Entity::Tick()
+	{
+
+	}
 
 }  }  }
