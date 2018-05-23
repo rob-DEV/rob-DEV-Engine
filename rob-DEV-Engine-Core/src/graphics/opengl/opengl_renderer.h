@@ -1,17 +1,9 @@
 #pragma once
-#include <GL/glew.h>
-#include <vulkan.h>
-
-#include "../shader.h"
-#include "../common/renderer_defs.h"
-#include "../../entity/game_object.h"
-#include "../buffer/vertex_buffer.h"
-#include "../buffer/index_buffer.h"
-#include "../buffer/vertex_array.h"
+#include "../common/base_renderer.h"
 
 namespace Engine { namespace Core { namespace Graphics { 
 
-	class OpenGLRenderer
+	class OpenGLRenderer : public IRenderer
 	{
 	private:
 	
@@ -29,8 +21,8 @@ namespace Engine { namespace Core { namespace Graphics {
 
 
 	private:
-		void init();
-		void submit(Engine::Core::Graphics::Mesh* mesh, glm::vec3 position, glm::quat rotation);
+		void init() override;
+		void submit(Engine::Core::Graphics::Mesh* mesh, glm::vec3 position, glm::quat rotation) override;
 	public:
 
 		Shader* Shaders = NULL;
@@ -38,15 +30,15 @@ namespace Engine { namespace Core { namespace Graphics {
 		OpenGLRenderer();
 		~OpenGLRenderer();
 
-		void begin();
+		void begin() override;
 
-		void submit(Engine::Core::Graphics::Mesh* mesh);
-		void submit(Engine::Core::Entities::Entity* renderableEntity);
+		void submit(Engine::Core::Graphics::Mesh* mesh) override;
+		void submit(Engine::Core::Entities::Entity* renderableEntity) override;
 
-		void draw();
-		void end();
+		void draw() override;
+		void end() override;
 
-		void dispose();
+		void dispose() override;
 
 	};
 

@@ -164,7 +164,7 @@
     <ClInclude Include="src\graphics\opengl\opengl_renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\common\renderer_defs.h">
+    <ClInclude Include="src\graphics\common\base_renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

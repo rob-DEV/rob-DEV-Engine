@@ -8,7 +8,7 @@ namespace Engine { namespace Core { namespace Entities {
 	class Scene
 	{
 	public:
-		unsigned int EnitityCount;
+		uint32_t EnitityCount;
 		//EVERY SCENE IS JUST AN ARRAGEMENT OF GAMEOBJECTS
 		std::vector<GameObject*> SceneData;
 		Scene();

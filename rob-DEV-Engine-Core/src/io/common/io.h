@@ -8,7 +8,7 @@ namespace Engine { namespace Core { namespace IO {
 	}
 
 	template<typename T>
-	inline void read_from_stream(std::ifstream& stream, T& buffer, unsigned int size)
+	inline void read_from_stream(std::ifstream& stream, T& buffer, uint32_t size)
 	{
 		stream.read(reinterpret_cast<char*>(&buffer), size);
 	}

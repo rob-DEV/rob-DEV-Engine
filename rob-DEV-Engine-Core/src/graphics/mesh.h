@@ -12,15 +12,15 @@ namespace Engine {  namespace Core {  namespace Graphics {
 	public:
 
 		std::vector<glm::vec3> vertices;
-		std::vector<unsigned int> indices;
-		std::vector<unsigned int> rgb_colors;
+		std::vector<uint32_t> indices;
+		std::vector<uint32_t> rgb_colors;
 
 		Mesh();
 		Mesh(const Mesh* mesh);
-		Mesh(const std::vector<glm::vec3>& vertices, const std::vector<unsigned int>& colors);
-		Mesh(const std::vector<glm::vec3>& vertices, const std::vector<unsigned int>& indices, const std::vector<unsigned int>& colors);
+		Mesh(const std::vector<glm::vec3>& vertices, const std::vector<uint32_t>& colors);
+		Mesh(const std::vector<glm::vec3>& vertices, const std::vector<uint32_t>& indices, const std::vector<uint32_t>& colors);
 		~Mesh();
 
-		unsigned int getSize() override;
+		uint32_t getSize() override;
 	};
 }  }  }

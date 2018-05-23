@@ -29,6 +29,8 @@ using namespace Engine::Core::IO::Importers;
 
 int main()
 {
+	double time_passed = 0;
+	uint32_t frames = 0;
 	Window window("MAIN ENGINE", 640, 480);
 
 	#if ENGINE_RENDERER_OPENGL
@@ -41,21 +43,9 @@ int main()
 		VulkanRenderer renderer;
 	#endif
 
-	double time_passed = 0;
-	unsigned int frames = 0;
-
-	
-
-
-	//Renderer renderer;
-	
 	glm::mat4 pr_matrix = glm::perspective(glm::radians(90.0f), 16.0f / 9.0f, 0.1f, 10000.0f);
 
-	glm::mat4 vw_matrix = glm::lookAt(
-		glm::vec3(90, 10, -90), // Camera is at (4,3,-3), in World Space
-		glm::vec3(0, 0, 0), // and looks at the origin
-		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
-	);
+	glm::mat4 vw_matrix = glm::lookAt(glm::vec3(90, 10, -90), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 
 	#if ENGINE_RENDERER_OPENGL
 		renderer.Shaders->setUniformMat4("pr_matrix", pr_matrix);
@@ -63,6 +53,9 @@ int main()
 		renderer.Shaders->setUniformMat4("ml_matrix", glm::mat4(1.0f));
 	#endif
 
+	#if ENGINE_RENDERER_VULKAN
+		//SET VULKAN SHADERS (when I figure out how to...)
+	#endif
 
 	Mesh* cube_load = OBJ_IMPORTER->ImportObj("res/obj/cube.obj");
 	Mesh* monkey_load = OBJ_IMPORTER->ImportObj("res/obj/monkey.obj");

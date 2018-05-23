@@ -13,10 +13,10 @@ namespace Engine {  namespace Core {  namespace Graphics {
 		rgb_colors = mesh->rgb_colors;
 	}
 
-	Mesh::Mesh(const std::vector<glm::vec3>& vertices, const std::vector<unsigned int>& rgb_colors)
+	Mesh::Mesh(const std::vector<glm::vec3>& vertices, const std::vector<uint32_t>& rgb_colors)
 	{
 		this->vertices = std::vector<glm::vec3>();
-		this->rgb_colors = std::vector<unsigned int>();
+		this->rgb_colors = std::vector<uint32_t>();
 
 		if(&vertices != NULL)
 			this->vertices = vertices;
@@ -37,10 +37,10 @@ namespace Engine {  namespace Core {  namespace Graphics {
 		}
 	}
 	
-	Mesh::Mesh(const std::vector<glm::vec3>& vertices, const std::vector<unsigned int>& indices, const std::vector<unsigned int>& rgb_colors)
+	Mesh::Mesh(const std::vector<glm::vec3>& vertices, const std::vector<uint32_t>& indices, const std::vector<uint32_t>& rgb_colors)
 	{
 		this->vertices = std::vector<glm::vec3>();
-		this->rgb_colors = std::vector<unsigned int>();
+		this->rgb_colors = std::vector<uint32_t>();
 
 		if (&vertices != NULL)
 			this->vertices = vertices;
@@ -53,15 +53,15 @@ namespace Engine {  namespace Core {  namespace Graphics {
 	Mesh::~Mesh()
 	{
 		vertices = std::vector<glm::vec3>();
-		indices = std::vector<unsigned int>();
-		rgb_colors = std::vector<unsigned int>();
+		indices = std::vector<uint32_t>();
+		rgb_colors = std::vector<uint32_t>();
 	}
 
-	unsigned int Mesh::getSize()
+	uint32_t Mesh::getSize()
 	{
-		unsigned int vertex_byte_size = sizeof(glm::vec3) * vertices.size();
-		unsigned int indices_byte_size = sizeof(unsigned int) * indices.size();
-		unsigned int colors_byte_size = sizeof(unsigned int) * rgb_colors.size();
+		uint32_t vertex_byte_size = sizeof(glm::vec3) * vertices.size();
+		uint32_t indices_byte_size = sizeof(uint32_t) * indices.size();
+		uint32_t colors_byte_size = sizeof(uint32_t) * rgb_colors.size();
 
 		return vertex_byte_size + indices_byte_size + colors_byte_size;
 	}

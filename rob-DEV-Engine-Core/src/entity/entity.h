@@ -11,7 +11,7 @@ namespace Engine { namespace Core { namespace Entities {
 	class Entity : public ISerializable
 	{
 	public:
-		static unsigned int number_entities;
+		static uint32_t number_entities;
 	public:
 		std::string name;
 		Transform transform;
@@ -20,7 +20,7 @@ namespace Engine { namespace Core { namespace Entities {
 		Entity(const char* name, glm::vec3 postion);
 		virtual void Tick(); 
 		virtual ~Entity();
-		unsigned int getSize() override;
+		uint32_t getSize() override;
 	};
 
 	template<typename T>

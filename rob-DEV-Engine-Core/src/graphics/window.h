@@ -13,7 +13,7 @@ namespace Engine { namespace Core {  namespace Graphics {
 	{
 	private:
 		const char* m_Title; 
-		unsigned int m_Width, m_Height = 0;
+		uint32_t m_Width, m_Height = 0;
 		GLFWwindow* m_Window;
 	private:
 		bool init_opengl(bool resizeable);

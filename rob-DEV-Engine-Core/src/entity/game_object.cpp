@@ -19,10 +19,10 @@ namespace Engine {  namespace Core {  namespace Entities {
 		mesh = NULL;
 	}
 
-	unsigned int GameObject::getSize()
+	uint32_t GameObject::getSize()
 	{
 		//base size + vertex mesh data
-		unsigned int base = Entity::getSize();
+		uint32_t base = Entity::getSize();
 		if (mesh != NULL)
 			base += mesh->getSize();
 
@@ -31,7 +31,7 @@ namespace Engine {  namespace Core {  namespace Entities {
 
 	char* GameObject::getData()
 	{
-		unsigned int size = getSize();
+		uint32_t size = getSize();
 		char* dataResult = new char[size];
 		
 		/*
@@ -46,7 +46,7 @@ namespace Engine {  namespace Core {  namespace Entities {
 		*			rgb colors
 		*/
 
-		unsigned int byte_count = 0;
+		uint32_t byte_count = 0;
 		memcpy(&dataResult[byte_count], name.c_str(), strlen(name.c_str()));
 		byte_count += strlen(name.c_str());
 		memcpy(&dataResult[byte_count], &transform.position, sizeof(glm::vec3));
@@ -58,11 +58,11 @@ namespace Engine {  namespace Core {  namespace Entities {
 		{
 			memcpy(&dataResult[byte_count], &mesh->vertices[0], sizeof(glm::vec3) * mesh->vertices.size());
 			byte_count += (sizeof(glm::vec3) * mesh->vertices.size());
-			memcpy(&dataResult[byte_count], &mesh->indices[0], sizeof(unsigned int) * mesh->indices.size());
-			byte_count += (sizeof(unsigned int) * mesh->indices.size());
+			memcpy(&dataResult[byte_count], &mesh->indices[0], sizeof(uint32_t) * mesh->indices.size());
+			byte_count += (sizeof(uint32_t) * mesh->indices.size());
 
-			memcpy(&dataResult[byte_count], &mesh->rgb_colors[0], sizeof(unsigned int) * mesh->rgb_colors.size());
-			byte_count += (sizeof(unsigned int) * mesh->rgb_colors.size());
+			memcpy(&dataResult[byte_count], &mesh->rgb_colors[0], sizeof(uint32_t) * mesh->rgb_colors.size());
+			byte_count += (sizeof(uint32_t) * mesh->rgb_colors.size());
 		}
 
 		return dataResult;

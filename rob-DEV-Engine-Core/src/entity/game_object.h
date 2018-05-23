@@ -19,7 +19,7 @@ namespace Engine {  namespace Core {  namespace Entities {
 		void Init();
 		void Tick();
 
-		unsigned int getSize() override;
+		uint32_t getSize() override;
 		char* getData();
 	};
 }  }  }

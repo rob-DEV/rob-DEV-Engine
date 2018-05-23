@@ -37,6 +37,6 @@ namespace Engine { namespace Core {
 		void mouse_button_callback(GLFWwindow *window, int button, int action, int mods);
 		void cursor_position_callback(GLFWwindow *window, double xpos, double ypos);
 
-		bool getKeyDown(unsigned int keyCode);
+		bool getKeyDown(uint32_t keyCode);
 	};
 }	}

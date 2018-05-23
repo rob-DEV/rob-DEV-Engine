@@ -3,7 +3,7 @@
 
 namespace Engine { namespace Core { namespace Entities {
 
-	unsigned int Entity::number_entities = 0;
+	uint32_t Entity::number_entities = 0;
 	Entity::Entity()
 	{
 		number_entities++;
@@ -21,9 +21,9 @@ namespace Engine { namespace Core { namespace Entities {
 
 	}
 
-	unsigned int Entity::getSize()
+	uint32_t Entity::getSize()
 	{
-		unsigned int byte_size = 0;
+		uint32_t byte_size = 0;
 		//name
 		byte_size += strlen(name.c_str()) * sizeof(char);
 

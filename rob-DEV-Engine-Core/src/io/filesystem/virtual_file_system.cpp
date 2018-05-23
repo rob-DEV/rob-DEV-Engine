@@ -13,7 +13,7 @@ namespace Engine { namespace Core { namespace IO {
 
 		//get file size of the VFS data = (FULL SIZE) - VFS_HEADER_SIZE 
 		m_InStreamFromDisk.seekg(0, std::ios::end);
-		m_VFS_RAW_FILE_SIZE = (unsigned int)m_InStreamFromDisk.tellg();
+		m_VFS_RAW_FILE_SIZE = (uint32_t)m_InStreamFromDisk.tellg();
 		m_VFS_DATA_SIZE = m_VFS_RAW_FILE_SIZE - VFS_HEADER_SIZE;
 
 		//no virtual files exist
@@ -25,7 +25,7 @@ namespace Engine { namespace Core { namespace IO {
 
 		//allocate the virtual files to the heap
 		//packaged files are not null terminated therefore we need to compare sizes for end of files
-		while ((unsigned int)m_InStreamFromDisk.tellg() != m_VFS_RAW_FILE_SIZE)
+		while ((uint32_t)m_InStreamFromDisk.tellg() != m_VFS_RAW_FILE_SIZE)
 		{
 			//handle each virtual file
 			VF_Header_t header;

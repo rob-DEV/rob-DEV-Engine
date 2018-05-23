@@ -24,6 +24,7 @@ namespace Engine { namespace Core { namespace IO { namespace Importers {
 
 	Obj_Importer::~Obj_Importer()
 	{
+
 	}
 
 	struct PackedVertex {
@@ -41,10 +42,10 @@ namespace Engine { namespace Core { namespace IO { namespace Importers {
 
 	bool getSimilarVertexIndex_fast(
 		PackedVertex & packed,
-		std::map<PackedVertex, unsigned int> & VertexToOutIndex,
-		unsigned int & result
+		std::map<PackedVertex, uint32_t> & VertexToOutIndex,
+		uint32_t & result
 	) {
-		std::map<PackedVertex, unsigned int>::iterator it = VertexToOutIndex.find(packed);
+		std::map<PackedVertex, uint32_t>::iterator it = VertexToOutIndex.find(packed);
 		if (it == VertexToOutIndex.end()) {
 			return false;
 		}
@@ -59,7 +60,7 @@ namespace Engine { namespace Core { namespace IO { namespace Importers {
 		unsigned short & result
 	) {
 		// Lame linear search
-		for (unsigned int i = 0; i<out_vertices.size(); i++) {
+		for (uint32_t i = 0; i<out_vertices.size(); i++) {
 			if (
 				is_near(in_vertex.x, out_vertices[i].x) &&
 				is_near(in_vertex.y, out_vertices[i].y) &&
@@ -77,11 +78,11 @@ namespace Engine { namespace Core { namespace IO { namespace Importers {
 	void indexVBO(
 		std::vector<glm::vec3> & in_vertices,
 
-		std::vector<unsigned int> & out_indices,
+		std::vector<uint32_t> & out_indices,
 		std::vector<glm::vec3> & out_vertices
 	) {
 		// For each input vertex
-		for (unsigned int i = 0; i<in_vertices.size(); i++) {
+		for (uint32_t i = 0; i<in_vertices.size(); i++) {
 
 			// Try to find a similar vertex in out_XXXX
 			unsigned short index;
@@ -101,7 +102,7 @@ namespace Engine { namespace Core { namespace IO { namespace Importers {
 
 	Engine::Core::Graphics::Mesh* Obj_Importer::ImportObj(const char* filepath)
 	{
-		std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
+		std::vector<uint32_t> vertexIndices, uvIndices, normalIndices;
 		std::vector<glm::vec3> temp_vertices;
 		std::vector<glm::vec2> temp_uvs;
 		std::vector<glm::vec3> temp_normals;
@@ -143,7 +144,7 @@ namespace Engine { namespace Core { namespace IO { namespace Importers {
 			}
 			else if (strcmp(lineHeader, "f") == 0) {
 				std::string vertex1, vertex2, vertex3;
-				unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
+				uint32_t vertexIndex[3], uvIndex[3], normalIndex[3];
 				int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
 				if (matches != 9) {
 					printf("File can't be read by our simple parser :-( Try exporting with other options\n");
@@ -169,10 +170,10 @@ namespace Engine { namespace Core { namespace IO { namespace Importers {
 		}
 
 		// For each vertex of each triangle
-		for (unsigned int i = 0; i<vertexIndices.size(); i++) {
+		for (uint32_t i = 0; i<vertexIndices.size(); i++) {
 
 			// Get the indices of its attributes
-			unsigned int vertexIndex = vertexIndices[i];
+			uint32_t vertexIndex = vertexIndices[i];
 
 			// Get the attributes thanks to the index
 			glm::vec3 vertex = temp_vertices[vertexIndex - 1];
@@ -182,7 +183,7 @@ namespace Engine { namespace Core { namespace IO { namespace Importers {
 			temp_out_verts_pre_index.push_back(vertex);
 		}
 
-		std::vector<unsigned int> rand_import_colors;
+		std::vector<uint32_t> rand_import_colors;
 		vertexIndices.size();
 		//generate random indice colours
 		for (size_t i = 0; i < vertexIndices.size(); i++)
@@ -191,7 +192,7 @@ namespace Engine { namespace Core { namespace IO { namespace Importers {
 			int g = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 255.0f;
 			int b = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 255.0f;
 
-			unsigned int color = 255 << 24 | b << 16 | g << 8 | r;
+			uint32_t color = 255 << 24 | b << 16 | g << 8 | r;
 			rand_import_colors.push_back(color);
 
 		}

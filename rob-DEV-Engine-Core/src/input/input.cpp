@@ -79,7 +79,7 @@ namespace Engine {	namespace Core {
 		std::cout << "X:" << NormalisedMouseX << " Y:" << NormalisedMouseY << "\n";
 		#endif
 	}
-	bool Input::getKeyDown(unsigned int keyCode)
+	bool Input::getKeyDown(uint32_t keyCode)
 	{
 		//TODO: log this
 		if (keyCode >= MAX_KEYS)

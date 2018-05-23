@@ -30,7 +30,7 @@ namespace Engine { namespace Core { namespace BuildSystems {
 
 		//TODO: read in the data and convert it to a scene ptr
 		//very convoluted
-		unsigned int scene_data_byte_count = 0;
+		uint32_t scene_data_byte_count = 0;
 		while (scene_data_byte_count < sceneFile->m_FileHeader.vf_size)
 		{
 			Cooked_Scene_Entity_t tmp_entity_data = *(Cooked_Scene_Entity_t*)(scene_file_data_ptr);
@@ -41,7 +41,7 @@ namespace Engine { namespace Core { namespace BuildSystems {
 			//need to calculate the length of the name as it is not null terminated 
 			//data should have length of 4
 			//get vertex byte size, color byte size, indice byte size, transform and sub from entity size 
-			unsigned int entity_name_size = tmp_entity_data.cse_byte_size - ((sizeof(glm::vec3) * tmp_entity_data.cse_vertex_count) + (2 * (sizeof(unsigned int) * tmp_entity_data.cse_indice_count) + sizeof(glm::quat) + sizeof(glm::vec3)));
+			uint32_t entity_name_size = tmp_entity_data.cse_byte_size - ((sizeof(glm::vec3) * tmp_entity_data.cse_vertex_count) + (2 * (sizeof(uint32_t) * tmp_entity_data.cse_indice_count) + sizeof(glm::quat) + sizeof(glm::vec3)));
 
 			char tmp_name[128];
 			for (size_t i = 0; i < (entity_name_size); i++)
@@ -63,8 +63,8 @@ namespace Engine { namespace Core { namespace BuildSystems {
 
 			//vertices indices colours
 			std::vector<glm::vec3> vertices;
-			std::vector<unsigned int> indices;
-			std::vector<unsigned int> colors;
+			std::vector<uint32_t> indices;
+			std::vector<uint32_t> colors;
 
 			for (size_t i = 0; i < tmp_entity_data.cse_vertex_count; i++)
 			{
@@ -75,16 +75,16 @@ namespace Engine { namespace Core { namespace BuildSystems {
 
 			for (size_t i = 0; i < tmp_entity_data.cse_indice_count; i++)
 			{
-				indices.push_back(((unsigned int)*(unsigned int*)(scene_file_data_ptr)));
-				scene_file_data_ptr += sizeof(unsigned int);
-				scene_data_byte_count += sizeof(unsigned int);
+				indices.push_back(((uint32_t)*(uint32_t*)(scene_file_data_ptr)));
+				scene_file_data_ptr += sizeof(uint32_t);
+				scene_data_byte_count += sizeof(uint32_t);
 			}
 
 			for (size_t i = 0; i < tmp_entity_data.cse_indice_count; i++)
 			{
-				colors.push_back(((unsigned int)*(unsigned int*)(scene_file_data_ptr)));
-				scene_file_data_ptr += sizeof(unsigned int);
-				scene_data_byte_count += sizeof(unsigned int);
+				colors.push_back(((uint32_t)*(uint32_t*)(scene_file_data_ptr)));
+				scene_file_data_ptr += sizeof(uint32_t);
+				scene_data_byte_count += sizeof(uint32_t);
 			}
 
 			Entities::GameObject* gameObject = new Entities::GameObject(tmp_name_const, position, new Graphics::Mesh(vertices, indices, colors));
@@ -100,7 +100,7 @@ namespace Engine { namespace Core { namespace BuildSystems {
 		//get the byte size for the whole level
 		//package each as a cooked entity
 
-		unsigned int scene_data_size = 0;
+		uint32_t scene_data_size = 0;
 		scene_data_size += (sceneToCook->EnitityCount * sizeof(Cooked_Scene_Entity_t));
 
 		for (size_t i = 0; i < sceneToCook->SceneData.size(); i++)
@@ -113,7 +113,7 @@ namespace Engine { namespace Core { namespace BuildSystems {
 		sceneVF_Header.byte_data[scene_data_size + 1] = NULL;
 
 		//allocate the data
-		unsigned int bytes_written = 0;
+		uint32_t bytes_written = 0;
 		for (size_t i = 0; i < sceneToCook->SceneData.size(); i++)
 		{
 			//bake the scene metadata for each entity in the scene

@@ -21,6 +21,8 @@ namespace Engine {	namespace Core {  namespace Graphics {
 
 	Window::~Window()
 	{
+		glfwDestroyWindow(m_Window);
+		glfwTerminate();
 	}
 
 	bool Window::init_opengl(bool resizeable)
@@ -106,6 +108,7 @@ namespace Engine {	namespace Core {  namespace Graphics {
 		glfwSetWindowUserPointer(m_Window, this);
 		glfwSwapInterval(0);
 
+		std::cout << "Vulkan Version: INSERT VERSION INFO\n";
 		return true;
 	}
 

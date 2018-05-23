@@ -37,10 +37,10 @@ namespace Engine { namespace Core { namespace IO {
 		VFS_Header_t m_VFS_Header;
 
 		//ENTIRE RAW BYTES SIZE FOR THE VFS FILE
-		unsigned int m_VFS_RAW_FILE_SIZE;
+		uint32_t m_VFS_RAW_FILE_SIZE;
 		
 		//ENTIRE RAW BYTES SIZE FOR THE VFS FILE - VFS_HEADER_SIZE
-		unsigned int m_VFS_DATA_SIZE;
+		uint32_t m_VFS_DATA_SIZE;
 
 		bool m_FileSystemOnHeap = false;
 

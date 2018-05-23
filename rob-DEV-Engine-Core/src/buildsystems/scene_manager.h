@@ -12,11 +12,11 @@ namespace Engine { namespace Core {namespace BuildSystems {
 	typedef struct Cooked_Scene_Entity
 	{
 		EntityType cse_type;
-		unsigned int cse_byte_size;
-		unsigned int cse_vertex_count;
-		unsigned int cse_indice_count;
+		uint32_t cse_byte_size;
+		uint32_t cse_vertex_count;
+		uint32_t cse_indice_count;
 
-		Cooked_Scene_Entity(EntityType type, unsigned int byte_size, unsigned int vertex_count, unsigned int indice_count)
+		Cooked_Scene_Entity(EntityType type, uint32_t byte_size, uint32_t vertex_count, uint32_t indice_count)
 		{
 			cse_type = type; cse_byte_size = byte_size; cse_vertex_count = vertex_count; cse_indice_count = indice_count;
 		}

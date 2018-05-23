@@ -6,7 +6,7 @@ namespace Engine { namespace Core {
 	{
 	public:
 		virtual ~ISerializable() {};
-		virtual unsigned int getSize() = 0;
+		virtual uint32_t getSize() = 0;
 	};
 
 } }
