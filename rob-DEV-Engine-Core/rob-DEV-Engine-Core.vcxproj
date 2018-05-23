@@ -165,12 +165,12 @@
     <ClCompile Include="src\graphics\buffer\vertex_buffer.cpp" />
     <ClCompile Include="src\graphics\renderer.cpp" />
     <ClCompile Include="src\graphics\buffer\vertex_array.cpp" />
-    <ClCompile Include="src\io\importers\obj\obj_importer.cpp" />
     <ClCompile Include="src\entity\game_object.cpp" />
     <ClCompile Include="src\graphics\mesh.cpp" />
     <ClCompile Include="src\entity\entity.cpp" />
     <ClCompile Include="src\input\input.cpp" />
     <ClCompile Include="src\graphics\shader.cpp" />
+    <ClCompile Include="src\io\importers\obj\obj_importer.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
     <ClCompile Include="src\time\time.cpp" />
@@ -183,6 +183,7 @@
     <ClInclude Include="src\buildsystems\scene_manager.h" />
     <ClInclude Include="src\entity\scene.h" />
     <ClInclude Include="src\include\EngineCore.h" />
+    <ClInclude Include="src\include\EngineConfig.h" />
     <ClInclude Include="src\io\common\file_types.h" />
     <ClInclude Include="src\io\common\io.h" />
     <ClInclude Include="src\io\filesystem\virtual_file_system.h" />

@@ -1,7 +1,7 @@
 #pragma once
 #include "../../src/include/EngineCore.h"
 
-class Movement : public GameObject_Behaviour
+class Movement : public Engine::Core::Entities::GameObject_Behaviour
 {
 public:
 	Movement();

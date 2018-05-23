@@ -74,6 +74,13 @@ namespace Engine {  namespace Core {  namespace Entities {
 		m_RuntimeBehaviours.push_back(behavior);
 	}
 
+	void GameObject::Init()
+	{
+		//update all script behaviours
+		for (size_t i = 0; i < m_RuntimeBehaviours.size(); i++)
+			m_RuntimeBehaviours[i]->Start();
+	}
+
 	void GameObject::Tick()
 	{
 		//update all script behaviours

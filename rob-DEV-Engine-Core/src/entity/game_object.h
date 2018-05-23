@@ -15,6 +15,8 @@ namespace Engine {  namespace Core {  namespace Entities {
 		~GameObject();
 
 		void AddBehaviourScript(GameObject_Behaviour* behavior);
+		
+		void Init();
 		void Tick();
 
 		unsigned int getSize() override;

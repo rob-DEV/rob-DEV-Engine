@@ -1,7 +1,7 @@
 #pragma once
 #include "../../src/include/EngineCore.h"
 
-class Rotate : public GameObject_Behaviour
+class Rotate : public Engine::Core::Entities::GameObject_Behaviour
 {
 public:
 	Rotate();

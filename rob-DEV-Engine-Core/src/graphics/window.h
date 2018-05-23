@@ -1,10 +1,11 @@
 #pragma once
 #include <GL/glew.h>
+
 #include <GLFW/glfw3.h>
 
 #include "../input/input.h"
 
-
+#define GLFW_INCLUDE_VULKAN
 
 namespace Engine { namespace Core {  namespace Graphics { 
 	class Window
@@ -14,7 +15,8 @@ namespace Engine { namespace Core {  namespace Graphics {
 		unsigned int m_Width, m_Height = 0;
 		GLFWwindow* m_Window;
 	private:
-		bool init(bool resizeable);
+		bool init_opengl(bool resizeable);
+		bool init_vulkan(bool resizeable);
 	public:
 		void clear() const;
 		void update();

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "EngineConfig.h"
+
 //GLOBAL CORE ENGINE INCLUDE
 #include "../time/time.h"
 #include "../input/input.h"

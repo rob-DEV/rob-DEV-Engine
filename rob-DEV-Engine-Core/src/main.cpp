@@ -28,11 +28,19 @@ using namespace Engine::Core::IO::Importers;
 
 int main()
 {
+	#if ENGINE_RENDERER_OPENGL
+	std::cout << "Using OpenGL\n";
+	#endif
+
+	#if ENGINE_RENDERER_VULKAN
+		std::cout << "Using Vulkan\n";
+	#endif
+
 	double time_passed = 0;
 	unsigned int frames = 0;
 
 	Window window("MAIN ENGINE", 640, 480);
-	glClearColor(0.02f, 0.55f, 1.0f, 1.0f);
+
 
 	Renderer renderer;
 	
@@ -64,6 +72,13 @@ int main()
 	}
 
 	loadedLevel->SceneData[1]->AddBehaviourScript(new Movement());
+
+
+	//per-game initalization
+	for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
+	{
+		loadedLevel->SceneData[i]->Init();
+	}
 
 	while (!window.closed())
 	{
