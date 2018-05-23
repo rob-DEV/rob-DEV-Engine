@@ -5,7 +5,8 @@
 #include "buildsystems/scene_manager.h"
 
 #include "graphics/window.h"
-#include "graphics/renderer.h"
+#include "graphics/opengl/opengl_renderer.h"
+#include "graphics/vulkan/vulkan_renderer.h"
 
 #include "entity/entity.h"
 #include "entity/game_object.h"
@@ -28,21 +29,25 @@ using namespace Engine::Core::IO::Importers;
 
 int main()
 {
+	Window window("MAIN ENGINE", 640, 480);
+
 	#if ENGINE_RENDERER_OPENGL
-	std::cout << "Using OpenGL\n";
+		std::cout << "Using OpenGL\n";
+		OpenGLRenderer renderer;
 	#endif
 
 	#if ENGINE_RENDERER_VULKAN
 		std::cout << "Using Vulkan\n";
+		VulkanRenderer renderer;
 	#endif
 
 	double time_passed = 0;
 	unsigned int frames = 0;
 
-	Window window("MAIN ENGINE", 640, 480);
+	
 
 
-	Renderer renderer;
+	//Renderer renderer;
 	
 	glm::mat4 pr_matrix = glm::perspective(glm::radians(90.0f), 16.0f / 9.0f, 0.1f, 10000.0f);
 
@@ -52,9 +57,12 @@ int main()
 		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
 	);
 
-	renderer.Shaders->setUniformMat4("pr_matrix", pr_matrix);
-	renderer.Shaders->setUniformMat4("vw_matrix", vw_matrix);
-	renderer.Shaders->setUniformMat4("ml_matrix", glm::mat4(1.0f));
+	#if ENGINE_RENDERER_OPENGL
+		renderer.Shaders->setUniformMat4("pr_matrix", pr_matrix);
+		renderer.Shaders->setUniformMat4("vw_matrix", vw_matrix);
+		renderer.Shaders->setUniformMat4("ml_matrix", glm::mat4(1.0f));
+	#endif
+
 
 	Mesh* cube_load = OBJ_IMPORTER->ImportObj("res/obj/cube.obj");
 	Mesh* monkey_load = OBJ_IMPORTER->ImportObj("res/obj/monkey.obj");
@@ -85,18 +93,26 @@ int main()
 		window.clear();
 
 		//light test
-		renderer.Shaders->setUniform2f("light_pos", glm::vec2((float)(-INPUT->NormalisedMouseX / 10), (float)(INPUT->NormalisedMouseY / 10)));
 
-		renderer.begin();
+		#if ENGINE_RENDERER_OPENGL
+			renderer.Shaders->setUniform2f("light_pos", glm::vec2((float)(-INPUT->NormalisedMouseX / 10), (float)(INPUT->NormalisedMouseY / 10)));
+			renderer.begin();
+		#endif
+
+		
 
 		for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
 		{
 			loadedLevel->SceneData[i]->Tick();
-			renderer.submit(loadedLevel->SceneData[i]);
+			#if ENGINE_RENDERER_OPENGL
+				renderer.submit(loadedLevel->SceneData[i]);
+			#endif
 		}
 
-		renderer.end();
-		renderer.draw();
+		#if ENGINE_RENDERER_OPENGL
+			renderer.end();
+			renderer.draw();
+		#endif
 		
 		window.update();
 

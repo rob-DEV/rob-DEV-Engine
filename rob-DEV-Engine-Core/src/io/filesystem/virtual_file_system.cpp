@@ -101,14 +101,7 @@ namespace Engine { namespace Core { namespace IO {
 		VFS_Header_t temp_header;
 		read_from_stream(stream, temp_header);
 
-		//print the details of the VFS
-		std::cout << "VFS Version:" << temp_header.vfs_version << "\n";
-		std::cout << "VFS Hash:" << temp_header.vfs_hash << "\n";
-		std::cout << "VFS Dir Count:" << temp_header.vfs_dir_count << "\n";
-		std::cout << "VFS File Count:" << temp_header.vfs_dir_count << "\n";
-
 		stream.close();
-
 		//allocates the VFS onto the heap
 		return new VirtualFileSystem(VFS_File_Path, temp_header);
 

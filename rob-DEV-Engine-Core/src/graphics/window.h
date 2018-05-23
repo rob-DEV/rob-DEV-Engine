@@ -1,11 +1,12 @@
 #pragma once
+#include "../include/EngineConfig.h"
+
 #include <GL/glew.h>
 
+#include <vulkan.h>
 #include <GLFW/glfw3.h>
 
 #include "../input/input.h"
-
-#define GLFW_INCLUDE_VULKAN
 
 namespace Engine { namespace Core {  namespace Graphics { 
 	class Window

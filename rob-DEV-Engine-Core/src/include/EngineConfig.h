@@ -2,7 +2,6 @@
 
 //--ENGINE GLOBAL CONFIGURATION--//
 
-//tell the engine which renderer it will use
 
 #ifndef _ENGINE_CONFIGURATION_H
 

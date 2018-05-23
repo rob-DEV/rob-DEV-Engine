@@ -1,7 +1,6 @@
 #include "window.h"
-
 #include <iostream>
-#include "../include/EngineConfig.h"
+
 
 
 namespace Engine {	namespace Core {  namespace Graphics {
@@ -16,7 +15,6 @@ namespace Engine {	namespace Core {  namespace Graphics {
 		#endif
 
 		#if ENGINE_RENDERER_VULKAN
-		//ADD VULKAN
 		init_vulkan(false);
 		#endif
 	}
@@ -65,6 +63,9 @@ namespace Engine {	namespace Core {  namespace Graphics {
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
 
+		//blue color
+		glClearColor(0.02f, 0.55f, 1.0f, 1.0f);
+
 		std::cout << "Open GL Version: " << glGetString(GL_VERSION) << "\n";
 
 		return true;
@@ -72,8 +73,6 @@ namespace Engine {	namespace Core {  namespace Graphics {
 
 	bool Window::init_vulkan(bool resizeable)
 	{
-
-		glClearColor(0.02f, 0.55f, 1.0f, 1.0f);
 		if (!glfwInit())
 		{
 			std::cout << "Failed to initialize GLFW!\n";
@@ -118,7 +117,7 @@ namespace Engine {	namespace Core {  namespace Graphics {
 
 		#if ENGINE_RENDERER_VULKAN
 		//ADD VULKAN
-
+			
 		#endif
 	}
 
