@@ -30,7 +30,7 @@ using namespace Engine::Core::IO::Importers;
 int main()
 {
 	double time_passed = 0;
-	uint32_t frames = 0;
+	unsigned int frames = 0;
 	Window window("MAIN ENGINE", 640, 480);
 
 	#if ENGINE_RENDERER_OPENGL
@@ -45,7 +45,7 @@ int main()
 
 	glm::mat4 pr_matrix = glm::perspective(glm::radians(90.0f), 16.0f / 9.0f, 0.1f, 10000.0f);
 
-	glm::mat4 vw_matrix = glm::lookAt(glm::vec3(90, 10, -90), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	glm::mat4 vw_matrix = glm::lookAt(glm::vec3(20, 10, -20), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 
 	#if ENGINE_RENDERER_OPENGL
 		renderer.Shaders->setUniformMat4("pr_matrix", pr_matrix);
@@ -92,9 +92,9 @@ int main()
 			renderer.begin();
 		#endif
 
-		
-
-		for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
+		//limit to 5 entity
+		for (size_t i = 0; i < 5; i++)
+		//for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
 		{
 			loadedLevel->SceneData[i]->Tick();
 			#if ENGINE_RENDERER_OPENGL

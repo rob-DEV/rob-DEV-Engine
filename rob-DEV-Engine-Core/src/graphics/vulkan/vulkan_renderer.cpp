@@ -39,6 +39,18 @@ namespace Engine { namespace Core { namespace Graphics {
 		createInfo.ppEnabledExtensionNames = glfwExtensions;
 		createInfo.enabledLayerCount = 0;
 
+		//using validation layers
+		if (m_EnableValidationLayers && checkValidationLayers())
+		{
+			std::cout << "Validation layers exist and are active!\n";
+			createInfo.enabledLayerCount = static_cast<uint32_t>(m_ValidationLayers.size());
+			createInfo.ppEnabledLayerNames = m_ValidationLayers.data();
+		}
+		else 
+		{
+			createInfo.enabledLayerCount = 0;
+		}
+
 		m_InstanceResult = vkCreateInstance(&createInfo, nullptr, &m_Instance);
 		if (m_InstanceResult != VK_SUCCESS)
 			std::cout << "Failed to create Vulkan Instance!\n";
@@ -54,11 +66,33 @@ namespace Engine { namespace Core { namespace Graphics {
 		for (const auto extension : m_ExtensionsInfo)
 			std::cout << "\t" << extension.extensionName << std::endl;
 
-
-
+		
 
 	}
 
+	bool VulkanRenderer::checkValidationLayers()
+	{
+		uint32_t layerCount;
+		vkEnumerateInstanceLayerProperties(&layerCount, NULL);
+		m_AvailableValidationLayers.resize(layerCount);
+		vkEnumerateInstanceLayerProperties(&layerCount, m_AvailableValidationLayers.data());
+
+
+		for (const char* layerName : m_ValidationLayers) {
+			bool layerFound = false;
+			for (const auto& layerProperties : m_AvailableValidationLayers) {
+				if (strcmp(layerName, layerProperties.layerName) == 0) {
+					layerFound = true;
+					break;
+				}
+			}
+			if (!layerFound) {
+				return false;
+			}
+		}
+
+		return true;
+	}
 	void VulkanRenderer::begin()
 	{
 

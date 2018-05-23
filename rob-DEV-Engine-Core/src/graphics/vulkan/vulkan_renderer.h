@@ -9,8 +9,19 @@ namespace Engine { namespace Core { namespace Graphics {
 		VkInstance m_Instance;
 		VkResult m_InstanceResult;
 		std::vector<VkExtensionProperties> m_ExtensionsInfo;
+		
+		std::vector<const char*> m_ValidationLayers = { "VK_LAYER_LUNARG_standard_validation" };
+		std::vector<VkLayerProperties> m_AvailableValidationLayers;
+
+		#if(DEBUG)
+		const bool m_EnableValidationLayers = true;
+		#else
+		const bool m_EnableValidationLayers = false;
+		#endif
+
 	private:
 		void init() override;
+		bool checkValidationLayers();
 		void submit(Engine::Core::Graphics::Mesh* mesh, glm::vec3 position, glm::quat rotation) override;
 	public:
 
