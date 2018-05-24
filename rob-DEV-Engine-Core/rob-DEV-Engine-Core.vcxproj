@@ -177,6 +177,7 @@
     <ClCompile Include="src\time\time.cpp" />
     <ClCompile Include="src\graphics\vulkan\vk_instance.cpp" />
     <ClCompile Include="src\graphics\vulkan\vk_physical_device.cpp" />
+    <ClCompile Include="src\graphics\vulkan\vk_logical_device.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="res\scripts\movement.h" />
@@ -212,6 +213,7 @@
     <ClInclude Include="src\time\time.h" />
     <ClInclude Include="src\graphics\vulkan\vk_instance.h" />
     <ClInclude Include="src\graphics\vulkan\vk_physical_device.h" />
+    <ClInclude Include="src\graphics\vulkan\vk_logical_device.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\filesystems\DATA.VFS" />

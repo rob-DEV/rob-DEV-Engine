@@ -10,22 +10,18 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 		}
 	};
 
-	class VK_GPU 
+	class VKLogicalDevice 
 	{
-	public:
-		//physical
-		VkPhysicalDevice PhysicalDevice = VK_NULL_HANDLE;
-		VkDevice LogicalDevice = VK_NULL_HANDLE;
-		VkQueue GraphicsQueue = VK_NULL_HANDLE;
-
 	private:
+		
+		//VkLogicalDevice m_LogicalDevice = VK_NULL_HANDLE;
 		void init();
 		bool isSupportedDevice(VkPhysicalDevice device);
 		QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
 	public:
 		VKInstance m_VKInstance;
-		VK_GPU();
-		~VK_GPU();
+		VKLogicalDevice();
+		~VKLogicalDevice();
 		
 	};
 

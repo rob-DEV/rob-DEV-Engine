@@ -10,7 +10,7 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 	class VulkanRenderer : public IRenderer
 	{
 	private:
-		VKPhysicalDevice m_VKPhysicalDevice;
+		VK_GPU m_VK_GPU_Device;
 
 	private:
 		void init() override;

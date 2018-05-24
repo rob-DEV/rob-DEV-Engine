@@ -3,17 +3,17 @@
 
 namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
-	VKPhysicalDevice::VKPhysicalDevice()
+	VK_GPU::VK_GPU()
 	{
 		init();
 	}
 
-	VKPhysicalDevice::~VKPhysicalDevice()
+	VK_GPU::~VK_GPU()
 	{
-
+		vkDestroyDevice(LogicalDevice, NULL);
 	}
 
-	bool VKPhysicalDevice::isSupportedDevice(VkPhysicalDevice device)
+	bool VK_GPU::isSupportedDevice(VkPhysicalDevice device)
 	{
 		//check the details of the GPU
 		VkPhysicalDeviceProperties deviceProperties;
@@ -29,7 +29,7 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 			deviceFeatures.geometryShader && indices.isComplete();
 	}
 
-	QueueFamilyIndices VKPhysicalDevice::findQueueFamilies(VkPhysicalDevice device)
+	QueueFamilyIndices VK_GPU::findQueueFamilies(VkPhysicalDevice device)
 	{
 		QueueFamilyIndices indices;
 
@@ -53,29 +53,29 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 		return indices;
 	}
 
-	void VKPhysicalDevice::init()
+	void VK_GPU::init()
 	{
 		//list all graphics cards
 		uint32_t deviceCount = 0;
-		vkEnumeratePhysicalDevices(m_VKInstance.Instance_Handle, &deviceCount, NULL);
+		vkEnumeratePhysicalDevices(m_VKInstance.VkInstanceHandle, &deviceCount, NULL);
 
 		if (deviceCount == 0)
 			std::cout << "Failed to find physical devices!\n";
 
 		std::vector<VkPhysicalDevice> devices(deviceCount);
-		vkEnumeratePhysicalDevices(m_VKInstance.Instance_Handle, &deviceCount, devices.data());
+		vkEnumeratePhysicalDevices(m_VKInstance.VkInstanceHandle, &deviceCount, devices.data());
 
 		for (const VkPhysicalDevice& device : devices)
 			//use the first supported GPU (I'm using a GTX 760 fopr this)
 			if (isSupportedDevice(device))
 			{
-				m_PhysicalDevice = device;
+				PhysicalDevice = device;
 				break;
 			}
 
 		//print physical device information
 		VkPhysicalDeviceProperties deviceProperties;
-		vkGetPhysicalDeviceProperties(m_PhysicalDevice, &deviceProperties);
+		vkGetPhysicalDeviceProperties(PhysicalDevice, &deviceProperties);
 		
 		std::cout << "GPU Physical Device Information:\n";
 		std::cout << "\t Device ID:" << deviceProperties.deviceID << "\n";
@@ -83,11 +83,43 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 		std::cout << "\t Device Vendor:" << deviceProperties.vendorID << "\n";
 		std::cout << "\t Device API Version:" << deviceProperties.apiVersion << "\n";
 
-		//check supported family queues
+		//create the logical GPU based on the physical
+		QueueFamilyIndices indices = findQueueFamilies(PhysicalDevice);
+		VkDeviceQueueCreateInfo queueCreateInfo = {};
+		queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+		queueCreateInfo.queueFamilyIndex = indices.graphicsFamily;
+		queueCreateInfo.queueCount = 1;
 
+		//set priority to 1.0f as there is only one queue in existence atm
+		float queuePriority = 1.0f;
+		queueCreateInfo.pQueuePriorities = &queuePriority;
 
+		//TODO: check docs on this VK_FALSE??
+		VkPhysicalDeviceFeatures deviceFeatures = {};
 
+		//create the logical device
+		VkDeviceCreateInfo createInfo = {};
+		createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
+		createInfo.pQueueCreateInfos = &queueCreateInfo;
+		createInfo.queueCreateInfoCount = 1;
+		createInfo.pEnabledFeatures = &deviceFeatures;
+		
+		createInfo.enabledExtensionCount = 0;
+		if (m_VKInstance.isValidationLayersEnable)
+		{
+			createInfo.enabledLayerCount = m_VKInstance.ValidationLayers.size();
+			createInfo.ppEnabledLayerNames = m_VKInstance.ValidationLayers.data();
+		}
+		else
+		{
+			createInfo.enabledLayerCount = 0;
+		}
 
+		if (vkCreateDevice(PhysicalDevice, &createInfo, nullptr, &LogicalDevice) != VK_SUCCESS)
+			std::cout << "Vulkan Error: Failed to create logical device!\n";
+
+		vkGetDeviceQueue(LogicalDevice , indices.graphicsFamily, 0, &GraphicsQueue);
 	}
+
 
 } } } }

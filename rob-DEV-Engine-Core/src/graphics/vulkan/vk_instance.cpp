@@ -33,13 +33,13 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 	{
 		uint32_t layerCount;
 		vkEnumerateInstanceLayerProperties(&layerCount, NULL);
-		m_VKAvailableValidationLayers.resize(layerCount);
-		vkEnumerateInstanceLayerProperties(&layerCount, m_VKAvailableValidationLayers.data());
+		VkAvailableValidationLayers.resize(layerCount);
+		vkEnumerateInstanceLayerProperties(&layerCount, VkAvailableValidationLayers.data());
 
 
-		for (const char* layerName : m_ValidationLayers) {
+		for (const char* layerName : ValidationLayers) {
 			bool layerFound = false;
-			for (const auto& layerProperties : m_VKAvailableValidationLayers) {
+			for (const auto& layerProperties : VkAvailableValidationLayers) {
 				if (strcmp(layerName, layerProperties.layerName) == 0) {
 					layerFound = true;
 					break;
@@ -62,7 +62,7 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
 		for (unsigned int i = 0; i < glfwExtensionCount; i++)
 			m_VKRequiredExtensions.push_back(glfwExtensions[i]);
-		if (m_EnableValidationLayers)
+		if (isValidationLayersEnable)
 			m_VKRequiredExtensions.push_back(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);
 	}
 
@@ -87,29 +87,29 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 		createInfo.ppEnabledExtensionNames = m_VKRequiredExtensions.data();
 		createInfo.enabledLayerCount = 0;
 
-		if (m_EnableValidationLayers && checkValidationLayersSupport())
+		if (isValidationLayersEnable && checkValidationLayersSupport())
 		{
 			std::cout << "Validation layers exist and are active!\n";
-			createInfo.enabledLayerCount = static_cast<uint32_t>(m_ValidationLayers.size());
-			createInfo.ppEnabledLayerNames = m_ValidationLayers.data();
+			createInfo.enabledLayerCount = static_cast<uint32_t>(ValidationLayers.size());
+			createInfo.ppEnabledLayerNames = ValidationLayers.data();
 		}
 		else
 		{
 			createInfo.enabledLayerCount = 0;
 		}
 
-		InstanceResult = vkCreateInstance(&createInfo, nullptr, &Instance_Handle);
-		if (InstanceResult != VK_SUCCESS)
+		VkInstanceResult = vkCreateInstance(&createInfo, nullptr, &VkInstanceHandle);
+		if (VkInstanceResult != VK_SUCCESS)
 			std::cout << "Failed to create Vulkan Instance!\n";
 
 		uint32_t extensionCount = 0;
 		vkEnumerateInstanceExtensionProperties(NULL, &extensionCount, NULL);
-		m_VKSupportedExtensionsInfo.resize(extensionCount);
+		VkSupportedExtensionsInfo.resize(extensionCount);
 		//fill the info
-		vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, m_VKSupportedExtensionsInfo.data());
+		vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, VkSupportedExtensionsInfo.data());
 
 		std::cout << "Vulkan Supported Extensions\n";
-		for (const auto extension : m_VKSupportedExtensionsInfo)
+		for (const auto extension : VkSupportedExtensionsInfo)
 			std::cout << "\t" << extension.extensionName << std::endl;
 
 
@@ -119,7 +119,7 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
 	void VKInstance::setupDebugErrorCallback()
 	{
-		if (!m_EnableValidationLayers) return;
+		if (!isValidationLayersEnable) return;
 
 		VkDebugReportCallbackCreateInfoEXT createInfo = {};
 		createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT;
@@ -127,15 +127,15 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 		createInfo.pfnCallback = vkDebugCallback;
 
 		//register callback information and callback function ptr
-		if (CreateDebugReportCallbackEXT(Instance_Handle, &createInfo, NULL, &m_DebuggingCallBack) != VK_SUCCESS)
+		if (CreateDebugReportCallbackEXT(VkInstanceHandle, &createInfo, NULL, &m_DebuggingCallBack) != VK_SUCCESS)
 			std::cout << "Error registering debug error handle callback in setupDebugErrorCallback()";
 
 	}
 
 	void VKInstance::destroy()
 	{
-		DestroyDebugReportCallbackEXT(Instance_Handle, m_DebuggingCallBack, NULL);
-		vkDestroyInstance(Instance_Handle, NULL);
+		DestroyDebugReportCallbackEXT(VkInstanceHandle, m_DebuggingCallBack, NULL);
+		vkDestroyInstance(VkInstanceHandle, NULL);
 	}
 
 } } } }

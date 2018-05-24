@@ -1,11 +1,12 @@
 # rob-DEV-Engine
-An OpenGL Cross Platform Game Engine (WIP)
-My implementation of a C++ Game Engine / OpenGL renderer, the engine is obviously not an "engine" in the sense that you won't be making games anytime soon. Instead it is my first attempt at constructing a component based core library ontop of which an editor could be placed. 
+An OpenGL/Vulkan Cross Platform Game Engine (WIP)
+My implementation of a C++ Game Engine / OpenGL / Vulkan renderer, the engine is obviously not an "engine" in the sense that you won't be making games anytime soon. Instead it is my first attempt at constructing a component based core library ontop of which an editor could be placed. 
 
 Features:
 Input System - Mouse and Keyboard
 
 OpenGL Batch Renderer - With vertex indexing
+Vulkan Renderer - WIP
 
 OBJ File Importer - Vertex duplicates are removed and indexes are calculated.
 
