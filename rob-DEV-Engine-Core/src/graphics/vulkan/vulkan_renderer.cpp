@@ -4,6 +4,14 @@
 
 namespace Engine { namespace Core { namespace Graphics {
 
+	//debug error calback handler
+	VKAPI_ATTR VkBool32 VKAPI_CALL VuldebugCallback(VkDebugReportFlagsEXT flags, VkDebugReportObjectTypeEXT objType, uint64_t obj, uint32_t location, int32_t code, const char* layerPrefix, const char* msg, void* userData)
+	{
+		std::cout << "Vulkan Validation Layer ERROR: " << msg << "\n";
+
+		return VK_FALSE;
+	}
+
 	VulkanRenderer::VulkanRenderer()
 	{
 		init();
@@ -17,6 +25,51 @@ namespace Engine { namespace Core { namespace Graphics {
 	}
 
 	void VulkanRenderer::init()
+	{
+		setupRequiredExtensions();
+		createVulkanInstance();
+	}
+
+	bool VulkanRenderer::checkValidationLayersSupport()
+	{
+		uint32_t layerCount;
+		vkEnumerateInstanceLayerProperties(&layerCount, NULL);
+		m_VKAvailableValidationLayers.resize(layerCount);
+		vkEnumerateInstanceLayerProperties(&layerCount, m_VKAvailableValidationLayers.data());
+
+
+		for (const char* layerName : m_ValidationLayers) {
+			bool layerFound = false;
+			for (const auto& layerProperties : m_VKAvailableValidationLayers) {
+				if (strcmp(layerName, layerProperties.layerName) == 0) {
+					layerFound = true;
+					break;
+				}
+			}
+			if (!layerFound) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+	
+	void VulkanRenderer::setupRequiredExtensions()
+	{
+		//get GLFW extensions and add the validation extension depending on build configuration
+		unsigned int glfwExtensionCount = 0;
+		const char** glfwExtensions;
+		glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+
+		for (unsigned int i = 0; i < glfwExtensionCount; i++) {
+			m_VKRequiredExtensions.push_back(glfwExtensions[i]);
+		}
+		if (m_EnableValidationLayers) {
+			m_VKRequiredExtensions.push_back(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);
+		}
+	}
+
+	void VulkanRenderer::createVulkanInstance()
 	{
 		//setup the vulkan instance
 		VkApplicationInfo appInfo = {};
@@ -32,21 +85,18 @@ namespace Engine { namespace Core { namespace Graphics {
 		createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
 		createInfo.pApplicationInfo = &appInfo;
 
-		uint32_t glfwExtensionCount = 0;
-		const char** glfwExtensions;
-		glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
-		createInfo.enabledExtensionCount = glfwExtensionCount;
-		createInfo.ppEnabledExtensionNames = glfwExtensions;
+		//provide the instance info with the currently in use vulkan extensions
+		createInfo.enabledExtensionCount = m_VKRequiredExtensions.size();
+		createInfo.ppEnabledExtensionNames = m_VKRequiredExtensions.data();
 		createInfo.enabledLayerCount = 0;
 
-		//using validation layers
-		if (m_EnableValidationLayers && checkValidationLayers())
+		if (m_EnableValidationLayers && checkValidationLayersSupport())
 		{
 			std::cout << "Validation layers exist and are active!\n";
 			createInfo.enabledLayerCount = static_cast<uint32_t>(m_ValidationLayers.size());
 			createInfo.ppEnabledLayerNames = m_ValidationLayers.data();
 		}
-		else 
+		else
 		{
 			createInfo.enabledLayerCount = 0;
 		}
@@ -54,45 +104,21 @@ namespace Engine { namespace Core { namespace Graphics {
 		m_InstanceResult = vkCreateInstance(&createInfo, nullptr, &m_Instance);
 		if (m_InstanceResult != VK_SUCCESS)
 			std::cout << "Failed to create Vulkan Instance!\n";
-		
-		//extension info TODO: remove in release
+
 		uint32_t extensionCount = 0;
 		vkEnumerateInstanceExtensionProperties(NULL, &extensionCount, NULL);
-		m_ExtensionsInfo.resize(extensionCount);
+		m_VKSupportedExtensionsInfo.resize(extensionCount);
 		//fill the info
-		vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, m_ExtensionsInfo.data());
+		vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, m_VKSupportedExtensionsInfo.data());
 
-		std::cout << "Vulkan Extensions\n";
-		for (const auto extension : m_ExtensionsInfo)
+		std::cout << "Vulkan Supported Extensions\n";
+		for (const auto extension : m_VKSupportedExtensionsInfo)
 			std::cout << "\t" << extension.extensionName << std::endl;
 
-		
+
 
 	}
-
-	bool VulkanRenderer::checkValidationLayers()
-	{
-		uint32_t layerCount;
-		vkEnumerateInstanceLayerProperties(&layerCount, NULL);
-		m_AvailableValidationLayers.resize(layerCount);
-		vkEnumerateInstanceLayerProperties(&layerCount, m_AvailableValidationLayers.data());
-
-
-		for (const char* layerName : m_ValidationLayers) {
-			bool layerFound = false;
-			for (const auto& layerProperties : m_AvailableValidationLayers) {
-				if (strcmp(layerName, layerProperties.layerName) == 0) {
-					layerFound = true;
-					break;
-				}
-			}
-			if (!layerFound) {
-				return false;
-			}
-		}
-
-		return true;
-	}
+	
 	void VulkanRenderer::begin()
 	{
 
@@ -105,7 +131,12 @@ namespace Engine { namespace Core { namespace Graphics {
 
 	void VulkanRenderer::submit(Engine::Core::Graphics::Mesh* mesh)
 	{
+	
+	}
 
+	void VulkanRenderer::submit_triangle_test()
+	{
+		//used for testing vulkan
 	}
 
 	void VulkanRenderer::submit(Engine::Core::Entities::Entity* renderableEntity)
@@ -120,7 +151,7 @@ namespace Engine { namespace Core { namespace Graphics {
 
 	void VulkanRenderer::draw()
 	{
-		
+			
 	}
 
 	void VulkanRenderer::dispose()

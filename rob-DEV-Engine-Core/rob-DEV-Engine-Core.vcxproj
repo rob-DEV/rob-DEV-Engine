@@ -179,10 +179,10 @@
   <ItemGroup>
     <ClInclude Include="res\scripts\movement.h" />
     <ClInclude Include="res\scripts\rotate.h" />
-    <ClInclude Include="src\graphics\common\base_renderer.h" />
+    <ClInclude Include="src\graphics\common\i_renderer.h" />
     <ClInclude Include="src\graphics\vulkan\vulkan_renderer.h" />
     <ClInclude Include="src\entity\game_object_behaviour.h" />
-    <ClInclude Include="src\common\serializeable.h" />
+    <ClInclude Include="src\common\i_serializeable.h" />
     <ClInclude Include="src\buildsystems\scene_manager.h" />
     <ClInclude Include="src\entity\scene.h" />
     <ClInclude Include="src\include\EngineCore.h" />

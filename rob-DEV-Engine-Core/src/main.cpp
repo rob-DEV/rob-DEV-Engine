@@ -1,7 +1,6 @@
 #include <iostream>
 
 #include "time/time.h"
-
 #include "buildsystems/scene_manager.h"
 
 #include "graphics/window.h"
@@ -31,7 +30,7 @@ int main()
 {
 	double time_passed = 0;
 	unsigned int frames = 0;
-	Window window("MAIN ENGINE", 640, 480);
+	Window window("MAIN ENGINE WINDOW", 640, 480);
 
 	#if ENGINE_RENDERER_OPENGL
 		std::cout << "Using OpenGL\n";
@@ -62,31 +61,26 @@ int main()
 
 	VirtualFileSystem* vfs = VirtualFileSystem::Open("res/filesystems/DATA.VFS");
 
-
 	//loading monkey level instead of test.level
 	Scene* loadedLevel = SCENE_MANAGER->loadLevel(vfs->Retrieve("multiple_gameobject.level"));
 
 	//assign a new behaviour script to an object in the scene
 	for (size_t i = 0; i < 20; i++)
-	{
 		loadedLevel->SceneData[i]->AddBehaviourScript(new Rotate());
-	}
 
 	loadedLevel->SceneData[1]->AddBehaviourScript(new Movement());
 
 
 	//per-game initalization
 	for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
-	{
 		loadedLevel->SceneData[i]->Init();
-	}
+	
 
 	while (!window.closed())
 	{
 		window.clear();
 
 		//light test
-
 		#if ENGINE_RENDERER_OPENGL
 			renderer.Shaders->setUniform2f("light_pos", glm::vec2((float)(-INPUT->NormalisedMouseX / 10), (float)(INPUT->NormalisedMouseY / 10)));
 			renderer.begin();

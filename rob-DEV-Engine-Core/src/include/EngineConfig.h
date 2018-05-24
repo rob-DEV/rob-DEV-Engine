@@ -8,9 +8,9 @@
 
 
 
-
-#define ENGINE_RENDERER_OPENGL 1
-#define ENGINE_RENDERER_VULKAN 0
+//on off toggles 1 = True, 0 = False
+#define ENGINE_RENDERER_OPENGL 0
+#define ENGINE_RENDERER_VULKAN 1
 
 
 

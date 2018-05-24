@@ -3,7 +3,7 @@
 #include <string>
 #include <glm/glm.hpp>
 
-#include "../common/serializeable.h"
+#include "../common/i_serializeable.h"
 #include "transform.h"
 
 namespace Engine { namespace Core { namespace Entities { 

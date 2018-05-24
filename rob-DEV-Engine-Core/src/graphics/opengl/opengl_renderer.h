@@ -1,5 +1,5 @@
 #pragma once
-#include "../common/base_renderer.h"
+#include "../common/i_renderer.h"
 
 namespace Engine { namespace Core { namespace Graphics { 
 

@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
-#include "../common/serializeable.h"
+#include "../common/i_serializeable.h"
 
 namespace Engine {  namespace Core {  namespace Graphics {
 	class Mesh : public ISerializable
