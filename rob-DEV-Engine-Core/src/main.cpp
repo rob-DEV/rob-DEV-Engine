@@ -39,7 +39,7 @@ int main()
 
 	#if ENGINE_RENDERER_VULKAN
 		std::cout << "Using Vulkan\n";
-		VulkanRenderer renderer;
+		Vulkan::VulkanRenderer renderer;
 	#endif
 
 	glm::mat4 pr_matrix = glm::perspective(glm::radians(90.0f), 16.0f / 9.0f, 0.1f, 10000.0f);
@@ -117,4 +117,10 @@ int main()
 
 		}
 	}
+	
+	window.dispose();
+	
+	#if ENGINE_RENDERER_VULKAN
+		renderer.dispose();
+	#endif
 }

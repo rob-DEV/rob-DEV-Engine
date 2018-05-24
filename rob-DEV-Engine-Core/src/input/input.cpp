@@ -76,7 +76,7 @@ namespace Engine {	namespace Core {
 			NormalisedMouseX = 0;
 
 		#if (DEBUG)
-		std::cout << "X:" << NormalisedMouseX << " Y:" << NormalisedMouseY << "\n";
+		//std::cout << "X:" << NormalisedMouseX << " Y:" << NormalisedMouseY << "\n";
 		#endif
 	}
 	bool Input::getKeyDown(uint32_t keyCode)

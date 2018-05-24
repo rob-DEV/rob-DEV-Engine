@@ -22,6 +22,7 @@ namespace Engine { namespace Core {  namespace Graphics {
 		void clear() const;
 		void update();
 		bool closed() const;
+		void dispose();
 		inline int getWidth() const { return m_Width; }
 		inline int getHeight() const { return m_Height; };
 

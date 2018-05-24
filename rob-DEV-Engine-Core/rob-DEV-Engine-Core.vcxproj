@@ -175,6 +175,8 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
     <ClCompile Include="src\time\time.cpp" />
+    <ClCompile Include="src\graphics\vulkan\vk_instance.cpp" />
+    <ClCompile Include="src\graphics\vulkan\vk_physical_device.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="res\scripts\movement.h" />
@@ -185,6 +187,7 @@
     <ClInclude Include="src\common\i_serializeable.h" />
     <ClInclude Include="src\buildsystems\scene_manager.h" />
     <ClInclude Include="src\entity\scene.h" />
+    <ClInclude Include="src\graphics\vulkan\vk_ext_utils.h" />
     <ClInclude Include="src\include\EngineCore.h" />
     <ClInclude Include="src\include\EngineConfig.h" />
     <ClInclude Include="src\io\common\file_types.h" />
@@ -207,6 +210,8 @@
     <ClInclude Include="src\io\utils\file_utils.h" />
     <ClInclude Include="src\entity\transform.h" />
     <ClInclude Include="src\time\time.h" />
+    <ClInclude Include="src\graphics\vulkan\vk_instance.h" />
+    <ClInclude Include="src\graphics\vulkan\vk_physical_device.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\filesystems\DATA.VFS" />

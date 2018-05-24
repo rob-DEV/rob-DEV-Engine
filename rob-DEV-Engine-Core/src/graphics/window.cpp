@@ -135,5 +135,10 @@ namespace Engine {	namespace Core {  namespace Graphics {
 		glfwPollEvents();
 	}
 
+	void Window::dispose()
+	{
+		glfwDestroyWindow(m_Window);
+		glfwTerminate();
+	}
 
 }	}	}
