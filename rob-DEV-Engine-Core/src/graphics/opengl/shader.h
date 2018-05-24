@@ -1,5 +1,7 @@
 #pragma once
-#include <GL/glew.h>
+#include "gl_include.h"
+
+#if(ENGINE_RENDERER_OPENGL)
 #include <glm/glm.hpp>
 
 namespace Engine {  namespace Core {  namespace Graphics {
@@ -29,5 +31,7 @@ namespace Engine {  namespace Core {  namespace Graphics {
 		GLint getUniformLocation(const GLchar* name);
 	};
 
-}   }	}
+} } }
+
+#endif
 

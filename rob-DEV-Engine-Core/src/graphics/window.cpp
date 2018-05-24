@@ -25,6 +25,7 @@ namespace Engine {	namespace Core {  namespace Graphics {
 		glfwTerminate();
 	}
 
+	#if(ENGINE_RENDERER_OPENGL)
 	bool Window::init_opengl(bool resizeable)
 	{
 		if (!glfwInit())
@@ -47,7 +48,7 @@ namespace Engine {	namespace Core {  namespace Graphics {
 			std::cout << "Failed to create: " << m_Title << "\n";
 			return false;
 		}
-		
+
 		glfwMakeContextCurrent(m_Window);
 		glfwSetWindowSizeCallback(m_Window, Engine::Core::Input::Input::getInstance()->window_resize_callback_handle);
 		glfwSetKeyCallback(m_Window, Engine::Core::Input::Input::getInstance()->key_callback_handle);
@@ -58,7 +59,7 @@ namespace Engine {	namespace Core {  namespace Graphics {
 		glfwSwapInterval(0);
 		if (glewInit() != GLEW_OK)
 		{
-			std::cout << "Failed to initalize GLEW\n";
+			std::cout << "Failed to initalize GLEWGLEW\n";
 			return false;
 		}
 
@@ -71,8 +72,10 @@ namespace Engine {	namespace Core {  namespace Graphics {
 		std::cout << "Open GL Version: " << glGetString(GL_VERSION) << "\n";
 
 		return true;
-	}
-
+}
+	#endif
+	
+	#if(ENGINE_RENDERER_VULKAN)
 	bool Window::init_vulkan(bool resizeable)
 	{
 		if (!glfwInit())
@@ -111,6 +114,7 @@ namespace Engine {	namespace Core {  namespace Graphics {
 		std::cout << "Vulkan Version: INSERT VERSION INFO\n";
 		return true;
 	}
+	#endif
 
 	void Window::clear() const
 	{

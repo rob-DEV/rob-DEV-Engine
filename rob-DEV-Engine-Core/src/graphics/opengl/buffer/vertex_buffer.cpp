@@ -1,5 +1,6 @@
 #include "vertex_buffer.h"
 
+#if(ENGINE_RENDERER_OPENGL)
 namespace Engine { namespace Core { namespace Graphics { namespace Buffers {
 
 	VertexBufferObject::VertexBufferObject()
@@ -28,3 +29,5 @@ namespace Engine { namespace Core { namespace Graphics { namespace Buffers {
 	}
 
 } } } }
+
+#endif

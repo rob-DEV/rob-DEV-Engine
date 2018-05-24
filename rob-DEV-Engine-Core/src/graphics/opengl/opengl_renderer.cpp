@@ -1,4 +1,6 @@
 #include "opengl_renderer.h"
+
+#if(ENGINE_RENDERER_OPENGL)
 #include <iostream>
 #include <glm/gtx/norm.hpp>
 
@@ -145,3 +147,5 @@ namespace Engine { namespace Core { namespace Graphics {
 	}
 
 } } }
+
+#endif

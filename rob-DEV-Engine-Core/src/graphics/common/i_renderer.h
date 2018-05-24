@@ -1,14 +1,5 @@
 #pragma once
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <vulkan.h>
-
-#include "../shader.h"
-#include "../common/i_renderer.h"
 #include "../../entity/game_object.h"
-#include "../buffer/vertex_buffer.h"
-#include "../buffer/index_buffer.h"
-#include "../buffer/vertex_array.h"
 
 namespace Engine { namespace Core { namespace Graphics {
 	//set the max amounts which the renderer can handle

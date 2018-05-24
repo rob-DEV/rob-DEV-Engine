@@ -1,7 +1,8 @@
 #pragma once
-#include <vulkan.h>
-#include <vector>
+#include "vk_include.h"
 
+#if(ENGINE_RENDERER_VULKAN)
+#include <vector>
 namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
 	class VKInstance
@@ -40,3 +41,5 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 	};
 
 } } } }
+
+#endif

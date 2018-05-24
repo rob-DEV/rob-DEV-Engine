@@ -21,9 +21,6 @@
     <ClCompile Include="src\graphics\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\input\input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -37,15 +34,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\time\time.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\buffer\index_buffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\buffer\vertex_array.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\buffer\vertex_buffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\io\filesystem\virtual_file_system.cpp">
@@ -69,9 +57,6 @@
     <ClCompile Include="src\io\importers\obj\obj_importer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\vulkan\vulkan_renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\graphics\opengl\opengl_renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -81,15 +66,27 @@
     <ClCompile Include="src\graphics\vulkan\vk_physical_device.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\vulkan\vk_logical_device.cpp">
+    <ClCompile Include="src\graphics\vulkan\vk_surface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\vulkan\vk_renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\opengl\shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\opengl\buffer\index_buffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\opengl\buffer\vertex_array.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\opengl\buffer\vertex_buffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\input\input.h">
@@ -117,15 +114,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\io\utils\file_utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\buffer\index_buffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\buffer\vertex_array.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\buffer\vertex_buffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\io\importers\obj\obj_importer.h">
@@ -164,9 +152,6 @@
     <ClInclude Include="src\include\EngineConfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\vulkan\vulkan_renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\graphics\opengl\opengl_renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -185,7 +170,28 @@
     <ClInclude Include="src\graphics\vulkan\vk_ext_utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\vulkan\vk_logical_device.h">
+    <ClInclude Include="src\graphics\vulkan\vk_surface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\vulkan\vk_renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\vulkan\vk_include.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\opengl\shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\opengl\buffer\index_buffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\opengl\buffer\vertex_array.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\opengl\buffer\vertex_buffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\opengl\gl_include.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

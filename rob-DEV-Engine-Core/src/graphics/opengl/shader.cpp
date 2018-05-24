@@ -1,10 +1,12 @@
+#include "shader.h"
+
+#if(ENGINE_RENDERER_OPENGL)
+
 #include <string>
 #include <vector>
 #include <iostream>
 #include <glm/gtc/type_ptr.hpp>
-
-#include "shader.h"
-#include "../io/utils/file_utils.h"
+#include "../../io/utils/file_utils.h"
 
 
 using namespace Engine::Core;
@@ -132,4 +134,6 @@ namespace Engine {  namespace Core {  namespace Graphics {
 	{
 		glUseProgram(0);
 	}
-}	}	}
+} }	}
+
+#endif

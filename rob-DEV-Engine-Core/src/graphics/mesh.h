@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include <GL/glew.h>
+
 #include <glm/glm.hpp>
 
 #include "../common/i_serializeable.h"

@@ -1,5 +1,5 @@
 #include "vertex_array.h"
-
+#if(ENGINE_RENDERER_OPENGL)
 namespace Engine { namespace Core { namespace Graphics { namespace Buffers {
 
 	VertexArray::VertexArray()
@@ -30,3 +30,5 @@ namespace Engine { namespace Core { namespace Graphics { namespace Buffers {
 	}
 
 } } } }
+
+#endif

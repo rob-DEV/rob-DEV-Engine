@@ -1,5 +1,14 @@
 #pragma once
+#include "gl_include.h"
 #include "../common/i_renderer.h"
+
+
+#if(ENGINE_RENDERER_OPENGL)
+#include "shader.h"
+#include "buffer/index_buffer.h"
+#include "buffer/vertex_array.h"
+#include "buffer/vertex_buffer.h"
+
 
 namespace Engine { namespace Core { namespace Graphics { 
 
@@ -43,3 +52,4 @@ namespace Engine { namespace Core { namespace Graphics {
 	};
 
 } } }
+#endif

@@ -1,24 +1,29 @@
 #pragma once
+#include "vk_include.h"
 #include "../common/i_renderer.h"
+
+#if(ENGINE_RENDERER_VULKAN)
 #include "vk_instance.h"
 #include "vk_physical_device.h"
+#include "vk_surface.h"
 
 namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
 	//TODO: refactor ALL vulkan objects to the header to ensure deletion!!
 	//TODO: class abstraction for VK objects
-	class VulkanRenderer : public IRenderer
+	class VKRenderer : public IRenderer
 	{
 	private:
-		VK_GPU m_VK_GPU_Device;
+		VK_GPU m_VK_GPU;
+		VK_Surface m_VK_Surface;
 
 	private:
 		void init() override;
 		void submit(Engine::Core::Graphics::Mesh* mesh, glm::vec3 position, glm::quat rotation) override;
 	public:
 
-		VulkanRenderer();
-		~VulkanRenderer();
+		VKRenderer(const Window& renderWindow);
+		~VKRenderer();
 
 		void begin() override;
 
@@ -34,3 +39,5 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 	};
 
 } } } }
+
+#endif

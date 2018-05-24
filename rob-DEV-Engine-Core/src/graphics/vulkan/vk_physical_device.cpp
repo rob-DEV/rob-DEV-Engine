@@ -1,6 +1,7 @@
 #include "vk_physical_device.h"
 #include <iostream>
 
+#if(ENGINE_RENDERER_VULKAN)
 namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
 	VK_GPU::VK_GPU()
@@ -10,7 +11,7 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
 	VK_GPU::~VK_GPU()
 	{
-		vkDestroyDevice(LogicalDevice, NULL);
+		vkDestroyDevice(VkLogicalDeviceHandle, NULL);
 	}
 
 	bool VK_GPU::isSupportedDevice(VkPhysicalDevice device)
@@ -69,13 +70,13 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 			//use the first supported GPU (I'm using a GTX 760 fopr this)
 			if (isSupportedDevice(device))
 			{
-				PhysicalDevice = device;
+				VkPhysicalDeviceHandle = device;
 				break;
 			}
 
 		//print physical device information
 		VkPhysicalDeviceProperties deviceProperties;
-		vkGetPhysicalDeviceProperties(PhysicalDevice, &deviceProperties);
+		vkGetPhysicalDeviceProperties(VkPhysicalDeviceHandle, &deviceProperties);
 		
 		std::cout << "GPU Physical Device Information:\n";
 		std::cout << "\t Device ID:" << deviceProperties.deviceID << "\n";
@@ -84,7 +85,7 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 		std::cout << "\t Device API Version:" << deviceProperties.apiVersion << "\n";
 
 		//create the logical GPU based on the physical
-		QueueFamilyIndices indices = findQueueFamilies(PhysicalDevice);
+		QueueFamilyIndices indices = findQueueFamilies(VkPhysicalDeviceHandle);
 		VkDeviceQueueCreateInfo queueCreateInfo = {};
 		queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
 		queueCreateInfo.queueFamilyIndex = indices.graphicsFamily;
@@ -115,11 +116,13 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 			createInfo.enabledLayerCount = 0;
 		}
 
-		if (vkCreateDevice(PhysicalDevice, &createInfo, nullptr, &LogicalDevice) != VK_SUCCESS)
+		if (vkCreateDevice(VkPhysicalDeviceHandle, &createInfo, nullptr, &VkLogicalDeviceHandle) != VK_SUCCESS)
 			std::cout << "Vulkan Error: Failed to create logical device!\n";
 
-		vkGetDeviceQueue(LogicalDevice , indices.graphicsFamily, 0, &GraphicsQueue);
+		vkGetDeviceQueue(VkLogicalDeviceHandle , indices.graphicsFamily, 0, &VkGraphicsQueueHandle);
 	}
 
 
 } } } }
+
+#endif

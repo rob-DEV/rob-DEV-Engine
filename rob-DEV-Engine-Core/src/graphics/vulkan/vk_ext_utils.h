@@ -1,5 +1,9 @@
-#pragma once
-#include "vulkan.h"
+#if(ENGINE_RENDERER_VULKAN)
+
+#ifndef _VK_UTILS_H
+#define _VK_UTILS_H
+
+#include <vulkan.h>
 
 //needed to load vkCreateDebugReportCallbackEXT() this is an extension function and not normally loaded by vulkan
 VkResult CreateDebugReportCallbackEXT(VkInstance instance, const VkDebugReportCallbackCreateInfoEXT* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkDebugReportCallbackEXT* pCallback) {
@@ -18,3 +22,6 @@ void DestroyDebugReportCallbackEXT(VkInstance instance, VkDebugReportCallbackEXT
 		func(instance, callback, pAllocator);
 	}
 }
+
+#endif
+#endif

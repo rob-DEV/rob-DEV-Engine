@@ -1,5 +1,8 @@
 #include "index_buffer.h"
 
+#if(ENGINE_RENDERER_OPENGL)
+
+
 namespace Engine { namespace Core { namespace Graphics { namespace Buffers {
 
 	IndexBufferObject::IndexBufferObject()
@@ -28,3 +31,5 @@ namespace Engine { namespace Core { namespace Graphics { namespace Buffers {
 	}
 
 } } } }
+
+#endif

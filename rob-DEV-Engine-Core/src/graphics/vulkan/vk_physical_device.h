@@ -1,6 +1,6 @@
-#include <vulkan.h>
 #include "vk_instance.h"
 
+#if(ENGINE_RENDERER_VULKAN)
 namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
 	struct QueueFamilyIndices {
@@ -14,9 +14,9 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 	{
 	public:
 		//physical
-		VkPhysicalDevice PhysicalDevice = VK_NULL_HANDLE;
-		VkDevice LogicalDevice = VK_NULL_HANDLE;
-		VkQueue GraphicsQueue = VK_NULL_HANDLE;
+		VkPhysicalDevice VkPhysicalDeviceHandle = VK_NULL_HANDLE;
+		VkDevice VkLogicalDeviceHandle = VK_NULL_HANDLE;
+		VkQueue VkGraphicsQueueHandle = VK_NULL_HANDLE;
 
 	private:
 		void init();
@@ -30,3 +30,4 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 	};
 
 } } } }
+#endif

@@ -1,9 +1,8 @@
-#include <iostream>
-#include <GLFW/glfw3.h>
-
 #include "vk_instance.h"
 #include "vk_ext_utils.h"
+#include <iostream>
 
+#if(ENGINE_RENDERER_VULKAN)
 namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
 	VKInstance::VKInstance()
@@ -139,3 +138,5 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 	}
 
 } } } }
+
+#endif

@@ -1,16 +1,18 @@
 #pragma once
-#include <GL/glew.h>
+#include "../gl_include.h"
+
+#if(ENGINE_RENDERER_OPENGL)
 
 namespace Engine { namespace Core { namespace Graphics { namespace Buffers {
 
-	class VertexBufferObject
+	class VertexArray
 	{
 	private:
-		GLuint m_VBO;
+		GLuint m_VAO;
 
 	public:
-		VertexBufferObject();
-		~VertexBufferObject();
+		VertexArray();
+		~VertexArray();
 
 		void bind();
 		void unbind();
@@ -18,3 +20,5 @@ namespace Engine { namespace Core { namespace Graphics { namespace Buffers {
 	};
 
 } } } }
+
+#endif

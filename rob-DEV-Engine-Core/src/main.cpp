@@ -3,9 +3,8 @@
 #include "time/time.h"
 #include "buildsystems/scene_manager.h"
 
-#include "graphics/window.h"
 #include "graphics/opengl/opengl_renderer.h"
-#include "graphics/vulkan/vulkan_renderer.h"
+#include "graphics/vulkan/vk_renderer.h"
 
 #include "entity/entity.h"
 #include "entity/game_object.h"
@@ -39,7 +38,7 @@ int main()
 
 	#if ENGINE_RENDERER_VULKAN
 		std::cout << "Using Vulkan\n";
-		Vulkan::VulkanRenderer renderer;
+		Vulkan::VKRenderer renderer(window);
 	#endif
 
 	glm::mat4 pr_matrix = glm::perspective(glm::radians(90.0f), 16.0f / 9.0f, 0.1f, 10000.0f);
