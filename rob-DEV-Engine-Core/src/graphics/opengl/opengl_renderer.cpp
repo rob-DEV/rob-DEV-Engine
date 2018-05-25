@@ -1,10 +1,10 @@
 #include "opengl_renderer.h"
 
-#if(ENGINE_RENDERER_OPENGL)
+#if(_ENGINE_RENDERER_OPENGL)
 #include <iostream>
 #include <glm/gtx/norm.hpp>
 
-namespace Engine { namespace Core { namespace Graphics {
+namespace Engine { namespace Core { namespace Graphics { namespace OpenGL {
 
 	OpenGLRenderer::OpenGLRenderer()
 	{
@@ -146,6 +146,6 @@ namespace Engine { namespace Core { namespace Graphics {
 
 	}
 
-} } }
+} } } }
 
 #endif

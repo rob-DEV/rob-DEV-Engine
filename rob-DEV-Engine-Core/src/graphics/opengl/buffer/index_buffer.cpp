@@ -1,9 +1,9 @@
 #include "index_buffer.h"
 
-#if(ENGINE_RENDERER_OPENGL)
+#if(_ENGINE_RENDERER_OPENGL)
 
 
-namespace Engine { namespace Core { namespace Graphics { namespace Buffers {
+namespace Engine { namespace Core { namespace Graphics { namespace OpenGL { namespace Buffers {
 
 	IndexBufferObject::IndexBufferObject()
 	{
@@ -30,6 +30,6 @@ namespace Engine { namespace Core { namespace Graphics { namespace Buffers {
 		glDeleteBuffers(1, &m_IBO);
 	}
 
-} } } }
+} } } } }
 
 #endif

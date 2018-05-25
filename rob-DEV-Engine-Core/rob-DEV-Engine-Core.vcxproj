@@ -176,7 +176,7 @@
     <ClCompile Include="src\graphics\window.cpp" />
     <ClCompile Include="src\time\time.cpp" />
     <ClCompile Include="src\graphics\vulkan\vk_instance.cpp" />
-    <ClCompile Include="src\graphics\vulkan\vk_physical_device.cpp" />
+    <ClCompile Include="src\graphics\vulkan\vk_gpu.cpp" />
     <ClCompile Include="src\graphics\vulkan\vk_surface.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -214,7 +214,7 @@
     <ClInclude Include="src\entity\transform.h" />
     <ClInclude Include="src\time\time.h" />
     <ClInclude Include="src\graphics\vulkan\vk_instance.h" />
-    <ClInclude Include="src\graphics\vulkan\vk_physical_device.h" />
+    <ClInclude Include="src\graphics\vulkan\vk_gpu.h" />
     <ClInclude Include="src\graphics\vulkan\vk_surface.h" />
   </ItemGroup>
   <ItemGroup>

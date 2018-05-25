@@ -1,7 +1,7 @@
 #include "vertex_buffer.h"
 
-#if(ENGINE_RENDERER_OPENGL)
-namespace Engine { namespace Core { namespace Graphics { namespace Buffers {
+#if(_ENGINE_RENDERER_OPENGL)
+namespace Engine { namespace Core { namespace Graphics { namespace OpenGL { namespace Buffers {
 
 	VertexBufferObject::VertexBufferObject()
 	{
@@ -28,6 +28,6 @@ namespace Engine { namespace Core { namespace Graphics { namespace Buffers {
 		glDeleteBuffers(1, &m_VBO);
 	}
 
-} } } }
+} } } } }
 
 #endif

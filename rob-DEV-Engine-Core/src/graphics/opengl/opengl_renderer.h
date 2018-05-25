@@ -3,14 +3,14 @@
 #include "../common/i_renderer.h"
 
 
-#if(ENGINE_RENDERER_OPENGL)
+#if(_ENGINE_RENDERER_OPENGL)
 #include "shader.h"
 #include "buffer/index_buffer.h"
 #include "buffer/vertex_array.h"
 #include "buffer/vertex_buffer.h"
 
 
-namespace Engine { namespace Core { namespace Graphics { 
+namespace Engine { namespace Core { namespace Graphics { namespace OpenGL { 
 
 	class OpenGLRenderer : public IRenderer
 	{
@@ -51,5 +51,5 @@ namespace Engine { namespace Core { namespace Graphics {
 
 	};
 
-} } }
+} } } }
 #endif

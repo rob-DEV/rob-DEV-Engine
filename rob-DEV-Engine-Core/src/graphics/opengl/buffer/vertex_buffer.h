@@ -1,9 +1,9 @@
 #pragma once
 #include "../gl_include.h"
 
-#if(ENGINE_RENDERER_OPENGL)
+#if(_ENGINE_RENDERER_OPENGL)
 
-namespace Engine { namespace Core { namespace Graphics { namespace Buffers {
+namespace Engine { namespace Core { namespace Graphics { namespace OpenGL { namespace Buffers {
 
 	class VertexBufferObject
 	{
@@ -19,5 +19,5 @@ namespace Engine { namespace Core { namespace Graphics { namespace Buffers {
 		void del();
 	};
 
-} } } }
+} } } } }
 #endif

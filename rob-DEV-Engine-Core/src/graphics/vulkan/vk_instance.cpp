@@ -2,7 +2,7 @@
 #include "vk_ext_utils.h"
 #include <iostream>
 
-#if(ENGINE_RENDERER_VULKAN)
+#if(_ENGINE_RENDERER_VULKAN)
 namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
 	VKInstance::VKInstance()

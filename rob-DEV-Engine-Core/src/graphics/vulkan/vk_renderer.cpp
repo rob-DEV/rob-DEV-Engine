@@ -1,10 +1,12 @@
 #include "vk_renderer.h"
 
-#if(ENGINE_RENDERER_VULKAN)
+#if(_ENGINE_RENDERER_VULKAN)
 namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
 	VKRenderer::VKRenderer(const Window& renderWindow)
 	{
+
+		m_VK_Surface.setupNativeWindowHandle(renderWindow, m_VK_GPU.m_VKInstance);
 		init();
 	}
 
@@ -56,7 +58,8 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
 	void VKRenderer::dispose()
 	{
-
+		m_VK_Surface.dispose(m_VK_GPU.m_VKInstance);
+		m_VK_GPU.dispose();
 	}
 
 } } } }

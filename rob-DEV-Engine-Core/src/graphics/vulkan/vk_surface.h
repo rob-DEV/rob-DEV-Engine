@@ -1,21 +1,23 @@
 #include "vk_include.h"
+#include "vk_instance.h"
 #include "../window.h"
 
-#if(ENGINE_RENDERER_VULKAN)
+#if(_ENGINE_RENDERER_VULKAN)
 namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
-	class VK_Surface 
+	class VKSurface 
 	{
 	private:
-		void init();
+		bool m_IsSetup = false;
 	public:
 		VkSurfaceKHR VkSurfaceHandle;
-
-		VK_Surface();
-		VK_Surface(const Window& renderWindow);
-
-		~VK_Surface();
 		
+		//default ctor has no other setup purpose
+		VKSurface();
+		~VKSurface();
+
+		void setupNativeWindowHandle(const Window& renderWindow, VKInstance vkInstance);
+		void dispose(VKInstance vkInstance);
 	};
 
 } } } }

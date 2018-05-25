@@ -31,12 +31,12 @@ int main()
 	unsigned int frames = 0;
 	Window window("MAIN ENGINE WINDOW", 640, 480);
 
-	#if ENGINE_RENDERER_OPENGL
+	#if _ENGINE_RENDERER_OPENGL
 		std::cout << "Using OpenGL\n";
 		OpenGLRenderer renderer;
 	#endif
 
-	#if ENGINE_RENDERER_VULKAN
+	#if _ENGINE_RENDERER_VULKAN
 		std::cout << "Using Vulkan\n";
 		Vulkan::VKRenderer renderer(window);
 	#endif
@@ -45,13 +45,13 @@ int main()
 
 	glm::mat4 vw_matrix = glm::lookAt(glm::vec3(20, 10, -20), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 
-	#if ENGINE_RENDERER_OPENGL
+	#if _ENGINE_RENDERER_OPENGL
 		renderer.Shaders->setUniformMat4("pr_matrix", pr_matrix);
 		renderer.Shaders->setUniformMat4("vw_matrix", vw_matrix);
 		renderer.Shaders->setUniformMat4("ml_matrix", glm::mat4(1.0f));
 	#endif
 
-	#if ENGINE_RENDERER_VULKAN
+	#if _ENGINE_RENDERER_VULKAN
 		//SET VULKAN SHADERS (when I figure out how to...)
 	#endif
 
@@ -80,7 +80,7 @@ int main()
 		window.clear();
 
 		//light test
-		#if ENGINE_RENDERER_OPENGL
+		#if _ENGINE_RENDERER_OPENGL
 			renderer.Shaders->setUniform2f("light_pos", glm::vec2((float)(-INPUT->NormalisedMouseX / 10), (float)(INPUT->NormalisedMouseY / 10)));
 			renderer.begin();
 		#endif
@@ -90,12 +90,12 @@ int main()
 		//for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
 		{
 			loadedLevel->SceneData[i]->Tick();
-			#if ENGINE_RENDERER_OPENGL
+			#if _ENGINE_RENDERER_OPENGL
 				renderer.submit(loadedLevel->SceneData[i]);
 			#endif
 		}
 
-		#if ENGINE_RENDERER_OPENGL
+		#if _ENGINE_RENDERER_OPENGL
 			renderer.end();
 			renderer.draw();
 		#endif
@@ -119,7 +119,7 @@ int main()
 	
 	window.dispose();
 	
-	#if ENGINE_RENDERER_VULKAN
+	#if _ENGINE_RENDERER_VULKAN
 		renderer.dispose();
 	#endif
 }

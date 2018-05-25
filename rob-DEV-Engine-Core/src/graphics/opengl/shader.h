@@ -1,10 +1,10 @@
 #pragma once
 #include "gl_include.h"
 
-#if(ENGINE_RENDERER_OPENGL)
+#if(_ENGINE_RENDERER_OPENGL)
 #include <glm/glm.hpp>
 
-namespace Engine {  namespace Core {  namespace Graphics {
+namespace Engine { namespace Core { namespace Graphics { namespace OpenGL {
 	class Shader
 	{
 	private:
@@ -31,7 +31,7 @@ namespace Engine {  namespace Core {  namespace Graphics {
 		GLint getUniformLocation(const GLchar* name);
 	};
 
-} } }
+} } } }
 
 #endif
 

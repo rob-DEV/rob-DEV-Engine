@@ -10,11 +10,11 @@ namespace Engine {	namespace Core {  namespace Graphics {
 		m_Width = width;
 		m_Height = height;
 
-		#if ENGINE_RENDERER_OPENGL
+		#if _ENGINE_RENDERER_OPENGL
 		init_opengl(false);
 		#endif
 
-		#if ENGINE_RENDERER_VULKAN
+		#if _ENGINE_RENDERER_VULKAN
 		init_vulkan(false);
 		#endif
 	}
@@ -25,7 +25,7 @@ namespace Engine {	namespace Core {  namespace Graphics {
 		glfwTerminate();
 	}
 
-	#if(ENGINE_RENDERER_OPENGL)
+	#if(_ENGINE_RENDERER_OPENGL)
 	bool Window::init_opengl(bool resizeable)
 	{
 		if (!glfwInit())
@@ -75,7 +75,7 @@ namespace Engine {	namespace Core {  namespace Graphics {
 }
 	#endif
 	
-	#if(ENGINE_RENDERER_VULKAN)
+	#if(_ENGINE_RENDERER_VULKAN)
 	bool Window::init_vulkan(bool resizeable)
 	{
 		if (!glfwInit())
@@ -118,11 +118,11 @@ namespace Engine {	namespace Core {  namespace Graphics {
 
 	void Window::clear() const
 	{
-		#if ENGINE_RENDERER_OPENGL
+		#if _ENGINE_RENDERER_OPENGL
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		#endif
 
-		#if ENGINE_RENDERER_VULKAN
+		#if _ENGINE_RENDERER_VULKAN
 		//ADD VULKAN
 			
 		#endif

@@ -1,7 +1,7 @@
-#include "vk_physical_device.h"
+#include "vk_gpu.h"
 #include <iostream>
 
-#if(ENGINE_RENDERER_VULKAN)
+#if(_ENGINE_RENDERER_VULKAN)
 namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
 	VK_GPU::VK_GPU()
@@ -11,7 +11,6 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
 	VK_GPU::~VK_GPU()
 	{
-		vkDestroyDevice(VkLogicalDeviceHandle, NULL);
 	}
 
 	bool VK_GPU::isSupportedDevice(VkPhysicalDevice device)
@@ -120,6 +119,12 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 			std::cout << "Vulkan Error: Failed to create logical device!\n";
 
 		vkGetDeviceQueue(VkLogicalDeviceHandle , indices.graphicsFamily, 0, &VkGraphicsQueueHandle);
+	}
+
+	void VK_GPU::dispose()
+	{
+		vkDestroyDevice(VkLogicalDeviceHandle, NULL);
+		vkDestroyInstance(m_VKInstance.VkInstanceHandle, NULL);
 	}
 
 

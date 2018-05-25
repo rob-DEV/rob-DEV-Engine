@@ -3,9 +3,9 @@
 #include "../../include/EngineConfig.h"
 
 
-#if (ENGINE_RENDERER_VULKAN)
+#if (_ENGINE_RENDERER_VULKAN)
 
-#ifdef _WIN32_PLATFORM 
+#ifdef _WIN_32_PLATFORM 
 #define VK_USE_PLATFORM_WIN32_KHR
 #define GLFW_EXPOSE_NATIVE_WIN32
 #endif

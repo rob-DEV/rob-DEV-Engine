@@ -1,10 +1,10 @@
 #pragma once
 #include "../include/EngineConfig.h"
 
-#if(ENGINE_RENDERER_OPENGL)
+#if(_ENGINE_RENDERER_OPENGL)
 #include "opengl/gl_include.h"
 #endif
-#if(ENGINE_RENDERER_VULKAN)
+#if(_ENGINE_RENDERER_VULKAN)
 #include "vulkan/vk_include.h"
 #endif
 
@@ -19,10 +19,10 @@ namespace Engine { namespace Core {  namespace Graphics {
 		uint32_t m_Width, m_Height = 0;
 		GLFWwindow* m_Window;
 	private:
-		#if(ENGINE_RENDERER_OPENGL)
+		#if(_ENGINE_RENDERER_OPENGL)
 		bool init_opengl(bool resizeable);
 		#endif
-		#if(ENGINE_RENDERER_VULKAN)
+		#if(_ENGINE_RENDERER_VULKAN)
 		bool init_vulkan(bool resizeable);
 		#endif
 	public:

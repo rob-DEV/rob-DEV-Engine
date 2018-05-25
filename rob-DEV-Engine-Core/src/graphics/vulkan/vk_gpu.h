@@ -1,6 +1,6 @@
 #include "vk_instance.h"
 
-#if(ENGINE_RENDERER_VULKAN)
+#if(_ENGINE_RENDERER_VULKAN)
 namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
 	struct QueueFamilyIndices {
@@ -26,7 +26,7 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 		VKInstance m_VKInstance;
 		VK_GPU();
 		~VK_GPU();
-		
+		void dispose();
 	};
 
 } } } }

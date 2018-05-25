@@ -1,31 +1,35 @@
 #include "vk_surface.h"
+#include <iostream>
 
-#if(ENGINE_RENDERER_VULKAN)
+#if(_ENGINE_RENDERER_VULKAN)
 namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
-	VK_Surface::VK_Surface()
+	VKSurface::VKSurface()
 	{
-		
+
 	}
 
-	VK_Surface::VK_Surface(const Window& renderWindow)
+	VKSurface::~VKSurface()
+	{
+
+	}
+
+	void VKSurface::setupNativeWindowHandle(const Window& renderWindow, VKInstance vkInstance)
 	{
 		VkWin32SurfaceCreateInfoKHR createInfo;
 		createInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
 		createInfo.hwnd = glfwGetWin32Window(renderWindow.getGLFWNativeWindow());
-		createInfo.hinstance = GetModuleHandle(nullptr);
+		createInfo.hinstance = GetModuleHandle(NULL);
+
+		if (glfwCreateWindowSurface(vkInstance.VkInstanceHandle, renderWindow.getGLFWNativeWindow(), NULL, &VkSurfaceHandle) != VK_SUCCESS)
+			std::cout << "Vulkan Error: Failed to create window surface\n";
 	}
 
-	VK_Surface::~VK_Surface()
+	void VKSurface::dispose(VKInstance vkInstance)
 	{
-
+		vkDestroySurfaceKHR(vkInstance.VkInstanceHandle, VkSurfaceHandle, NULL);
 	}
 
-	void VK_Surface::init()
-	{
-		
-
-	}
 
 } } } }
 

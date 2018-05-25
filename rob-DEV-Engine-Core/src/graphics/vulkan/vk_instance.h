@@ -1,7 +1,7 @@
 #pragma once
 #include "vk_include.h"
 
-#if(ENGINE_RENDERER_VULKAN)
+#if(_ENGINE_RENDERER_VULKAN)
 #include <vector>
 namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 

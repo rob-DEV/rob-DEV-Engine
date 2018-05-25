@@ -1,6 +1,6 @@
 #include "shader.h"
 
-#if(ENGINE_RENDERER_OPENGL)
+#if(_ENGINE_RENDERER_OPENGL)
 
 #include <string>
 #include <vector>
@@ -11,7 +11,7 @@
 
 using namespace Engine::Core;
 
-namespace Engine {  namespace Core {  namespace Graphics {
+namespace Engine {  namespace Core {  namespace Graphics { namespace OpenGL {
 
 	Shader::Shader(const char* vertPath, const char* fragPath)
 		:m_VertPath(vertPath), m_FragPath(fragPath)
@@ -134,6 +134,6 @@ namespace Engine {  namespace Core {  namespace Graphics {
 	{
 		glUseProgram(0);
 	}
-} }	}
+} } } }
 
 #endif

@@ -2,9 +2,9 @@
 #include "vk_include.h"
 #include "../common/i_renderer.h"
 
-#if(ENGINE_RENDERER_VULKAN)
+#if(_ENGINE_RENDERER_VULKAN)
 #include "vk_instance.h"
-#include "vk_physical_device.h"
+#include "vk_gpu.h"
 #include "vk_surface.h"
 
 namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
@@ -15,7 +15,7 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 	{
 	private:
 		VK_GPU m_VK_GPU;
-		VK_Surface m_VK_Surface;
+		VKSurface m_VK_Surface;
 
 	private:
 		void init() override;
