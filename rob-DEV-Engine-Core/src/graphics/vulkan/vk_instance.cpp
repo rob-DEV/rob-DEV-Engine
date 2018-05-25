@@ -55,11 +55,11 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 	void VKInstance::setupRequiredExtensions()
 	{
 		//get GLFW extensions and add the validation extension depending on build configuration
-		unsigned int glfwExtensionCount = 0;
+		uint32_t glfwExtensionCount = 0;
 		const char** glfwExtensions;
 		glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
 
-		for (unsigned int i = 0; i < glfwExtensionCount; i++)
+		for (uint32_t i = 0; i < glfwExtensionCount; i++)
 			m_VKRequiredExtensions.push_back(glfwExtensions[i]);
 		if (isValidationLayersEnable)
 			m_VKRequiredExtensions.push_back(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);

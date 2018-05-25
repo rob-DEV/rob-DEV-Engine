@@ -29,7 +29,6 @@ using namespace Engine::Core::Graphics::OpenGL;
 using namespace Engine::Core::Graphics::Vulkan;
 #endif
 
-
 using namespace Engine::Core::Entities;
 using namespace Engine::Core::IO;
 using namespace Engine::Core::IO::Importers;
@@ -37,7 +36,7 @@ using namespace Engine::Core::IO::Importers;
 int main()
 {
 	double time_passed = 0;
-	unsigned int frames = 0;
+	uint32_t frames = 0;
 	Window window("MAIN ENGINE WINDOW", 640, 480);
 
 	#if _ENGINE_RENDERER_OPENGL
@@ -47,7 +46,7 @@ int main()
 
 	#if _ENGINE_RENDERER_VULKAN
 		std::cout << "Using Vulkan\n";
-		Vulkan::VKRenderer renderer(window);
+		VKRenderer renderer(window);
 	#endif
 
 	glm::mat4 pr_matrix = glm::perspective(glm::radians(90.0f), 16.0f / 9.0f, 0.1f, 10000.0f);

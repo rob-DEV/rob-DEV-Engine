@@ -59,6 +59,6 @@ namespace Engine { namespace Core { namespace IO {
 		static VirtualFileSystem* Create(const char* VFS_File_Path);
 		//EXIST VFS FILE
 		static VirtualFileSystem* Open(const char* VFS_File_Path);
-		
+
 	};
 } } }

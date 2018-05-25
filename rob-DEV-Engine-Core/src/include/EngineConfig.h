@@ -17,7 +17,7 @@
 #if !_ENGINE_RENDERER_OPENGL && !_ENGINE_RENDERER_VULKAN
 //using openGL as the default rendering engine
 #define _ENGINE_RENDERER_OPENGL 1
-#endif`
+#endif
 
 #if _ENGINE_RENDERER_OPENGL && _ENGINE_RENDERER_VULKAN
 #error Vulkan and OpenGL cannot be selected as the main graphics renderer at the same time. Check EngineConfig.h
