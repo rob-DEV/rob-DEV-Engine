@@ -27,6 +27,7 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 		bool isSupportedDevice(const VkPhysicalDevice& device);
 		QueueFamilyIndices findQueueFamilies(const VkPhysicalDevice& device);
 	public:
+		//vulkan instance will be initalized for each renderer at instantiation automatically
 		VKInstance m_VKInstance;
 		VKSurface m_VKSurface;
 		VKGPU();

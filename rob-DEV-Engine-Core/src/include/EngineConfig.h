@@ -16,7 +16,7 @@
 
 #if !_ENGINE_RENDERER_OPENGL && !_ENGINE_RENDERER_VULKAN
 //using openGL as the default rendering engine
-#define ENGINE_RENDERER_OPENGL 1
+#define _ENGINE_RENDERER_OPENGL 1
 #endif`
 
 #if _ENGINE_RENDERER_OPENGL && _ENGINE_RENDERER_VULKAN

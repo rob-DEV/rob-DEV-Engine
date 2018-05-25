@@ -21,6 +21,15 @@
 using namespace Engine::Core;
 using namespace Engine::Core::BuildSystems;
 using namespace Engine::Core::Graphics;
+
+#if _ENGINE_RENDERER_OPENGL
+using namespace Engine::Core::Graphics::OpenGL;
+#endif
+#if _ENGINE_RENDERER_VULKAN
+using namespace Engine::Core::Graphics::Vulkan;
+#endif
+
+
 using namespace Engine::Core::Entities;
 using namespace Engine::Core::IO;
 using namespace Engine::Core::IO::Importers;

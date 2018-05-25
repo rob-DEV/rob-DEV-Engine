@@ -1,6 +1,6 @@
 #include "vertex_array.h"
 #if(_ENGINE_RENDERER_OPENGL)
-namespace Engine { namespace Core { namespace Graphics { namspace OpenGL { namespace Buffers {
+namespace Engine { namespace Core { namespace Graphics { namespace OpenGL { namespace Buffers {
 
 	VertexArray::VertexArray()
 	{
