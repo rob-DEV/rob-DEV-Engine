@@ -1,3 +1,4 @@
+#pragma once
 #include "vk_include.h"
 #include "vk_instance.h"
 #include "../window.h"
@@ -16,8 +17,8 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 		VKSurface();
 		~VKSurface();
 
-		void setupNativeWindowHandle(const Window& renderWindow, VKInstance vkInstance);
-		void dispose(VKInstance vkInstance);
+		void setupNativeWindowHandle(const Window& renderWindow, const VKInstance& vkInstance);
+		void dispose(const VKInstance& vkInstance);
 	};
 
 } } } }

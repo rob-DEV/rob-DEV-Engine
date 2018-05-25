@@ -14,7 +14,7 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
 	}
 
-	void VKSurface::setupNativeWindowHandle(const Window& renderWindow, VKInstance vkInstance)
+	void VKSurface::setupNativeWindowHandle(const Window& renderWindow, const VKInstance& vkInstance)
 	{
 		VkWin32SurfaceCreateInfoKHR createInfo;
 		createInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
@@ -25,7 +25,7 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 			std::cout << "Vulkan Error: Failed to create window surface\n";
 	}
 
-	void VKSurface::dispose(VKInstance vkInstance)
+	void VKSurface::dispose(const VKInstance& vkInstance)
 	{
 		vkDestroySurfaceKHR(vkInstance.VkInstanceHandle, VkSurfaceHandle, NULL);
 	}

@@ -3,10 +3,9 @@
 #if(_ENGINE_RENDERER_VULKAN)
 namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
-	VKRenderer::VKRenderer(const Window& renderWindow)
+	VKRenderer::VKRenderer(const Window& rendererWindow)
 	{
-
-		m_VK_Surface.setupNativeWindowHandle(renderWindow, m_VK_GPU.m_VKInstance);
+		m_VK_GPU.setupGPU(rendererWindow);
 		init();
 	}
 

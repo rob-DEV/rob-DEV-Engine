@@ -14,7 +14,7 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 	class VKRenderer : public IRenderer
 	{
 	private:
-		VK_GPU m_VK_GPU;
+		VKGPU m_VK_GPU;
 		VKSurface m_VK_Surface;
 
 	private:
@@ -22,7 +22,7 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 		void submit(Engine::Core::Graphics::Mesh* mesh, glm::vec3 position, glm::quat rotation) override;
 	public:
 
-		VKRenderer(const Window& renderWindow);
+		VKRenderer(const Window& rendererWindow);
 		~VKRenderer();
 
 		void begin() override;
