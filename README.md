@@ -3,6 +3,7 @@ An OpenGL/Vulkan Cross Platform Game Engine (WIP)
 My implementation of a C++ Game Engine / OpenGL / Vulkan renderer, the engine is obviously not an "engine" in the sense that you won't be making games anytime soon. Instead it is my first attempt at constructing a component based core library ontop of which an editor could be placed. 
 
 Features:
+
     Input System - Mouse and Keyboard
     OpenGL Batch Renderer - With vertex indexing
     Vulkan Renderer - WIP
@@ -14,6 +15,7 @@ Features:
     Utilites such as Time, IO and other misc needs.
 
 External Libraries used:
+
     GLFW
     GLEW
     GLM
