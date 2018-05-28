@@ -160,8 +160,8 @@
     <ClCompile Include="src\buildsystems\scene_manager.cpp" />
     <ClCompile Include="src\entity\scene.cpp" />
     <ClCompile Include="src\graphics\vulkan\vk_device.cpp" />
+    <ClCompile Include="src\graphics\vulkan\vk_instance.cpp" />
     <ClCompile Include="src\graphics\vulkan\vk_renderer.cpp" />
-    <ClCompile Include="src\graphics\vulkan\vk_swapchain.cpp" />
     <ClCompile Include="src\io\filesystem\virtual_file_system.cpp" />
     <ClCompile Include="src\io\file\virtual_file.cpp" />
     <ClCompile Include="src\graphics\opengl\buffer\index_buffer.cpp" />
@@ -177,7 +177,6 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
     <ClCompile Include="src\time\time.cpp" />
-    <ClCompile Include="src\graphics\vulkan\vk_instance.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="res\scripts\movement.h" />
@@ -189,10 +188,9 @@
     <ClInclude Include="src\buildsystems\scene_manager.h" />
     <ClInclude Include="src\entity\scene.h" />
     <ClInclude Include="src\graphics\vulkan\vk_device.h" />
-    <ClInclude Include="src\graphics\vulkan\vk_ext_utils.h" />
     <ClInclude Include="src\graphics\vulkan\vk_include.h" />
+    <ClInclude Include="src\graphics\vulkan\vk_instance.h" />
     <ClInclude Include="src\graphics\vulkan\vk_renderer.h" />
-    <ClInclude Include="src\graphics\vulkan\vk_swapchain.h" />
     <ClInclude Include="src\include\EngineCore.h" />
     <ClInclude Include="src\include\EngineConfig.h" />
     <ClInclude Include="src\io\common\file_types.h" />
@@ -215,7 +213,6 @@
     <ClInclude Include="src\io\utils\file_utils.h" />
     <ClInclude Include="src\entity\transform.h" />
     <ClInclude Include="src\time\time.h" />
-    <ClInclude Include="src\graphics\vulkan\vk_instance.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\filesystems\DATA.VFS" />

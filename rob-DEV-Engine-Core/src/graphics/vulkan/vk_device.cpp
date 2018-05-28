@@ -1,30 +1,17 @@
-#include "vk_device.h"
+#include "vk_instance.h"
 
-
-#if(_ENGINE_RENDERER_VULKAN)
+#if(_ENGINE_RENDERER_VULKAN_BACKUP)
 namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
-	VKDevice::VKDevice()
+	VKRenderer::VKRenderer()
 	{
-		init();
+		
 	}
 
-	void VKDevice::init()
-	{
-
-	}
-
-	VKDevice::~VKDevice()
-	{
-
-	}
-
-
-	void VKDevice::destroy()
+	VKRenderer::~VKRenderer()
 	{
 
 	}
 
 } } } }
-
 #endif

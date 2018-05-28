@@ -3,7 +3,6 @@
 #include "../common/i_renderer.h"
 
 #if(_ENGINE_RENDERER_VULKAN)
-#include "vk_instance.h"
 #include "../window.h"
 
 namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {

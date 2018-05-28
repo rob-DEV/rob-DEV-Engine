@@ -6,6 +6,11 @@
 #ifndef _ENGINE_CONFIGURATION_H
 #define _ENGINE_CONFIGURATION_H
 
+#define _ENGINE_NAME  "rob-DEV-Engine"
+#define _APPLICATION_NAME "rob-DEV-Engine"
+#define _ENGINE_BUILD_NUMBER 1
+
+
 #define _WIN_32_PLATFORM
 //#define _MAC_PLATFORM 0
 //#define _LINUX_PLATFORM 0

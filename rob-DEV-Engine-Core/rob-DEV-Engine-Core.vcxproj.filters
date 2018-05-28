@@ -60,9 +60,6 @@
     <ClCompile Include="src\graphics\opengl\opengl_renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\vulkan\vk_instance.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\graphics\opengl\shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -78,7 +75,7 @@
     <ClCompile Include="src\graphics\vulkan\vk_renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\vulkan\vk_swapchain.cpp">
+    <ClCompile Include="src\graphics\vulkan\vk_instance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\vulkan\vk_device.cpp">
@@ -161,12 +158,6 @@
     <ClInclude Include="src\graphics\common\i_renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\vulkan\vk_instance.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\vulkan\vk_ext_utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\graphics\opengl\shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -188,7 +179,7 @@
     <ClInclude Include="src\graphics\vulkan\vk_renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\vulkan\vk_swapchain.h">
+    <ClInclude Include="src\graphics\vulkan\vk_instance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\graphics\vulkan\vk_device.h">

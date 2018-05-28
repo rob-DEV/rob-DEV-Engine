@@ -1,20 +1,20 @@
 #pragma once
 #include "vk_include.h"
 
-#if(_ENGINE_RENDERER_VULKAN)
-#include "vk_swapchain.h"
+#if(_ENGINE_RENDERER_VULKAN_BACKUP)
+#include "../window.h"
 
-#include <vector>
 namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
-	class VKDevice
+	//TODO: refactor ALL vulkan objects to the header to ensure deletion!!
+	//TODO: class abstraction for VK objects
+	class VKInstance
 	{
-	private:
-		void init();
 	public:
-		VKDevice();
-		~VKDevice();
-		void destroy();
+
+		VKInstance();
+		~VKInstance();
+
 	};
 
 } } } }

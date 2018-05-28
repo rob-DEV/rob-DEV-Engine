@@ -81,7 +81,6 @@ int main()
 	//per-game initalization
 	for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
 		loadedLevel->SceneData[i]->Init();
-	
 
 	while (!window.closed())
 	{
