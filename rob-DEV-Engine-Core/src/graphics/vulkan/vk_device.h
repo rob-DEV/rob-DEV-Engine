@@ -2,16 +2,18 @@
 #include "vk_include.h"
 
 #if(_ENGINE_RENDERER_VULKAN)
+#include "vk_swapchain.h"
 
+#include <vector>
 namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
-	class VKSwapchain
+	class VKDevice
 	{
 	private:
 		void init();
 	public:
-		VKSwapchain();
-		~VKSwapchain();
+		VKDevice();
+		~VKDevice();
 		void destroy();
 	};
 

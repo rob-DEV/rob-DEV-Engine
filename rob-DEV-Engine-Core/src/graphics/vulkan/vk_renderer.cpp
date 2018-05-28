@@ -5,7 +5,6 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
 	VKRenderer::VKRenderer(const Window& rendererWindow)
 	{
-		m_VK_GPU.setupGPU(rendererWindow);
 		init();
 	}
 
@@ -57,8 +56,7 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
 	void VKRenderer::dispose()
 	{
-		m_VK_Surface.dispose(m_VK_GPU.m_VKInstance);
-		m_VK_GPU.dispose();
+
 	}
 
 } } } }

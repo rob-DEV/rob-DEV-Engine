@@ -63,12 +63,6 @@
     <ClCompile Include="src\graphics\vulkan\vk_instance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\vulkan\vk_surface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\vulkan\vk_renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\graphics\opengl\shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -81,10 +75,13 @@
     <ClCompile Include="src\graphics\opengl\buffer\vertex_buffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\vulkan\vk_gpu.cpp">
+    <ClCompile Include="src\graphics\vulkan\vk_renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\vulkan\vk_swapchain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\vulkan\vk_device.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -170,15 +167,6 @@
     <ClInclude Include="src\graphics\vulkan\vk_ext_utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\vulkan\vk_surface.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\vulkan\vk_renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\vulkan\vk_include.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\graphics\opengl\shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -194,10 +182,16 @@
     <ClInclude Include="src\graphics\opengl\gl_include.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\vulkan\vk_gpu.h">
+    <ClInclude Include="src\graphics\vulkan\vk_include.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\vulkan\vk_renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\graphics\vulkan\vk_swapchain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\vulkan\vk_device.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

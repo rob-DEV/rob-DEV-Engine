@@ -4,8 +4,7 @@
 
 #if(_ENGINE_RENDERER_VULKAN)
 #include "vk_instance.h"
-#include "vk_gpu.h"
-#include "vk_surface.h"
+#include "../window.h"
 
 namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
@@ -14,8 +13,6 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 	class VKRenderer : public IRenderer
 	{
 	private:
-		VKGPU m_VK_GPU;
-		VKSurface m_VK_Surface;
 
 	private:
 		void init() override;
