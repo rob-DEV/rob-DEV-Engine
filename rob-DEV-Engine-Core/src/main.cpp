@@ -14,7 +14,7 @@
 #include "io/filesystem/virtual_file_system.h"
 #include "io/importers/obj/obj_importer.h"
 
-//USERMODE RUNTIME BEHAVIOUR
+//USERMODE GAMEOBJECT RUNTIME BEHAVIOUR
 #include "../res/scripts/rotate.h"
 #include "../res/scripts/movement.h"
 

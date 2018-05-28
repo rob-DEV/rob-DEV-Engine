@@ -14,7 +14,6 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 		std::vector<VkLayerProperties> VkAvailableValidationLayers;
 		//tells vulkan what layers it should use (using standard validation atm)
 		const std::vector<const char*> ValidationLayers = { "VK_LAYER_LUNARG_standard_validation" };
-
 		#if(DEBUG)
 		//using VKAPI standard validation layers
 		const bool isValidationLayersEnable = true;

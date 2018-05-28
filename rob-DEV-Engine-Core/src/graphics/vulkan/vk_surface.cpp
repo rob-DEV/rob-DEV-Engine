@@ -23,6 +23,8 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 
 		if (glfwCreateWindowSurface(vkInstance.VkInstanceHandle, renderWindow.getGLFWNativeWindow(), NULL, &VkSurfaceHandle) != VK_SUCCESS)
 			std::cout << "Vulkan Error: Failed to create window surface\n";
+		else
+			m_IsSetup = true;
 	}
 
 	void VKSurface::dispose(const VKInstance& vkInstance)

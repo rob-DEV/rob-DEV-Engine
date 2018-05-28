@@ -160,6 +160,7 @@
     <ClCompile Include="src\buildsystems\scene_manager.cpp" />
     <ClCompile Include="src\graphics\vulkan\vk_renderer.cpp" />
     <ClCompile Include="src\entity\scene.cpp" />
+    <ClCompile Include="src\graphics\vulkan\vk_swapchain.cpp" />
     <ClCompile Include="src\io\filesystem\virtual_file_system.cpp" />
     <ClCompile Include="src\io\file\virtual_file.cpp" />
     <ClCompile Include="src\graphics\opengl\buffer\index_buffer.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="src\buildsystems\scene_manager.h" />
     <ClInclude Include="src\entity\scene.h" />
     <ClInclude Include="src\graphics\vulkan\vk_ext_utils.h" />
+    <ClInclude Include="src\graphics\vulkan\vk_swapchain.h" />
     <ClInclude Include="src\include\EngineCore.h" />
     <ClInclude Include="src\include\EngineConfig.h" />
     <ClInclude Include="src\io\common\file_types.h" />

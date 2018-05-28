@@ -30,12 +30,23 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 		vkGetPhysicalDeviceProperties(device, &deviceProperties);
 		vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
 
+		
 		//check supported indices
 		QueueFamilyIndices indices = findQueueFamilies(device);
 
 		//TODO: make a more complex checking system taking other PhyDev details into account
-		return deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU &&
-			deviceFeatures.geometryShader && indices.isComplete();
+		bool extensionsSupported = checkDeviceExtensionSupport(device);
+		bool swapChainAdequate = false;
+
+		if (extensionsSupported)
+		{
+			//get swapchain info (using a seperate class) probably will refactor this as it doesn't need to be modular
+			m_SwapChain.querySwapChainDetails(device, m_VKSurface);
+			SwapChainSupportDetails swapChainSupport = m_SwapChain.Details;
+			swapChainAdequate = !swapChainSupport.formats.empty() && !swapChainSupport.presentModes.empty();
+		}
+
+		return indices.isComplete() && extensionsSupported && swapChainAdequate;
 	}
 
 	QueueFamilyIndices VKGPU::findQueueFamilies(const VkPhysicalDevice& device)
@@ -47,7 +58,7 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 		std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
 		vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, queueFamilies.data());
 		//check against needed queues
-		//TODO: add more check
+		//TODO: add more checks
 		int i = 0;
 		for (const auto& queueFamily : queueFamilies) {
 			
@@ -65,8 +76,23 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 				break;
 			i++;
 		}
-
 		return indices;
+	}
+
+	bool VKGPU::checkDeviceExtensionSupport(const VkPhysicalDevice& device)
+	{
+		uint32_t extensionCount = 0;
+		vkEnumerateDeviceExtensionProperties(device, NULL, &extensionCount, NULL);
+		
+		std::vector<VkExtensionProperties> availableExtensions(extensionCount);
+		vkEnumerateDeviceExtensionProperties(device, NULL, &extensionCount, availableExtensions.data());
+
+		std::set<std::string> requiredExtensions(m_DeviceExtensions.begin(), m_DeviceExtensions.end());
+
+		for (const auto& extension : availableExtensions)
+			requiredExtensions.erase(extension.extensionName);
+
+		return requiredExtensions.empty();
 	}
 
 	void VKGPU::init()
@@ -128,6 +154,8 @@ namespace Engine { namespace Core { namespace Graphics { namespace Vulkan {
 		createInfo.pQueueCreateInfos = queueCreateInfos.data();
 		createInfo.pEnabledFeatures = &deviceFeatures;
 		createInfo.enabledExtensionCount = 0;
+		createInfo.enabledExtensionCount = m_DeviceExtensions.size();
+		createInfo.ppEnabledExtensionNames = m_DeviceExtensions.data();
 		
 
 		if (m_VKInstance.isValidationLayersEnable)
