@@ -8,6 +8,10 @@
 #include "vulkan/vk_include.h"
 #endif
 
+#if(_ENGINE_RENDERER_DIRECT3D)
+#include "direct3d/direct3d_include.h"
+#endif
+
 #include "../input/input.h"
 
 namespace Engine { namespace Core {  namespace Graphics { 

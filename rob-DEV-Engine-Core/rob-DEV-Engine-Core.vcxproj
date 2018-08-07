@@ -159,6 +159,7 @@
     <ClCompile Include="res\scripts\rotate.cpp" />
     <ClCompile Include="src\buildsystems\scene_manager.cpp" />
     <ClCompile Include="src\entity\scene.cpp" />
+    <ClCompile Include="src\graphics\direct3d\direct3d_renderer.cpp" />
     <ClCompile Include="src\graphics\vulkan\vk_device.cpp" />
     <ClCompile Include="src\graphics\vulkan\vk_instance.cpp" />
     <ClCompile Include="src\graphics\vulkan\vk_renderer.cpp" />
@@ -182,6 +183,8 @@
     <ClInclude Include="res\scripts\movement.h" />
     <ClInclude Include="res\scripts\rotate.h" />
     <ClInclude Include="src\graphics\common\i_renderer.h" />
+    <ClInclude Include="src\graphics\direct3d\direct3d_include.h" />
+    <ClInclude Include="src\graphics\direct3d\direct3d_renderer.h" />
     <ClInclude Include="src\graphics\opengl\gl_include.h" />
     <ClInclude Include="src\entity\game_object_behaviour.h" />
     <ClInclude Include="src\common\i_serializeable.h" />

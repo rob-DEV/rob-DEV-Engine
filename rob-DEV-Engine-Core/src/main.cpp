@@ -4,6 +4,7 @@
 #include "buildsystems/scene_manager.h"
 
 #include "graphics/opengl/opengl_renderer.h"
+#include "graphics/direct3d/direct3d_renderer.h"
 #include "graphics/vulkan/vk_renderer.h"
 
 #include "entity/entity.h"
@@ -27,6 +28,9 @@ using namespace Engine::Core::Graphics::OpenGL;
 #endif
 #if _ENGINE_RENDERER_VULKAN
 using namespace Engine::Core::Graphics::Vulkan;
+#endif
+#if _ENGINE_RENDERER_DIRECT3D
+using namespace Engine::Core::Graphics::Direct3D;
 #endif
 
 using namespace Engine::Core::Entities;
