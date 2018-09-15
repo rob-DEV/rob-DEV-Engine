@@ -9,6 +9,7 @@
 
 #include "entity/entity.h"
 #include "entity/game_object.h"
+#include "entity/camera.h"
 #include "entity/scene.h"
 
 #include "io/file/virtual_file.h"
@@ -41,7 +42,7 @@ int main()
 {
 	double time_passed = 0;
 	uint32_t frames = 0;
-	Window window("MAIN ENGINE WINDOW", 640, 480);
+	Window window("MAIN ENGINE WINDOW", 1920, 1080);
 
 	#if _ENGINE_RENDERER_OPENGL
 		std::cout << "Using OpenGL\n";
@@ -55,11 +56,8 @@ int main()
 
 	glm::mat4 pr_matrix = glm::perspective(glm::radians(90.0f), 16.0f / 9.0f, 0.1f, 10000.0f);
 
-	glm::mat4 vw_matrix = glm::lookAt(glm::vec3(20, 10, -20), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-
 	#if _ENGINE_RENDERER_OPENGL
 		renderer.Shaders->setUniformMat4("pr_matrix", pr_matrix);
-		renderer.Shaders->setUniformMat4("vw_matrix", vw_matrix);
 		renderer.Shaders->setUniformMat4("ml_matrix", glm::mat4(1.0f));
 	#endif
 
@@ -74,14 +72,14 @@ int main()
 
 	//loading monkey level instead of test.level
 	Scene* loadedLevel = SCENE_MANAGER->loadLevel(vfs->Retrieve("multiple_gameobject.level"));
+	Camera* camera = new Camera("Main Camera", glm::vec3(20, 10, -20));
 
 	//assign a new behaviour script to an object in the scene
 	for (size_t i = 0; i < 20; i++)
 		loadedLevel->SceneData[i]->AddBehaviourScript(new Rotate());
 
 	loadedLevel->SceneData[1]->AddBehaviourScript(new Movement());
-
-
+	camera->AddBehaviourScript(new Movement());
 	//per-game initalization
 	for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
 		loadedLevel->SceneData[i]->Init();
@@ -95,9 +93,12 @@ int main()
 			renderer.Shaders->setUniform2f("light_pos", glm::vec2((float)(-INPUT->NormalisedMouseX / 10), (float)(INPUT->NormalisedMouseY / 10)));
 			renderer.begin();
 		#endif
+		//camera test
+		camera->Tick();
+		renderer.Shaders->setUniformMat4("vw_matrix", camera->getViewMatrix());
 
 		//limit to 5 entity
-		for (size_t i = 0; i < 5; i++)
+		for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
 		//for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
 		{
 			loadedLevel->SceneData[i]->Tick();
@@ -105,7 +106,7 @@ int main()
 				renderer.submit(loadedLevel->SceneData[i]);
 			#endif
 		}
-
+		
 		#if _ENGINE_RENDERER_OPENGL
 			renderer.end();
 			renderer.draw();

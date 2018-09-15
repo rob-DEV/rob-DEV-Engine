@@ -1,3 +1,4 @@
+//TEST GAMEOBJECT BEHAVIOUR FOR SCENE ENTITY
 #pragma once
 #include "../../src/include/EngineCore.h"
 

@@ -7,7 +7,7 @@
 #include "EngineConfig.h"
 
 //GLOBAL CORE ENGINE INCLUDE
-//used mainly by the user in their own game scripts as an engine extension for core engine functionality
+//used mainly in user scripts as an engine extension for core engine functionality
 #include "../time/time.h"
 #include "../input/input.h"
 #include "../entity/game_object.h"
