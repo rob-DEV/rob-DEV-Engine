@@ -42,7 +42,7 @@ int main()
 {
 	double time_passed = 0;
 	uint32_t frames = 0;
-	Window window("MAIN ENGINE WINDOW", 1920, 1080);
+	Window window("MAIN ENGINE WINDOW", 1280, 720);
 
 	#if _ENGINE_RENDERER_OPENGL
 		std::cout << "Using OpenGL\n";
@@ -80,6 +80,7 @@ int main()
 
 	loadedLevel->SceneData[1]->AddBehaviourScript(new Movement());
 	camera->AddBehaviourScript(new Movement());
+
 	//per-game initalization
 	for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
 		loadedLevel->SceneData[i]->Init();
@@ -98,8 +99,8 @@ int main()
 		renderer.Shaders->setUniformMat4("vw_matrix", camera->getViewMatrix());
 
 		//limit to 5 entity
-		for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
 		//for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
+		for (size_t i = 0; i < 15; i++)
 		{
 			loadedLevel->SceneData[i]->Tick();
 			#if _ENGINE_RENDERER_OPENGL
@@ -125,7 +126,6 @@ int main()
 			printf("%dfps\n", frames);
 			printf("%d Entities\n", Entity::number_entities);
 			frames = 0;
-
 		}
 	}
 	

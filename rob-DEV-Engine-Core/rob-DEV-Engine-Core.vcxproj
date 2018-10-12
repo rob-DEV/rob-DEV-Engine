@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\application\application.cpp" />
     <ClCompile Include="res\scripts\movement.cpp" />
     <ClCompile Include="res\scripts\rotate.cpp" />
     <ClCompile Include="src\buildsystems\scene_manager.cpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="src\time\time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\application\application.h" />
     <ClInclude Include="res\scripts\movement.h" />
     <ClInclude Include="res\scripts\rotate.h" />
     <ClInclude Include="src\entity\camera.h" />

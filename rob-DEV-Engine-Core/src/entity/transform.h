@@ -44,9 +44,9 @@ namespace Engine {  namespace Core {  namespace Entities {
 		this->rotation = glm::quat(eulerAngles) * this->rotation;
 	}
 
-
-
 	inline Transform::~Transform()
 	{
+		
 	}
+
 }  }  }
