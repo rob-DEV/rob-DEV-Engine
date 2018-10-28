@@ -133,14 +133,15 @@ int main()
 	for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
 		loadedLevel->SceneData[i]->Init();
 
+	*canUpdate = true;
 	std::thread updateLogicThread(update, camera, loadedLevel);
-
 
 	while (!window->closed())
 	{
-		render(window, renderer, camera, loadedLevel);
-
 		setFPSLimit(60);
+
+		//wasteful function ptr passing
+		render(window, renderer, camera, loadedLevel);
 
 		frames++;
 
@@ -159,7 +160,6 @@ int main()
 	}
 
 	updateLogicThread.detach();
-	
 	window->dispose();
 	
 	#if _ENGINE_RENDERER_VULKAN
