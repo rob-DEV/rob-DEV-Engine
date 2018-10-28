@@ -229,4 +229,7 @@
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\code_dump.txt" />
+  </ItemGroup>
 </Project>

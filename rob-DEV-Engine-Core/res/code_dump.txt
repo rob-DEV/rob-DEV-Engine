@@ -1,0 +1,26 @@
+//light test
+#if _ENGINE_RENDERER_OPENGL
+	renderer.Shaders->setUniform2f("light_pos", glm::vec2((float)(-INPUT->NormalisedMouseX / 10), (float)(INPUT->NormalisedMouseY / 10)));
+	renderer.begin();
+#endif
+		
+//limit to 5 entity
+//for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
+for (size_t i = 0; i < 15; i++)
+{
+	loadedLevel->SceneData[i]->Tick();
+	#if _ENGINE_RENDERER_OPENGL
+		renderer.submit(loadedLevel->SceneData[i]);
+	#endif
+}
+
+frames++;
+
+if (TIME->elasped() - time_passed > 1.0f)
+{
+	time_passed += 1.0f;
+	printf("%dfps\n", frames);
+	printf("%d Entities\n", Entity::number_entities);
+	frames = 0;
+}
+		

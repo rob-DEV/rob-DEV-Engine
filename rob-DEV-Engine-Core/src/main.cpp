@@ -1,4 +1,5 @@
 #include <iostream>
+#include <thread>
 
 #include "time/time.h"
 #include "buildsystems/scene_manager.h"
@@ -20,6 +21,7 @@
 #include "../res/scripts/rotate.h"
 #include "../res/scripts/movement.h"
 
+
 using namespace Engine::Core;
 using namespace Engine::Core::BuildSystems;
 using namespace Engine::Core::Graphics;
@@ -38,32 +40,78 @@ using namespace Engine::Core::Entities;
 using namespace Engine::Core::IO;
 using namespace Engine::Core::IO::Importers;
 
+
+void render(Window* window, OpenGLRenderer* renderer, Camera* camera, Scene* loadedLevel)
+{
+	window->clear();
+	//light test
+	renderer->Shaders->setUniform2f("light_pos", glm::vec2((float)(-INPUT->NormalisedMouseX / 10), (float)(INPUT->NormalisedMouseY / 10)));
+	//camera pos update
+	renderer->Shaders->setUniformMat4("vw_matrix", camera->getViewMatrix());
+
+	renderer->begin();
+	//limit to 5 entity
+	//for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
+	for (size_t i = 0; i < 15; i++)
+		renderer->submit(loadedLevel->SceneData[i]);
+
+	renderer->end();
+	renderer->draw();
+
+	window->update();
+}
+
+static bool* canUpdate = new bool();
+
+void setFPSLimit(float fpsLimit)
+{
+	// Convert fps to time
+	static float timeDelay = 1 / fpsLimit;
+
+	// Measure time elapsed
+	static float timeElapsed = 0;
+
+	float currentTime = glfwGetTime();
+	static float totalTimeDelay = timeDelay + glfwGetTime();
+
+	if (currentTime > totalTimeDelay)
+	{
+		totalTimeDelay = timeDelay + glfwGetTime();
+		*canUpdate = true;
+	}
+	else
+		*canUpdate = false;
+}
+
+void update(Camera* camera, Scene* loadedLevel)
+{
+	while (true)
+	{
+		if (*canUpdate == true)
+		{
+			*canUpdate = false;
+			//camera test
+			camera->Tick();
+
+			for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
+				loadedLevel->SceneData[i]->Tick();
+		}
+	}
+}
+
 int main()
 {
 	double time_passed = 0;
 	uint32_t frames = 0;
-	Window window("MAIN ENGINE WINDOW", 1280, 720);
 
-	#if _ENGINE_RENDERER_OPENGL
-		std::cout << "Using OpenGL\n";
-		OpenGLRenderer renderer;
-	#endif
 
-	#if _ENGINE_RENDERER_VULKAN
-		std::cout << "Using Vulkan\n";
-		VKRenderer renderer(window);
-	#endif
+	Window* window = new Window("MAIN ENGINE WINDOW", 1280, 720);
+	OpenGLRenderer* renderer = new OpenGLRenderer();
 
 	glm::mat4 pr_matrix = glm::perspective(glm::radians(90.0f), 16.0f / 9.0f, 0.1f, 10000.0f);
 
-	#if _ENGINE_RENDERER_OPENGL
-		renderer.Shaders->setUniformMat4("pr_matrix", pr_matrix);
-		renderer.Shaders->setUniformMat4("ml_matrix", glm::mat4(1.0f));
-	#endif
-
-	#if _ENGINE_RENDERER_VULKAN
-		//SET VULKAN SHADERS (when I figure out how to...)
-	#endif
+	renderer->Shaders->setUniformMat4("pr_matrix", pr_matrix);
+	renderer->Shaders->setUniformMat4("ml_matrix", glm::mat4(1.0f));
 
 	Mesh* cube_load = OBJ_IMPORTER->ImportObj("res/obj/cube.obj");
 	Mesh* monkey_load = OBJ_IMPORTER->ImportObj("res/obj/monkey.obj");
@@ -85,38 +133,14 @@ int main()
 	for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
 		loadedLevel->SceneData[i]->Init();
 
-	while (!window.closed())
+	std::thread updateLogicThread(update, camera, loadedLevel);
+
+
+	while (!window->closed())
 	{
-		window.clear();
+		render(window, renderer, camera, loadedLevel);
 
-		//light test
-		#if _ENGINE_RENDERER_OPENGL
-			renderer.Shaders->setUniform2f("light_pos", glm::vec2((float)(-INPUT->NormalisedMouseX / 10), (float)(INPUT->NormalisedMouseY / 10)));
-			renderer.begin();
-		#endif
-		//camera test
-		camera->Tick();
-		renderer.Shaders->setUniformMat4("vw_matrix", camera->getViewMatrix());
-
-		//limit to 5 entity
-		//for (size_t i = 0; i < loadedLevel->SceneData.size(); i++)
-		for (size_t i = 0; i < 15; i++)
-		{
-			loadedLevel->SceneData[i]->Tick();
-			#if _ENGINE_RENDERER_OPENGL
-				renderer.submit(loadedLevel->SceneData[i]);
-			#endif
-		}
-		
-		#if _ENGINE_RENDERER_OPENGL
-			renderer.end();
-			renderer.draw();
-		#endif
-		
-		window.update();
-
-		if (INPUT->getKeyDown(GLFW_KEY_ESCAPE))
-			exit(0);
+		setFPSLimit(60);
 
 		frames++;
 
@@ -127,9 +151,16 @@ int main()
 			printf("%d Entities\n", Entity::number_entities);
 			frames = 0;
 		}
+
+		if (INPUT->getKeyDown(GLFW_KEY_ESCAPE))
+			break;
+
+		
 	}
+
+	updateLogicThread.detach();
 	
-	window.dispose();
+	window->dispose();
 	
 	#if _ENGINE_RENDERER_VULKAN
 		renderer.dispose();

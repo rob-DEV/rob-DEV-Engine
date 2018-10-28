@@ -233,6 +233,9 @@
     <Image Include="dev_img\4.PNG" />
     <Image Include="dev_img\5.PNG" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\code_dump.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
