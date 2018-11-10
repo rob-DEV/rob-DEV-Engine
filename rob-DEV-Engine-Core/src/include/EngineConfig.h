@@ -27,7 +27,10 @@
 
 #if _ENGINE_RENDERER_OPENGL && _ENGINE_RENDERER_VULKAN
 #error Vulkan and OpenGL cannot be selected as the main graphics renderer at the same time. Check EngineConfig.h
-#endif`
+#endif
+
+//physical constants
+#define _PHYSICS_G 525.81
 
 #endif // !_ENGINE_CONFIGURATION_H
 
