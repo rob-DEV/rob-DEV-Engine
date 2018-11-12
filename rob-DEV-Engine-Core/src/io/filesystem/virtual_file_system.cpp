@@ -50,6 +50,7 @@ namespace Engine { namespace Core { namespace IO {
 		for (size_t i = 0; i < VFS_Files.size(); i++)
 		{
 			delete VFS_Files[i];
+			VFS_Files.clear();
 		}
 	}
 	

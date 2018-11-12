@@ -15,6 +15,12 @@
 //#define _MAC_PLATFORM 0
 //#define _LINUX_PLATFORM 0
 
+
+#ifndef _WIN_32_PLATFORM
+#error Vulkan and OpenGL cannot be selected as the main graphics renderer at the same time. Check EngineConfig.h
+#endif
+
+
 //on off toggles 1 = True, 0 = False
 #define _ENGINE_RENDERER_OPENGL 1
 #define _ENGINE_RENDERER_VULKAN 0
@@ -30,7 +36,7 @@
 #endif
 
 //physical constants
-#define _PHYSICS_G 525.81
+#define _PHYSICS_G 55.89
 
 #endif // !_ENGINE_CONFIGURATION_H
 

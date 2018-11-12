@@ -9,6 +9,7 @@ public:
 	~Gravity();
 
 	float m_Mass = 1.0f;
+	float m_Acc = 0.0f;
 
 	void Start() override;
 	void Tick() override;
