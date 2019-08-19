@@ -1,6 +1,5 @@
 #pragma once
 
-
 #ifndef _ENGINE_CORE_INCLUDE_H
 #define _ENGINE_CORE_INCLUDE_H
 

@@ -19,7 +19,7 @@ namespace Engine { namespace Core { namespace IO {
 
 	VirtualFile::~VirtualFile()
 	{
-		delete m_FileData;
+
 	}
 
 } } }

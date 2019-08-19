@@ -90,6 +90,9 @@
     <ClCompile Include="src\application\application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="res\scripts\gravity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\window.h">
@@ -204,6 +207,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\application\application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="res\scripts\gravity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

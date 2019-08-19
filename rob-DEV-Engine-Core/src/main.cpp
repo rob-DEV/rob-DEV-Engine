@@ -20,7 +20,7 @@
 //USERMODE GAMEOBJECT RUNTIME BEHAVIOUR
 #include "../res/scripts/rotate.h"
 #include "../res/scripts/movement.h"
-
+#include "../res/scripts/gravity.h"
 
 using namespace Engine::Core;
 using namespace Engine::Core::BuildSystems;
@@ -40,6 +40,17 @@ using namespace Engine::Core::Entities;
 using namespace Engine::Core::IO;
 using namespace Engine::Core::IO::Importers;
 
+struct TestType {
+	int* a;
+	TestType() {
+		a = new int[50000000];
+	}
+
+	~TestType()
+	{
+		delete[] a;
+	}
+};
 
 void render(Window* window, OpenGLRenderer* renderer, Camera* camera, Scene* loadedLevel)
 {
@@ -63,7 +74,7 @@ void render(Window* window, OpenGLRenderer* renderer, Camera* camera, Scene* loa
 
 static bool* canUpdate = new bool();
 
-void setFPSLimit(float fpsLimit)
+void setLogicalUpdateRate(float fpsLimit)
 {
 	// Convert fps to time
 	static float timeDelay = 1 / fpsLimit;
@@ -85,10 +96,23 @@ void setFPSLimit(float fpsLimit)
 
 void update(Camera* camera, Scene* loadedLevel)
 {
+	int a = 0;
+	double time = glfwGetTime();
 	while (true)
 	{
+		
 		if (*canUpdate == true)
 		{
+			TIME->elasped();
+
+			//print the time taken to update 60 times should be as close to one second as possible
+			if (a == 60) {
+				printf("update time %.4f\n", glfwGetTime() - time);
+				time = glfwGetTime();
+
+				a = 0;
+			}
+			++a;
 			*canUpdate = false;
 			//camera test
 			camera->Tick();
@@ -101,6 +125,10 @@ void update(Camera* camera, Scene* loadedLevel)
 
 int main()
 {
+	TestType* t = new TestType();
+	
+	delete t;
+
 	double time_passed = 0;
 	uint32_t frames = 0;
 
@@ -123,8 +151,11 @@ int main()
 	Camera* camera = new Camera("Main Camera", glm::vec3(20, 10, -20));
 
 	//assign a new behaviour script to an object in the scene
-	for (size_t i = 0; i < 20; i++)
+	for (size_t i = 1; i < 20; i++)
 		loadedLevel->SceneData[i]->AddBehaviourScript(new Rotate());
+
+	for (size_t i = 0; i < 20; i++)
+		loadedLevel->SceneData[i]->AddBehaviourScript(new Gravity());
 
 	loadedLevel->SceneData[1]->AddBehaviourScript(new Movement());
 	camera->AddBehaviourScript(new Movement());
@@ -138,30 +169,30 @@ int main()
 
 	while (!window->closed())
 	{
-		setFPSLimit(60);
+		setLogicalUpdateRate(60);
 
 		//wasteful function ptr passing
 		render(window, renderer, camera, loadedLevel);
 
 		frames++;
-
-		if (TIME->elasped() - time_passed > 1.0f)
-		{
-			time_passed += 1.0f;
-			printf("%dfps\n", frames);
-			printf("%d Entities\n", Entity::number_entities);
-			frames = 0;
-		}
-
+		
 		if (INPUT->getKeyDown(GLFW_KEY_ESCAPE))
 			break;
-
-		
 	}
 
 	updateLogicThread.detach();
 	window->dispose();
+
+	delete window;
+	window = NULL;
+
+	renderer->dispose();
+	delete renderer;
+	renderer = NULL;
 	
+	delete vfs;
+	vfs = NULL;
+
 	#if _ENGINE_RENDERER_VULKAN
 		renderer.dispose();
 	#endif
